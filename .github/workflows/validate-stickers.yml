@@ -5,7 +5,7 @@ on:
     paths:
       - "media/**"
       - "stickers/manifest.json"
-      - "scripts/sync_stickers.py"
+      - "scripts/*.py"
       - ".github/workflows/**"
   workflow_dispatch:
 
@@ -23,6 +23,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+
+      - name: Install image tools
+        run: python -m pip install --quiet Pillow
+
+      - name: Generate previews
+        run: python scripts/make_previews.py
 
       - name: Validate sticker manifest
         run: python scripts/sync_stickers.py --check

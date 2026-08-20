@@ -7,7 +7,7 @@ on:
       - master
     paths:
       - "media/**"
-      - "scripts/sync_stickers.py"
+      - "scripts/*.py"
       - ".github/workflows/sync-stickers.yml"
   workflow_dispatch:
 
@@ -26,18 +26,25 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Install image tools
+        run: python -m pip install --quiet Pillow
+
+      - name: Generate previews
+        run: python scripts/make_previews.py
+
       - name: Generate manifest
         run: python scripts/sync_stickers.py
 
-      - name: Commit updated manifest
+      - name: Commit updated manifest and previews
         run: |
-          if git diff --quiet -- stickers/manifest.json; then
-            echo "Manifest is already synchronized."
+          NEW_PREVIEWS="$(git ls-files --others --exclude-standard previews)"
+          if git diff --quiet -- stickers/manifest.json previews && [ -z "$NEW_PREVIEWS" ]; then
+            echo "Manifest and previews are already synchronized."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add stickers/manifest.json
-          git commit -m "chore: sync sticker manifest"
+          git add stickers/manifest.json previews
+          git commit -m "chore: sync sticker manifest and previews"
           git push

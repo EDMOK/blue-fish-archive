@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "media"
+PREVIEW_DIR = ROOT / "previews"
 MANIFEST_PATH = ROOT / "stickers" / "manifest.json"
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".apng"}
 
@@ -34,13 +35,15 @@ def build_manifest() -> list[dict[str, str]]:
         if normalized in seen_paths:
             raise ValueError(f"Duplicate sticker path detected: {original}")
         seen_paths.add(normalized)
-        manifest.append(
-            {
-                "original": original,
-                "filename": path.name,
-                "alt": "鲸鱼娘同人表情包",
-            }
-        )
+        entry = {
+            "original": original,
+            "filename": path.name,
+            "alt": "鲸鱼娘同人表情包",
+        }
+        preview = PREVIEW_DIR / f"{path.stem}.webp"
+        if preview.is_file():
+            entry["preview"] = preview.relative_to(ROOT).as_posix()
+        manifest.append(entry)
 
     return manifest
 

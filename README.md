@@ -55,12 +55,12 @@
 PNG · JPG · JPEG · GIF · WebP · APNG
 ```
 
-向 GitHub 仓库上传或删除图片后，GitHub Actions 会自动更新 `stickers/manifest.json`。连接 Vercel 或 Cloudflare Pages 后，内容会随仓库更新自动重新部署。
+向 GitHub 仓库上传或删除图片后，GitHub Actions 会自动为 `media/` 里的图片生成 WebP 缩略图（`previews/`，页面瀑布流展示用）并更新 `stickers/manifest.json`。连接 Vercel 或 Cloudflare Pages 后，内容会随仓库更新自动重新部署；下载和复制仍保留 `media/` 下的原始文件，不降质。
 
 ```text
 修改「media/」目录
         ↓
-同步 manifest.json
+生成 WebP 缩略图 + 同步 manifest.json
         ↓
 自动部署
 ```

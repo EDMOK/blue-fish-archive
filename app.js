@@ -33,7 +33,7 @@ if ('IntersectionObserver' in window) {
   revealItems.forEach((item) => item.classList.add('is-visible'));
 }
 
-function createStickerCard(sticker, source, index) {
+function createStickerCard(sticker, index) {
   const card = document.createElement('button');
   card.className = 'sticker-card';
   card.type = 'button';
@@ -43,12 +43,21 @@ function createStickerCard(sticker, source, index) {
   const inner = document.createElement('span');
   inner.className = 'sticker-card-inner';
 
+  const source = sticker.preview || sticker.original;
   const image = document.createElement('img');
   image.src = source;
   image.alt = '';
   image.loading = 'lazy';
   image.decoding = 'async';
-  image.onerror = () => card.remove();
+  let triedOriginal = false;
+  image.onerror = () => {
+    if (sticker.preview && !triedOriginal) {
+      triedOriginal = true;
+      image.src = sticker.original;
+      return;
+    }
+    card.remove();
+  };
 
   inner.appendChild(image);
   card.appendChild(inner);
@@ -74,7 +83,7 @@ function renderStickers(stickers) {
 
   const fragment = document.createDocumentFragment();
   uniqueStickers.forEach((sticker, index) => {
-    fragment.appendChild(createStickerCard(sticker, sticker.original, index));
+    fragment.appendChild(createStickerCard(sticker, index));
   });
   stickerGrid.appendChild(fragment);
 }
