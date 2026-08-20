@@ -7,6 +7,7 @@ const downloadButton = document.querySelector('#download-button');
 const actionStatus = document.querySelector('#action-status');
 
 let activeSticker = null;
+let activeBlobPromise = null;
 
 const revealItems = document.querySelectorAll('[data-reveal]');
 revealItems.forEach((item) => {
@@ -32,30 +33,6 @@ if ('IntersectionObserver' in window) {
   revealItems.forEach((item) => item.classList.add('is-visible'));
 }
 
-function loadImage(source) {
-  return new Promise((resolve) => {
-    const image = new Image();
-    image.decoding = 'async';
-    image.onload = () => {
-      if (image.naturalWidth > 0 && image.naturalHeight > 0) {
-        resolve(source);
-      } else {
-        resolve(null);
-      }
-    };
-    image.onerror = () => resolve(null);
-    image.src = source;
-  });
-}
-
-async function resolveImageSource(sticker) {
-  const previewSource = sticker.preview || sticker.original;
-  const loadedPreview = await loadImage(previewSource);
-  if (loadedPreview) return loadedPreview;
-  if (sticker.preview) return loadImage(sticker.original);
-  return null;
-}
-
 function createStickerCard(sticker, source, index) {
   const card = document.createElement('button');
   card.className = 'sticker-card';
@@ -71,6 +48,7 @@ function createStickerCard(sticker, source, index) {
   image.alt = '';
   image.loading = 'lazy';
   image.decoding = 'async';
+  image.onerror = () => card.remove();
 
   inner.appendChild(image);
   card.appendChild(inner);
@@ -83,7 +61,7 @@ function createStickerCard(sticker, source, index) {
   return card;
 }
 
-async function renderStickers(stickers) {
+function renderStickers(stickers) {
   stickerGrid.replaceChildren();
   const uniqueStickers = [
     ...new Map(
@@ -94,16 +72,9 @@ async function renderStickers(stickers) {
   ];
   if (!uniqueStickers.length) return;
 
-  const cards = await Promise.all(
-    uniqueStickers.map(async (sticker, index) => {
-      const source = await resolveImageSource(sticker);
-      return source ? createStickerCard(sticker, source, index) : null;
-    }),
-  );
-
   const fragment = document.createDocumentFragment();
-  cards.forEach((card) => {
-    if (card) fragment.appendChild(card);
+  uniqueStickers.forEach((sticker, index) => {
+    fragment.appendChild(createStickerCard(sticker, sticker.original, index));
   });
   stickerGrid.appendChild(fragment);
 }
@@ -114,6 +85,11 @@ function openLightbox(sticker) {
   lightboxImage.alt = sticker.alt || '表情包大图预览';
   downloadButton.href = sticker.original;
   downloadButton.download = sticker.filename || 'sticker';
+  // 打开预览时预取原图,用户点「复制」时无需再次等待下载,
+  // 避免大图 fetch 太久超出浏览器用户激活窗口导致剪贴板写入失败。
+  activeBlobPromise = fetch(sticker.original)
+    .then((response) => response.blob())
+    .catch(() => null);
   actionStatus.textContent = '';
   lightboxMediaShell.classList.toggle(
     'is-animated',
@@ -148,8 +124,8 @@ async function copyImage() {
   actionStatus.textContent = '正在准备图片…';
 
   try {
-    const response = await fetch(activeSticker.original);
-    const blob = await response.blob();
+    const blob = activeBlobPromise ? await activeBlobPromise : null;
+    if (!blob) throw new Error('image unavailable');
     await navigator.clipboard.write([
       new ClipboardItem({ [blob.type || 'image/png']: blob }),
     ]);
