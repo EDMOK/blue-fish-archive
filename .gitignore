@@ -1,0 +1,11 @@
+# Local editor and assistant settings
+.claude/
+
+# Local Python caches
+__pycache__/
+*.py[cod]
+
+# Local preview/runtime output
+*.log
+.DS_Store
+Thumbs.db
