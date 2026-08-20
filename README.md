@@ -47,7 +47,7 @@
 
 ## 内容管理
 
-表情包文件统一存放在 [`表情包/`](表情包/) 目录中。
+表情包文件统一存放在 [`media/`](media/) 目录中。
 
 支持格式：
 
@@ -58,7 +58,7 @@ PNG · JPG · JPEG · GIF · WebP · APNG
 向 GitHub 仓库上传或删除图片后，GitHub Actions 会自动更新 `stickers/manifest.json`。连接 Vercel 或 Cloudflare Pages 后，内容会随仓库更新自动重新部署。
 
 ```text
-修改「表情包/」目录
+修改「media/」目录
         ↓
 同步 manifest.json
         ↓

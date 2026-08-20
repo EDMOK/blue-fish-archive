@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_DIR = ROOT / "表情包"
+SOURCE_DIR = ROOT / "media"
 MANIFEST_PATH = ROOT / "stickers" / "manifest.json"
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".apng"}
 

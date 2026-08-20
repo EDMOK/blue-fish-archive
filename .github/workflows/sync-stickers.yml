@@ -6,7 +6,7 @@ on:
       - main
       - master
     paths:
-      - "表情包/**"
+      - "media/**"
       - "scripts/sync_stickers.py"
       - ".github/workflows/sync-stickers.yml"
   workflow_dispatch:

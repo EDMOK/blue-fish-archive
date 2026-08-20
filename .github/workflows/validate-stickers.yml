@@ -3,7 +3,7 @@ name: Validate sticker manifest
 on:
   pull_request:
     paths:
-      - "表情包/**"
+      - "media/**"
       - "stickers/manifest.json"
       - "scripts/sync_stickers.py"
       - ".github/workflows/**"
