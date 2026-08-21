@@ -1,0 +1,16 @@
+# Content-hash filenames (media/、previews/) never change → cache forever.
+# index.html、app.js、manifest.json 等每次发布都会变的文件保持默认(max-age=0),
+# 确保新部署立即生效,这里不需要覆盖。
+
+/media/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/previews/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 稳定文件名的品牌素材,给短期缓存,换了素材后能较快更新
+/logo/*
+  Cache-Control: public, max-age=604800
+
+/assets/*
+  Cache-Control: public, max-age=604800
