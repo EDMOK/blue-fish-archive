@@ -1,4 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
+/*
+ * 字体原镜像自 Google Fonts（fontsource 包，版本 5.3.0），改走 npmmirror 国内 CDN：
+ * Google Fonts 域名在大陆不可达,之前的 @import 每次访问都会白等一次失败请求。
+ * 只引 latin 子集(每字重约 11-17KB,浏览器按需下载): 站点文案为简体中文,
+ * Zen Maru Gothic 的日文子集约 1MB+/字重,且不覆盖大部分简体字形,纯浪费流量。
+ * 中文仍按 font-family 栈回退到 PingFang SC / Microsoft YaHei。
+ */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://registry.npmmirror.com/@fontsource/nunito/5.3.0/files/files/nunito-latin-400-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(https://registry.npmmirror.com/@fontsource/nunito/5.3.0/files/files/nunito-latin-500-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(https://registry.npmmirror.com/@fontsource/nunito/5.3.0/files/files/nunito-latin-600-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(https://registry.npmmirror.com/@fontsource/nunito/5.3.0/files/files/nunito-latin-700-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 800;
+  src: url(https://registry.npmmirror.com/@fontsource/nunito/5.3.0/files/files/nunito-latin-800-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src: url(https://registry.npmmirror.com/@fontsource/nunito/5.3.0/files/files/nunito-latin-900-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Zen Maru Gothic';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://registry.npmmirror.com/@fontsource/zen-maru-gothic/5.3.0/files/files/zen-maru-gothic-latin-400-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Zen Maru Gothic';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(https://registry.npmmirror.com/@fontsource/zen-maru-gothic/5.3.0/files/files/zen-maru-gothic-latin-500-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Zen Maru Gothic';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(https://registry.npmmirror.com/@fontsource/zen-maru-gothic/5.3.0/files/files/zen-maru-gothic-latin-700-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Zen Maru Gothic';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src: url(https://registry.npmmirror.com/@fontsource/zen-maru-gothic/5.3.0/files/files/zen-maru-gothic-latin-900-normal.woff2) format('woff2');
+}
 
 :root {
   --ink: #16213d;
