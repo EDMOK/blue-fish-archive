@@ -1247,8 +1247,12 @@ h1 span::after {
   border-radius: 18px 25px 21px 27px;
   box-shadow: 7px 8px 0 var(--sticker-shadow), 0 16px 30px rgba(32, 45, 82, 0.11);
   cursor: pointer;
+  opacity: 0;
   transform: rotate(var(--tilt)) translateZ(0);
+  animation: stickerCardWaterfall 760ms var(--ease) both;
+  animation-delay: var(--sticker-delay, 0ms);
   transition: transform 400ms var(--ease), box-shadow 400ms var(--ease);
+  will-change: opacity;
 }
 
 .sticker-card:nth-child(3n + 2) {
@@ -1294,6 +1298,34 @@ h1 span::after {
   justify-content: center;
   background: transparent;
   border-radius: 10px 16px 12px 17px;
+  opacity: 0;
+  animation: stickerInnerWaterfall 760ms var(--ease) both;
+  animation-delay: var(--sticker-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+@keyframes stickerCardWaterfall {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes stickerInnerWaterfall {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0) scale(0.965);
+  }
+  70% {
+    opacity: 1;
+    transform: translate3d(0, -2px, 0) scale(1.005);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
 }
 
 .sticker-card img {
@@ -1918,6 +1950,19 @@ h1 span::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .sticker-card {
+    opacity: 1;
+    animation: none !important;
+    will-change: auto;
+  }
+
+  .sticker-card-inner {
+    opacity: 1;
+    animation: none !important;
+    transform: none;
+    will-change: auto;
   }
 
   .sea-band,

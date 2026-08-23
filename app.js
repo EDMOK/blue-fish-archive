@@ -40,6 +40,7 @@ function createStickerCard(sticker, index) {
   card.className = 'sticker-card';
   card.type = 'button';
   card.style.setProperty('--tilt', `${index % 2 === 0 ? 0.4 : -0.4}deg`);
+  card.style.setProperty('--sticker-delay', `${Math.min(index, 16) * 58}ms`);
   card.setAttribute('aria-label', '打开表情预览');
 
   const inner = document.createElement('span');
