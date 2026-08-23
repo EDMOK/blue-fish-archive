@@ -26,7 +26,9 @@ if ('IntersectionObserver' in window) {
         }
       });
     },
-    { threshold: 0.12 },
+    // rootMargin 提前约 640px 触发入场动画:元素还在视口外时动画就已开始,
+    // 滚到时不再有"卡半拍才开始动"的感觉。
+    { rootMargin: '640px 0px', threshold: 0.05 },
   );
   revealItems.forEach((item) => revealObserver.observe(item));
 } else {
