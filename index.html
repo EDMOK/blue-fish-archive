@@ -13,6 +13,10 @@
     <link rel="apple-touch-icon" href="logo/favicon.png" />
     <meta name="msapplication-TileImage" content="logo/apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css" />
+    <!-- 与 app.js 并行下载表情清单,剪掉 HTML→JS→manifest 的串行等待 -->
+    <link rel="preload" href="stickers/manifest.json" as="fetch" type="application/json" />
+    <!-- 字体来自 npmmirror CDN,预连接省一次跨域握手 -->
+    <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin />
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
@@ -138,10 +142,19 @@
           <span class="sticker-spark spark-two" aria-hidden="true">✦</span>
           <div class="hero-art-sticker">
             <div class="hero-art-window">
-              <img
-                src="assets/deepseek_whale.png"
-                alt="鲸鱼娘 DeepSeek 原始立绘"
-              />
+              <picture>
+                <!-- WebP 版本约 1/10 体积;不支持 WebP 的旧浏览器回退 PNG -->
+                <source
+                  srcset="assets/deepseek_whale.webp"
+                  type="image/webp"
+                />
+                <img
+                  src="assets/deepseek_whale.png"
+                  width="422"
+                  height="750"
+                  alt="鲸鱼娘 DeepSeek 原始立绘"
+                />
+              </picture>
             </div>
           </div>
           <span class="art-note">鲸鱼娘</span>

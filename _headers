@@ -8,6 +8,10 @@
 /previews/*
   Cache-Control: public, max-age=31536000, immutable
 
+# 灯箱大图层: 同样由 make_previews.py 生成,文件名稳定,缓存永久
+/large/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # 稳定文件名的品牌素材,给短期缓存,换了素材后能较快更新
 /logo/*
   Cache-Control: public, max-age=604800

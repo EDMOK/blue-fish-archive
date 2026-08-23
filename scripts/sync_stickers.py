@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "media"
 PREVIEW_DIR = ROOT / "previews"
+LARGE_DIR = ROOT / "large"
 MANIFEST_PATH = ROOT / "stickers" / "manifest.json"
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".apng"}
 
@@ -43,6 +44,9 @@ def build_manifest() -> list[dict[str, str]]:
         preview = PREVIEW_DIR / f"{path.stem}.webp"
         if preview.is_file():
             entry["preview"] = preview.relative_to(ROOT).as_posix()
+        large = LARGE_DIR / f"{path.stem}.webp"
+        if large.is_file():
+            entry["large"] = large.relative_to(ROOT).as_posix()
         manifest.append(entry)
 
     return manifest

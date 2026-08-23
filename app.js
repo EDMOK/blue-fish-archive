@@ -90,7 +90,12 @@ function renderStickers(stickers) {
 
 function openLightbox(sticker) {
   activeSticker = sticker;
-  lightboxImage.src = sticker.original;
+  const animated = /\.(gif|apng)$/i.test(sticker.original);
+  // 静态图显示 WebP 大图层(几十~一两百 KB),动画图才加载原文件;
+  // 下载/复制仍指向原图,这里只优化「看」,不改变「取」。
+  lightboxImage.src = animated
+    ? sticker.original
+    : sticker.large || sticker.preview || sticker.original;
   lightboxImage.alt = sticker.alt || '表情包大图预览';
   downloadButton.href = sticker.original;
   downloadButton.download = sticker.filename || 'sticker';
@@ -100,10 +105,7 @@ function openLightbox(sticker) {
     .then((response) => response.blob())
     .catch(() => null);
   actionStatus.textContent = '';
-  lightboxMediaShell.classList.toggle(
-    'is-animated',
-    /\.(gif|apng)$/i.test(sticker.original),
-  );
+  lightboxMediaShell.classList.toggle('is-animated', animated);
   lightbox.classList.add('is-open');
   lightbox.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';

@@ -37,14 +37,14 @@ jobs:
 
       - name: Commit updated manifest and previews
         run: |
-          NEW_PREVIEWS="$(git ls-files --others --exclude-standard previews)"
-          if git diff --quiet -- stickers/manifest.json previews && [ -z "$NEW_PREVIEWS" ]; then
+          NEW_FILES="$(git ls-files --others --exclude-standard previews large)"
+          if git diff --quiet -- stickers/manifest.json previews large && [ -z "$NEW_FILES" ]; then
             echo "Manifest and previews are already synchronized."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add stickers/manifest.json previews
+          git add stickers/manifest.json previews large
           git commit -m "chore: sync sticker manifest and previews"
           git push
