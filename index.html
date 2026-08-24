@@ -196,7 +196,10 @@
         <div class="wall-heading" data-reveal>
           <div>
             <span class="eyebrow">COMMUNITY STICKERS</span>
-            <h2 id="wall-title">同人表情墙</h2>
+            <div class="wall-title-row">
+              <h2 id="wall-title">同人表情墙</h2>
+              <span class="sticker-count" id="sticker-count" hidden></span>
+            </div>
           </div>
           <span class="wall-squiggle" aria-hidden="true"></span>
         </div>
@@ -231,6 +234,19 @@
         <p class="action-status" id="action-status" role="status"></p>
       </div>
     </div>
+
+    <div class="mascot" id="mascot" role="button" tabindex="0" aria-label="戳一戳鲸鱼娘看板娘">
+      <span class="mascot-bubble" id="mascot-bubble">戳我</span>
+      <span class="mascot-sticker" aria-hidden="true">
+        <span class="mascot-body">
+          <picture>
+            <source srcset="memes/120302wg44ju245iDQ38xu.webp" type="image/webp" />
+            <img src="memes/120302wg44ju245iDQ38xu.png" alt="" draggable="false" />
+          </picture>
+        </span>
+      </span>
+    </div>
+    <audio id="mascot-audio" src="memes/xixi.aac" preload="none"></audio>
 
     <script src="app.js" defer></script>
   </body>

@@ -18,3 +18,6 @@
 
 /assets/*
   Cache-Control: public, max-age=604800
+
+/memes/*
+  Cache-Control: public, max-age=604800
