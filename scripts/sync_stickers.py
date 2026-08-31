@@ -7,12 +7,22 @@ import json
 import sys
 from pathlib import Path
 
+from PIL import Image
+
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "media"
 PREVIEW_DIR = ROOT / "previews"
 LARGE_DIR = ROOT / "large"
 MANIFEST_PATH = ROOT / "stickers" / "manifest.json"
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".apng"}
+
+
+def _image_dimensions(path: Path) -> tuple[int, int] | None:
+    try:
+        with Image.open(path) as image:
+            return image.size
+    except OSError:
+        return None
 
 
 def build_manifest() -> list[dict[str, str]]:
@@ -47,6 +57,11 @@ def build_manifest() -> list[dict[str, str]]:
         large = LARGE_DIR / f"{path.stem}.webp"
         if large.is_file():
             entry["large"] = large.relative_to(ROOT).as_posix()
+        # 网格里实际显示的是 preview(与原图同比例)或原图本体,尺寸必须取自它,
+        # 前端据此在图片加载前预留正确宽高,避免瀑布流整墙重排抖动。
+        dimensions = _image_dimensions(preview if preview.is_file() else path)
+        if dimensions:
+            entry["width"], entry["height"] = dimensions
         manifest.append(entry)
 
     return manifest

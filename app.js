@@ -56,6 +56,12 @@ function createStickerCard(sticker, index) {
   image.alt = '';
   image.loading = 'lazy';
   image.decoding = 'async';
+  // 预先声明宽高让浏览器在加载前就按正确宽高比占位,图片到达后高度不再变化,
+  // CSS columns 也就不会在每次加载时重新平衡列导致整墙抖动。
+  if (sticker.width > 0 && sticker.height > 0) {
+    image.width = sticker.width;
+    image.height = sticker.height;
+  }
   let triedOriginal = false;
   image.onerror = () => {
     if (sticker.preview && !triedOriginal) {
