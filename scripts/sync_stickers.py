@@ -99,7 +99,8 @@ def main() -> int:
         print("Sticker manifest is synchronized.")
         return 0
 
-    MANIFEST_PATH.write_text(expected, encoding="utf-8")
+    # newline="\n" 保证 Windows 上生成的也是 LF, 否则提交的 blob 在 Linux CI 的 --check 里对不上
+    MANIFEST_PATH.write_text(expected, encoding="utf-8", newline="\n")
     print(f"Generated {len(manifest)} sticker entries.")
     return 0
 
