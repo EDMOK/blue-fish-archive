@@ -1554,14 +1554,18 @@
     "original": "media/mmexport1785816350977.jpg",
     "filename": "mmexport1785816350977.jpg",
     "alt": "鲸鱼娘同人表情包",
-    "width": 960,
-    "height": 960
+    "preview": "previews/mmexport1785816350977.webp",
+    "large": "large/mmexport1785816350977.webp",
+    "width": 480,
+    "height": 480
   },
   {
     "original": "media/微信图片_20260819102526_4352_16.jpg",
     "filename": "微信图片_20260819102526_4352_16.jpg",
     "alt": "鲸鱼娘同人表情包",
-    "width": 1254,
-    "height": 1254
+    "preview": "previews/微信图片_20260819102526_4352_16.webp",
+    "large": "large/微信图片_20260819102526_4352_16.webp",
+    "width": 480,
+    "height": 480
   }
 ]
