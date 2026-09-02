@@ -120,8 +120,8 @@ function openLightbox(sticker) {
   lightboxImage.alt = sticker.alt || '表情包大图预览';
   downloadButton.href = sticker.original;
   downloadButton.download = sticker.filename || 'sticker';
-  // 打开预览时预取原图,用户点「复制」时无需再次等待下载,
-  // 避免大图 fetch 太久超出浏览器用户激活窗口导致剪贴板写入失败。
+  // 打开预览时预取原图:用户点「复制」时浏览器 HTTP 缓存/内存中已有该 blob,
+  // 省去一次重新下载;真正的写入授权窗口问题由 copyImage 的 promise-based 写入解决。
   activeBlobPromise = fetch(sticker.original)
     .then((response) => response.blob())
     .catch(() => null);
@@ -144,6 +144,56 @@ function closeLightbox() {
   }, 650);
 }
 
+// Chrome/Edge 的剪贴板写入只接受 image/png:webp/jpg/gif 直接写会抛
+// NotAllowedError(实测 "Type image/webp not supported on write"),必须先转成 PNG。
+const MIME_BY_EXT = {
+  png: 'image/png',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  webp: 'image/webp',
+  gif: 'image/gif',
+  apng: 'image/apng',
+};
+
+function mimeFromFilename(filename) {
+  const ext = filename.split('.').pop().toLowerCase();
+  return MIME_BY_EXT[ext] || 'image/png';
+}
+
+function loadImageFromBlob(blob) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(blob);
+    const image = new Image();
+    image.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve(image);
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error('image decode failed'));
+    };
+    image.src = url;
+  });
+}
+
+function imageToPngBlob(image) {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = image.naturalWidth;
+    canvas.height = image.naturalHeight;
+    const context = canvas.getContext('2d');
+    if (!context) {
+      reject(new Error('canvas unavailable'));
+      return;
+    }
+    context.drawImage(image, 0, 0);
+    canvas.toBlob((blob) => {
+      if (blob) resolve(blob);
+      else reject(new Error('png encode failed'));
+    }, 'image/png');
+  });
+}
+
 async function copyImage() {
   if (!activeSticker) return;
 
@@ -156,12 +206,33 @@ async function copyImage() {
   actionStatus.textContent = '正在准备图片…';
 
   try {
-    const blob = activeBlobPromise ? await activeBlobPromise : null;
-    if (!blob) throw new Error('image unavailable');
+    const original = activeSticker.original;
+    const animated = /\.(gif|apng)$/i.test(original);
+    // 把「取原图 + 转 PNG」整个异步流程作为 Promise 传给 ClipboardItem:
+    // write() 在点击的用户激活任务里同步被授权,浏览器内部等待数据就绪。
+    // 实测:先 await 下载完再 write() 会因用户激活失效抛 NotAllowedError(大图必现),
+    // 而 promise-based 同步调用 write() 即使 5.6MB 原图也能成功。
+    const pngBlobPromise = (async () => {
+      let blob = activeBlobPromise ? await activeBlobPromise : null;
+      if (!blob) {
+        blob = await fetch(original).then((response) => response.blob());
+      }
+      // PNG 且非动画可直接复用;其余格式(webp/jpg/gif…)经 canvas 转 PNG。
+      // 动画图(GIF/APNG)只能取首帧,要保留动画请用「下载原图」。
+      const mime = blob.type || mimeFromFilename(original);
+      if (mime === 'image/png' && !animated) {
+        return blob;
+      }
+      const image = await loadImageFromBlob(blob);
+      return imageToPngBlob(image);
+    })();
+
     await navigator.clipboard.write([
-      new ClipboardItem({ [blob.type || 'image/png']: blob }),
+      new ClipboardItem({ 'image/png': pngBlobPromise }),
     ]);
-    actionStatus.textContent = '图片已复制';
+    actionStatus.textContent = animated
+      ? '已复制（动图已转为静态图）'
+      : '图片已复制';
   } catch (error) {
     actionStatus.textContent = '复制失败，请下载原图';
   } finally {
