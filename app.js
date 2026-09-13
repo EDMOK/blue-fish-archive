@@ -1,8 +1,14 @@
 const stickerGrid = document.querySelector('#sticker-grid');
 const stickerCount = document.querySelector('#sticker-count');
+const wallEmpty = document.querySelector('#wall-empty');
+const wallRetry = document.querySelector('#wall-retry');
+const siteNav = document.querySelector('.site-nav');
 const lightbox = document.querySelector('#lightbox');
 const lightboxImage = document.querySelector('#lightbox-image');
 const lightboxMediaShell = document.querySelector('.lightbox-media-shell');
+const lightboxMeta = document.querySelector('#lightbox-meta');
+const lightboxPrev = document.querySelector('#lightbox-prev');
+const lightboxNext = document.querySelector('#lightbox-next');
 const copyButton = document.querySelector('#copy-button');
 const downloadButton = document.querySelector('#download-button');
 const actionStatus = document.querySelector('#action-status');
@@ -10,6 +16,10 @@ const mascot = document.querySelector('#mascot');
 const mascotBubble = document.querySelector('#mascot-bubble');
 const mascotAudio = document.querySelector('#mascot-audio');
 
+const isAnimatedSticker = (sticker) => /\.(gif|apng)$/i.test(sticker.original);
+
+let stickerList = [];
+let activeIndex = -1;
 let activeSticker = null;
 let activeBlobPromise = null;
 
@@ -63,6 +73,7 @@ function createStickerCard(sticker, index) {
     image.height = sticker.height;
   }
   let triedOriginal = false;
+  image.onload = () => card.classList.add('is-loaded');
   image.onerror = () => {
     if (sticker.preview && !triedOriginal) {
       triedOriginal = true;
@@ -71,16 +82,49 @@ function createStickerCard(sticker, index) {
     }
     card.remove();
   };
+  // 命中缓存时 load 事件可能早于监听注册,补一次判断
+  if (image.complete && image.naturalWidth > 0) {
+    card.classList.add('is-loaded');
+  }
 
   inner.appendChild(image);
   card.appendChild(inner);
 
-  if (/\.(gif|apng)$/i.test(sticker.original)) {
+  // 每隔几张随手贴一段和纸胶带,整面墙更像手账本
+  const tapeSlot = index % 6;
+  if (tapeSlot === 1 || tapeSlot === 4) {
+    const tape = document.createElement('span');
+    tape.className = tapeSlot === 4 ? 'card-tape is-right' : 'card-tape';
+    tape.setAttribute('aria-hidden', 'true');
+    card.appendChild(tape);
+  }
+
+  if (isAnimatedSticker(sticker)) {
     card.classList.add('is-animated');
   }
 
-  card.addEventListener('click', () => openLightbox(sticker));
+  card.addEventListener('click', () => openLightbox(index));
   return card;
+}
+
+// 数字从上往下滚到总数,比直接蹦出一个数字更像"清点完毕"
+function animateStickerCount(total) {
+  if (!stickerCount) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || total < 2) {
+    stickerCount.textContent = `已收录 ${total} 枚`;
+    return;
+  }
+  const duration = 900;
+  const startTime = performance.now();
+  const tick = (now) => {
+    const progress = Math.min(1, (now - startTime) / duration);
+    const eased = 1 - (1 - progress) ** 3;
+    stickerCount.textContent = `已收录 ${Math.round(total * eased)} 枚`;
+    if (progress < 1) window.requestAnimationFrame(tick);
+  };
+  stickerCount.textContent = '已收录 0 枚';
+  window.requestAnimationFrame(tick);
 }
 
 function renderStickers(stickers) {
@@ -92,15 +136,15 @@ function renderStickers(stickers) {
         .map((sticker) => [sticker.original, sticker]),
     ).values(),
   ];
-  if (!uniqueStickers.length) {
-    if (stickerCount) stickerCount.hidden = true;
-    return;
-  }
+  stickerList = uniqueStickers;
+  const isEmpty = !uniqueStickers.length;
 
+  if (wallEmpty) wallEmpty.hidden = !isEmpty;
   if (stickerCount) {
-    stickerCount.textContent = `已收录 ${uniqueStickers.length} 枚`;
-    stickerCount.hidden = false;
+    stickerCount.hidden = isEmpty;
+    if (!isEmpty) animateStickerCount(uniqueStickers.length);
   }
+  if (isEmpty) return;
 
   const fragment = document.createDocumentFragment();
   uniqueStickers.forEach((sticker, index) => {
@@ -109,28 +153,77 @@ function renderStickers(stickers) {
   stickerGrid.appendChild(fragment);
 }
 
-function openLightbox(sticker) {
-  activeSticker = sticker;
-  const animated = /\.(gif|apng)$/i.test(sticker.original);
-  // 静态图显示 WebP 大图层(几十~一两百 KB),动画图才加载原文件;
-  // 下载/复制仍指向原图,这里只优化「看」,不改变「取」。
-  lightboxImage.src = animated
-    ? sticker.original
-    : sticker.large || sticker.preview || sticker.original;
-  lightboxImage.alt = sticker.alt || '表情包大图预览';
-  downloadButton.href = sticker.original;
-  downloadButton.download = sticker.filename || 'sticker';
-  // 打开预览时预取原图:用户点「复制」时浏览器 HTTP 缓存/内存中已有该 blob,
-  // 省去一次重新下载;真正的写入授权窗口问题由 copyImage 的 promise-based 写入解决。
-  activeBlobPromise = fetch(sticker.original)
-    .then((response) => response.blob())
-    .catch(() => null);
-  actionStatus.textContent = '';
-  lightboxMediaShell.classList.toggle('is-animated', animated);
+function openLightbox(index) {
+  showSticker(index, { prefetchOriginal: true });
   lightbox.classList.add('is-open');
   lightbox.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
   copyButton.focus();
+}
+
+function showSticker(index, { prefetchOriginal = false } = {}) {
+  const sticker = stickerList[index];
+  if (!sticker) return;
+  activeIndex = index;
+  activeSticker = sticker;
+  const animated = isAnimatedSticker(sticker);
+  // 静态图显示 WebP 大图层(几十~一两百 KB),动画图才加载原文件;
+  // 下载/复制仍指向原图,这里只优化「看」,不改变「取」。
+  lightboxImage.classList.remove('is-ready');
+  lightboxImage.src = animated
+    ? sticker.original
+    : sticker.large || sticker.preview || sticker.original;
+  if (lightboxImage.complete && lightboxImage.naturalWidth > 0) {
+    lightboxImage.classList.add('is-ready');
+  }
+  lightboxImage.alt = sticker.alt || '表情包大图预览';
+  downloadButton.href = sticker.original;
+  downloadButton.download = sticker.filename || 'sticker';
+  // 打开时预取原图,点「复制」就不用等下载;翻页浏览只按需取,
+  // 否则连翻十几张会把整包原图都拉一遍。写入授权窗口问题由 copyImage 的 promise-based 写入解决。
+  activeBlobPromise = prefetchOriginal
+    ? fetch(sticker.original)
+        .then((response) => response.blob())
+        .catch(() => null)
+    : null;
+  actionStatus.textContent = '';
+  lightboxMediaShell.classList.toggle('is-animated', animated);
+  updateLightboxMeta(sticker, index);
+  const hasNeighbours = stickerList.length > 1;
+  if (lightboxPrev) lightboxPrev.hidden = !hasNeighbours;
+  if (lightboxNext) lightboxNext.hidden = !hasNeighbours;
+  prefetchNeighbours(index);
+}
+
+function updateLightboxMeta(sticker, index) {
+  if (!lightboxMeta) return;
+  const format = (sticker.filename || sticker.original).split('.').pop().toUpperCase();
+  const size = sticker.width > 0 && sticker.height > 0 ? `${sticker.width}×${sticker.height}` : '';
+  lightboxMeta.textContent = [
+    `第 ${index + 1} / ${stickerList.length} 枚`,
+    format,
+    size,
+  ]
+    .filter(Boolean)
+    .join(' · ');
+}
+
+// 预取左右邻居的大图,翻页时不用盯着空白等
+function prefetchNeighbours(index) {
+  if (stickerList.length < 2) return;
+  [-1, 1].forEach((step) => {
+    const neighbour = stickerList[(index + step + stickerList.length) % stickerList.length];
+    if (!neighbour || isAnimatedSticker(neighbour)) return;
+    const source = neighbour.large || neighbour.preview;
+    if (!source) return;
+    const preload = new Image();
+    preload.src = source;
+  });
+}
+
+function stepLightbox(step) {
+  if (stickerList.length < 2 || activeIndex < 0) return;
+  showSticker((activeIndex + step + stickerList.length) % stickerList.length);
 }
 
 function closeLightbox() {
@@ -140,6 +233,7 @@ function closeLightbox() {
   window.setTimeout(() => {
     if (!lightbox.classList.contains('is-open')) {
       lightboxImage.removeAttribute('src');
+      lightboxImage.classList.remove('is-ready');
     }
   }, 650);
 }
@@ -207,7 +301,7 @@ async function copyImage() {
 
   try {
     const original = activeSticker.original;
-    const animated = /\.(gif|apng)$/i.test(original);
+    const animated = isAnimatedSticker(activeSticker);
     // 把「取原图 + 转 PNG」整个异步流程作为 Promise 传给 ClipboardItem:
     // write() 在点击的用户激活任务里同步被授权,浏览器内部等待数据就绪。
     // 实测:先 await 下载完再 write() 会因用户激活失效抛 NotAllowedError(大图必现),
@@ -241,14 +335,30 @@ async function copyImage() {
 }
 
 copyButton.addEventListener('click', copyImage);
+lightboxImage.addEventListener('load', () => lightboxImage.classList.add('is-ready'));
+if (lightboxPrev) lightboxPrev.addEventListener('click', () => stepLightbox(-1));
+if (lightboxNext) lightboxNext.addEventListener('click', () => stepLightbox(1));
 document.querySelectorAll('[data-close-lightbox]').forEach((element) => {
   element.addEventListener('click', closeLightbox);
 });
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+  if (!lightbox.classList.contains('is-open')) return;
+  if (event.key === 'Escape') {
     closeLightbox();
+  } else if (event.key === 'ArrowLeft') {
+    stepLightbox(-1);
+  } else if (event.key === 'ArrowRight') {
+    stepLightbox(1);
   }
 });
+
+// 滚过首屏后导航浮起成白色贴纸条
+function initNavScroll() {
+  if (!siteNav) return;
+  const sync = () => siteNav.classList.toggle('is-scrolled', window.scrollY > 26);
+  sync();
+  window.addEventListener('scroll', sync, { passive: true });
+}
 
 function initMascot() {
   if (!mascot) return;
@@ -452,5 +562,17 @@ async function loadStickers() {
   }
 }
 
+async function reloadStickers() {
+  if (stickerCount) {
+    stickerCount.hidden = false;
+    stickerCount.textContent = '整理中…';
+  }
+  if (wallEmpty) wallEmpty.hidden = true;
+  await loadStickers();
+}
+
+if (wallRetry) wallRetry.addEventListener('click', reloadStickers);
+
 initMascot();
+initNavScroll();
 loadStickers();

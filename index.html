@@ -44,6 +44,46 @@
         <path d="M0 96 Q 80 60 160 96 T 320 96 T 480 96 T 600 96" fill="none" stroke="rgba(96,122,169,0.35)" stroke-width="7" stroke-linecap="round" />
       </svg>
     </div>
+    <!-- 水下光束:档案馆整体沉在海底,顶部打下来的几束光给画面定调 -->
+    <div class="sea-rays" aria-hidden="true">
+      <span class="sea-ray sea-ray-one"></span>
+      <span class="sea-ray sea-ray-two"></span>
+      <span class="sea-ray sea-ray-three"></span>
+    </div>
+    <div class="sea-floor" aria-hidden="true">
+      <svg class="sea-weed" viewBox="0 0 130 210" preserveAspectRatio="none">
+        <path class="sea-weed-strand" d="M24 210c-8-40 8-60 0-92-8-30 6-48 0-78" />
+        <path class="sea-weed-strand" d="M64 210c-8-34 8-54 0-84-8-28 6-46 0-70" />
+        <path class="sea-weed-strand" d="M100 210c-6-32 8-52 0-78-8-26 4-42 0-62" />
+        <path class="sea-weed-leaf" d="M24 120c-18 1-27-11-27-24 17 0 27 10 27 24Z" />
+        <path class="sea-weed-leaf sea-weed-leaf-alt" d="M22 176c16 1 25-10 25-22-16 0-25 9-25 22Z" />
+        <path class="sea-weed-leaf" d="M64 152c18 1 27-11 27-24-17 0-27 10-27 24Z" />
+        <path class="sea-weed-leaf sea-weed-leaf-alt" d="M100 98c-18 1-27-11-27-24 17 0 27 10 27 24Z" />
+      </svg>
+      <svg class="sea-starfish" viewBox="0 0 100 100">
+        <path class="sea-starfish-shape" d="M50 8 60 36 90 38 66 57 74 87 50 70 26 87 34 57 10 38 40 36Z" />
+        <circle class="sea-starfish-dot" cx="50" cy="40" r="3.2" />
+        <circle class="sea-starfish-dot" cx="30" cy="50" r="2.6" />
+        <circle class="sea-starfish-dot" cx="70" cy="50" r="2.6" />
+        <circle class="sea-starfish-dot" cx="40" cy="72" r="2.6" />
+        <circle class="sea-starfish-dot" cx="60" cy="72" r="2.6" />
+      </svg>
+      <svg class="sea-fish sea-fish-one" viewBox="0 0 74 46">
+        <path class="sea-fish-tail" d="M52 23c6-7 12-10 18-12-3 8-3 16 0 24-6-2-12-5-18-12Z" />
+        <path class="sea-fish-body" d="M4 23C12 10 34 6 48 15c4 3 6 6 6 8s-2 5-6 8C34 40 12 36 4 23Z" />
+        <circle class="sea-fish-eye" cx="20" cy="19" r="3.4" />
+      </svg>
+      <svg class="sea-fish sea-fish-two" viewBox="0 0 74 46">
+        <path class="sea-fish-tail" d="M52 23c6-7 12-10 18-12-3 8-3 16 0 24-6-2-12-5-18-12Z" />
+        <path class="sea-fish-body" d="M4 23C12 10 34 6 48 15c4 3 6 6 6 8s-2 5-6 8C34 40 12 36 4 23Z" />
+        <circle class="sea-fish-eye" cx="20" cy="19" r="3.4" />
+      </svg>
+      <svg class="sea-fish sea-fish-three" viewBox="0 0 74 46">
+        <path class="sea-fish-tail" d="M52 23c6-7 12-10 18-12-3 8-3 16 0 24-6-2-12-5-18-12Z" />
+        <path class="sea-fish-body" d="M4 23C12 10 34 6 48 15c4 3 6 6 6 8s-2 5-6 8C34 40 12 36 4 23Z" />
+        <circle class="sea-fish-eye" cx="20" cy="19" r="3.4" />
+      </svg>
+    </div>
 
     <header class="site-nav" data-reveal>
       <a class="wordmark" href="#top" aria-label="回到首页">
@@ -141,6 +181,9 @@
           <span class="sticker-spark spark-one" aria-hidden="true">✦</span>
           <span class="sticker-spark spark-two" aria-hidden="true">✦</span>
           <div class="hero-art-sticker">
+            <span class="tape tape-hero-left" aria-hidden="true"></span>
+            <span class="tape tape-hero-right" aria-hidden="true"></span>
+            <span class="art-tag" aria-hidden="true">档案 · NO.001</span>
             <div class="hero-art-window">
               <picture>
                 <!-- WebP 版本约 1/10 体积;不支持 WebP 的旧浏览器回退 PNG -->
@@ -193,21 +236,59 @@
       </section>
 
       <section class="wall-section" id="wall" aria-labelledby="wall-title">
+        <div class="wall-divider" aria-hidden="true">
+          <svg class="divider-fish" viewBox="0 0 74 46">
+            <path class="sea-fish-tail" d="M52 23c6-7 12-10 18-12-3 8-3 16 0 24-6-2-12-5-18-12Z" />
+            <path class="sea-fish-body" d="M4 23C12 10 34 6 48 15c4 3 6 6 6 8s-2 5-6 8C34 40 12 36 4 23Z" />
+            <circle class="sea-fish-eye" cx="20" cy="19" r="3.4" />
+          </svg>
+          <span class="divider-bubbles"><i></i><i></i><i></i></span>
+          <svg class="divider-starfish" viewBox="0 0 100 100">
+            <path class="sea-starfish-shape" d="M50 8 60 36 90 38 66 57 74 87 50 70 26 87 34 57 10 38 40 36Z" />
+            <circle class="sea-starfish-dot" cx="50" cy="40" r="3.2" />
+            <circle class="sea-starfish-dot" cx="30" cy="50" r="2.6" />
+            <circle class="sea-starfish-dot" cx="70" cy="50" r="2.6" />
+          </svg>
+        </div>
         <div class="wall-heading" data-reveal>
           <div>
             <span class="eyebrow">COMMUNITY STICKERS</span>
             <div class="wall-title-row">
               <h2 id="wall-title">同人表情墙</h2>
-              <span class="sticker-count" id="sticker-count" hidden></span>
+              <span class="sticker-count" id="sticker-count">整理中…</span>
             </div>
           </div>
           <span class="wall-squiggle" aria-hidden="true"></span>
         </div>
-        <div class="sticker-grid" id="sticker-grid" aria-live="polite"></div>
+        <div class="sticker-grid" id="sticker-grid" aria-live="polite">
+          <!-- 首屏骨架:manifest 到达前先摆好卡片位置,避免白墙忽然后弹出 -->
+          <div class="skeleton-card" style="--skeleton-height: 214px" aria-hidden="true"></div>
+          <div class="skeleton-card" style="--skeleton-height: 168px" aria-hidden="true"></div>
+          <div class="skeleton-card" style="--skeleton-height: 246px" aria-hidden="true"></div>
+          <div class="skeleton-card" style="--skeleton-height: 186px" aria-hidden="true"></div>
+          <div class="skeleton-card" style="--skeleton-height: 228px" aria-hidden="true"></div>
+          <div class="skeleton-card" style="--skeleton-height: 156px" aria-hidden="true"></div>
+          <div class="skeleton-card" style="--skeleton-height: 238px" aria-hidden="true"></div>
+          <div class="skeleton-card" style="--skeleton-height: 178px" aria-hidden="true"></div>
+        </div>
+        <div class="wall-empty" id="wall-empty" hidden>
+          <svg class="wall-empty-art" viewBox="0 0 190 140" aria-hidden="true">
+            <path class="empty-bowl-wave" d="M16 60h158" />
+            <path class="empty-bowl" d="M30 62h130c-3 37-29 58-65 58S33 99 30 62Z" />
+            <path class="empty-bowl-line" d="M58 86c22 7 52 7 74 0" />
+            <circle class="empty-bubble" cx="66" cy="40" r="8" />
+            <circle class="empty-bubble empty-bubble-mid" cx="92" cy="24" r="5.5" />
+            <circle class="empty-bubble empty-bubble-small" cx="112" cy="42" r="3.6" />
+          </svg>
+          <strong>档案室还空着</strong>
+          <p>还没有可展示的表情包。往 media/ 目录放几张，刷新后就会出现在这里。</p>
+          <button class="retry-button" type="button" id="wall-retry">重新加载</button>
+        </div>
       </section>
     </main>
 
     <footer class="site-footer" id="rights" data-reveal>
+      <span class="divider-bubbles footer-bubbles" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="footer-brand">
         <img class="brand-logo brand-logo-black" src="logo/deepseek_蓝鲸_黑色.png" alt="DeepSeek 蓝鲸 Logo" />
         <span>蓝色大肥鱼档案馆</span>
@@ -219,10 +300,21 @@
     <div class="lightbox" id="lightbox" aria-hidden="true">
       <div class="lightbox-backdrop" data-close-lightbox></div>
       <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="表情预览">
+        <span class="tape tape-panel" aria-hidden="true"></span>
         <button class="lightbox-close" type="button" aria-label="关闭预览" data-close-lightbox>×</button>
+        <button class="lightbox-nav lightbox-prev" id="lightbox-prev" type="button" aria-label="上一张表情">
+          <span aria-hidden="true">‹</span>
+        </button>
+        <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="下一张表情">
+          <span aria-hidden="true">›</span>
+        </button>
         <div class="lightbox-media-shell">
           <img id="lightbox-image" src="" alt="表情包大图预览" />
         </div>
+        <p class="lightbox-caption">
+          <span class="lightbox-meta" id="lightbox-meta"></span>
+          <span class="lightbox-hint" aria-hidden="true">← → 切换</span>
+        </p>
         <div class="lightbox-actions">
           <button class="action-button action-primary" id="copy-button" type="button">
             <span>复制图片</span><span aria-hidden="true">⌘</span>

@@ -34,7 +34,7 @@
     </td>
     <td width="33%" align="center">
       <strong>原图操作</strong><br />
-      <sub>复制图片或下载原始文件</sub>
+      <sub>预览里左右翻页,复制图片或下载原始文件</sub>
     </td>
     <td width="33%" align="center">
       <strong>动图支持</strong><br />
