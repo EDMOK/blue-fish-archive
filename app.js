@@ -21,7 +21,8 @@ const isAnimatedSticker = (sticker) => /\.(gif|apng)$/i.test(sticker.original);
 let stickerList = [];
 let activeIndex = -1;
 let activeSticker = null;
-let activeBlobPromise = null;
+let lightboxRequestId = 0;
+let pendingLightboxImage = null;
 
 const revealItems = document.querySelectorAll('[data-reveal]');
 revealItems.forEach((item) => {
@@ -154,45 +155,83 @@ function renderStickers(stickers) {
 }
 
 function openLightbox(index) {
-  showSticker(index, { prefetchOriginal: true });
+  showSticker(index);
   lightbox.classList.add('is-open');
   lightbox.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
   copyButton.focus();
 }
 
-function showSticker(index, { prefetchOriginal = false } = {}) {
+function cancelLightboxLoad() {
+  lightboxRequestId += 1;
+  if (pendingLightboxImage) {
+    pendingLightboxImage.onload = null;
+    pendingLightboxImage.onerror = null;
+    pendingLightboxImage.removeAttribute('src');
+    pendingLightboxImage = null;
+  }
+}
+
+function showSticker(index) {
   const sticker = stickerList[index];
   if (!sticker) return;
   activeIndex = index;
   activeSticker = sticker;
   const animated = isAnimatedSticker(sticker);
-  // 静态图显示 WebP 大图层(几十~一两百 KB),动画图才加载原文件;
-  // 下载/复制仍指向原图,这里只优化「看」,不改变「取」。
-  lightboxImage.classList.remove('is-ready');
-  lightboxImage.src = animated
+  cancelLightboxLoad();
+  const requestId = lightboxRequestId;
+  const source = animated
     ? sticker.original
     : sticker.large || sticker.preview || sticker.original;
-  if (lightboxImage.complete && lightboxImage.naturalWidth > 0) {
-    lightboxImage.classList.add('is-ready');
-  }
+  // 复用墙上已缓存的缩略图，大图就绪前不让弹窗空白。
+  const preview = sticker.preview || source;
+  lightboxImage.classList.remove('is-ready');
   lightboxImage.alt = sticker.alt || '表情包大图预览';
+  actionStatus.textContent = '正在加载图片…';
+  lightboxImage.onload = () => {
+    if (requestId !== lightboxRequestId) return;
+    lightboxImage.classList.add('is-ready');
+    if (lightboxImage.getAttribute('src') === source) actionStatus.textContent = '';
+  };
+  lightboxImage.onerror = () => {
+    if (requestId !== lightboxRequestId) return;
+    actionStatus.textContent = '图片加载失败，请重新打开或下载原图';
+  };
+  lightboxImage.src = preview;
+  if (lightboxImage.complete && lightboxImage.naturalWidth > 0) lightboxImage.onload();
+
+  if (source !== preview) {
+    const image = new Image();
+    pendingLightboxImage = image;
+    image.decoding = 'async';
+    image.fetchPriority = 'high';
+    image.onload = async () => {
+      // 静态图解码期间保留缩略图；动画不等待完整解码。
+      if (!animated && image.decode) {
+        try { await image.decode(); } catch (_) { /* load 已成功，允许浏览器直接显示 */ }
+      }
+      if (requestId !== lightboxRequestId) return;
+      pendingLightboxImage = null;
+      lightboxImage.src = source;
+      lightboxImage.classList.add('is-ready');
+      actionStatus.textContent = '';
+    };
+    image.onerror = () => {
+      if (requestId !== lightboxRequestId) return;
+      pendingLightboxImage = null;
+      actionStatus.textContent = lightboxImage.complete && lightboxImage.naturalWidth > 0
+        ? '大图加载失败，暂时显示缩略图；可重新打开重试'
+        : '图片加载失败，请重新打开或下载原图';
+    };
+    image.src = source;
+  }
   downloadButton.href = sticker.original;
   downloadButton.download = sticker.filename || 'sticker';
-  // 打开时预取原图,点「复制」就不用等下载;翻页浏览只按需取,
-  // 否则连翻十几张会把整包原图都拉一遍。写入授权窗口问题由 copyImage 的 promise-based 写入解决。
-  activeBlobPromise = prefetchOriginal
-    ? fetch(sticker.original)
-        .then((response) => response.blob())
-        .catch(() => null)
-    : null;
-  actionStatus.textContent = '';
   lightboxMediaShell.classList.toggle('is-animated', animated);
   updateLightboxMeta(sticker, index);
   const hasNeighbours = stickerList.length > 1;
   if (lightboxPrev) lightboxPrev.hidden = !hasNeighbours;
   if (lightboxNext) lightboxNext.hidden = !hasNeighbours;
-  prefetchNeighbours(index);
 }
 
 function updateLightboxMeta(sticker, index) {
@@ -208,25 +247,15 @@ function updateLightboxMeta(sticker, index) {
     .join(' · ');
 }
 
-// 预取左右邻居的大图,翻页时不用盯着空白等
-function prefetchNeighbours(index) {
-  if (stickerList.length < 2) return;
-  [-1, 1].forEach((step) => {
-    const neighbour = stickerList[(index + step + stickerList.length) % stickerList.length];
-    if (!neighbour || isAnimatedSticker(neighbour)) return;
-    const source = neighbour.large || neighbour.preview;
-    if (!source) return;
-    const preload = new Image();
-    preload.src = source;
-  });
-}
-
 function stepLightbox(step) {
   if (stickerList.length < 2 || activeIndex < 0) return;
   showSticker((activeIndex + step + stickerList.length) % stickerList.length);
 }
 
 function closeLightbox() {
+  cancelLightboxLoad();
+  lightboxImage.onload = null;
+  lightboxImage.onerror = null;
   lightbox.classList.remove('is-open');
   lightbox.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
@@ -307,10 +336,9 @@ async function copyImage() {
     // 实测:先 await 下载完再 write() 会因用户激活失效抛 NotAllowedError(大图必现),
     // 而 promise-based 同步调用 write() 即使 5.6MB 原图也能成功。
     const pngBlobPromise = (async () => {
-      let blob = activeBlobPromise ? await activeBlobPromise : null;
-      if (!blob) {
-        blob = await fetch(original).then((response) => response.blob());
-      }
+      const response = await fetch(original);
+      if (!response.ok) throw new Error(`original unavailable: ${response.status}`);
+      const blob = await response.blob();
       // PNG 且非动画可直接复用;其余格式(webp/jpg/gif…)经 canvas 转 PNG。
       // 动画图(GIF/APNG)只能取首帧,要保留动画请用「下载原图」。
       const mime = blob.type || mimeFromFilename(original);
@@ -335,7 +363,6 @@ async function copyImage() {
 }
 
 copyButton.addEventListener('click', copyImage);
-lightboxImage.addEventListener('load', () => lightboxImage.classList.add('is-ready'));
 if (lightboxPrev) lightboxPrev.addEventListener('click', () => stepLightbox(-1));
 if (lightboxNext) lightboxNext.addEventListener('click', () => stepLightbox(1));
 document.querySelectorAll('[data-close-lightbox]').forEach((element) => {
