@@ -13,10 +13,8 @@
     <link rel="apple-touch-icon" href="logo/favicon.png" />
     <meta name="msapplication-TileImage" content="logo/apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css" />
-    <!-- 与 app.js 并行下载表情清单,剪掉 HTML→JS→manifest 的串行等待 -->
-    <link rel="preload" href="stickers/manifest.json" as="fetch" type="application/json" />
-    <!-- 字体来自 npmmirror CDN,预连接省一次跨域握手 -->
-    <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin />
+    <link rel="preload" href="assets/deepseek_whale.webp" as="image" type="image/webp" />
+    <!-- manifest 由 defer 脚本按需加载，避免 fetch preload 在不同浏览器中因 credentials mode 不一致而重复请求。 -->
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
@@ -87,7 +85,10 @@
 
     <header class="site-nav" data-reveal>
       <a class="wordmark" href="#top" aria-label="回到首页">
-        <img class="brand-logo brand-logo-color" src="logo/deepseek_蓝鲸_彩色.png" alt="DeepSeek 蓝鲸 Logo" />
+        <picture>
+          <source srcset="logo/deepseek-whale-color.webp" type="image/webp" />
+          <img class="brand-logo brand-logo-color" src="logo/deepseek_蓝鲸_彩色.png" alt="DeepSeek 蓝鲸 Logo" width="36" height="36" decoding="async" />
+        </picture>
         <span>蓝色大肥鱼档案馆</span>
       </a>
       <nav class="nav-links" aria-label="主导航">
@@ -196,6 +197,8 @@
                   width="422"
                   height="750"
                   alt="鲸鱼娘 DeepSeek 原始立绘"
+                  fetchpriority="high"
+                  decoding="async"
                 />
               </picture>
             </div>
@@ -290,7 +293,10 @@
     <footer class="site-footer" id="rights" data-reveal>
       <span class="divider-bubbles footer-bubbles" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="footer-brand">
-        <img class="brand-logo brand-logo-black" src="logo/deepseek_蓝鲸_黑色.png" alt="DeepSeek 蓝鲸 Logo" />
+        <picture>
+          <source srcset="logo/deepseek-whale-black.webp" type="image/webp" />
+          <img class="brand-logo brand-logo-black" src="logo/deepseek_蓝鲸_黑色.png" alt="DeepSeek 蓝鲸 Logo" width="31" height="31" decoding="async" />
+        </picture>
         <span>蓝色大肥鱼档案馆</span>
       </span>
       <p>非官方同人整理 · 版权归原作者所有</p>

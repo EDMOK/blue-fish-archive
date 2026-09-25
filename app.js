@@ -65,8 +65,10 @@ function createStickerCard(sticker, index) {
   const image = document.createElement('img');
   image.src = source;
   image.alt = '';
-  image.loading = 'lazy';
+  image.loading = index < 6 ? 'eager' : 'lazy';
+  image.fetchPriority = index < 2 ? 'high' : 'low';
   image.decoding = 'async';
+  image.setAttribute('fetchpriority', image.fetchPriority);
   // 预先声明宽高让浏览器在加载前就按正确宽高比占位,图片到达后高度不再变化,
   // CSS columns 也就不会在每次加载时重新平衡列导致整墙抖动。
   if (sticker.width > 0 && sticker.height > 0) {
@@ -580,7 +582,8 @@ function initMascot() {
 
 async function loadStickers() {
   try {
-    const response = await fetch('stickers/manifest.json');
+    // 与匿名 preload 保持相同的 CORS 和 credentials 模式，确保响应可复用。
+    const response = await fetch('stickers/manifest.json', { mode: 'cors', credentials: 'omit' });
     if (!response.ok) throw new Error('manifest unavailable');
     const stickers = await response.json();
     renderStickers(stickers);
