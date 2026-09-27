@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/media/*",
+    "/previews/*",
+    "/large/*",
+    "/assets/*",
+    "/logo/*",
+    "/memes/*",
+    "/styles.css",
+    "/app.js",
+    "/stickers/*"
+  ]
+}
