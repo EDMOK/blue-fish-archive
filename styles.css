@@ -4546,3 +4546,5 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
     justify-content: center;
   }
 }
+
+/* CI 红叉验证：故意改样式但不推进 ?v=（本提交不应合入） */
