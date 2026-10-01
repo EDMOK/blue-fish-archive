@@ -46,8 +46,14 @@ jobs:
         run: |
           echo "head: $(git rev-parse HEAD)"
           if [ -z "$BASE_REV" ] || [ "$BASE_REV" = "0000000000000000000000000000000000000000" ]; then
-            echo "没有可比对的 base 版本，只做结构检查。"
-            python scripts/check_asset_versions.py
+            # PR 和 main 推送必然有 base，走到这里说明表达式取错了，不能悄悄降级成一次空跑
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              echo "手动触发，没有可对比的版本，只做结构检查。"
+              python scripts/check_asset_versions.py
+            else
+              echo "::error::没有取到 base 版本，变更检查无法进行"
+              exit 1
+            fi
           else
             echo "base: $BASE_REV"
             python scripts/check_asset_versions.py --base "$BASE_REV"
