@@ -1,0 +1,52 @@
+name: Check asset versions
+
+# styles.css / app.js / about.js / qr-modal.js 文件名不带内容哈希，浏览器缓存又长达 31 天，
+# 所以改完资源必须同步推进 HTML 里的 ?v=，否则线上会出现「新 HTML + 旧 CSS」的排版错乱。
+# 这个 workflow 在资源变了却没换版本号时直接失败，避免又一次部署后才发现。
+on:
+  pull_request:
+    paths:
+      - "**/*.html"
+      - "**/*.css"
+      - "**/*.js"
+      - "scripts/check_asset_versions.py"
+      - ".github/workflows/check-asset-versions.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.html"
+      - "**/*.css"
+      - "**/*.js"
+      - "scripts/check_asset_versions.py"
+      - ".github/workflows/check-asset-versions.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          # 变更检查要读 base 那边的文件内容，浅克隆拿不到那个提交
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Check versioned assets
+        env:
+          BASE_REV: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -z "$BASE_REV" ] || [ "$BASE_REV" = "0000000000000000000000000000000000000000" ]; then
+            echo "没有可比对的 base 版本，只做结构检查。"
+            python scripts/check_asset_versions.py
+          else
+            python scripts/check_asset_versions.py --base "$BASE_REV"
+          fi

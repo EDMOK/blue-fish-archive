@@ -65,6 +65,17 @@ PNG · JPG · JPEG · GIF · WebP · APNG
 自动部署
 ```
 
+### 改样式或脚本时
+
+`styles.css`、`app.js`、`about.js`、`qr-modal.js` 的文件名里没有内容哈希，而 Cloudflare 会把浏览器缓存拉到 31 天。改了这些文件就要把 HTML 里的 `?v=` 一起换成新值（例如 `?v=20261002`），否则老访客会一直用旧文件，出现「新 HTML + 旧 CSS」的排版错乱。
+
+CI 会检查这件事：资源内容变了但 `?v=` 没动、或者引用的本地 css/js 干脆没带版本号，都会直接失败。本地可以先跑：
+
+```bash
+python scripts/check_asset_versions.py                # 只检查有没有漏掉版本号
+python scripts/check_asset_versions.py --base HEAD~1  # 顺带对比上一个提交
+```
+
 ## 版权与来源
 
 ### 鲸鱼娘角色形象原作
