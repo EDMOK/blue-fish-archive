@@ -94,6 +94,7 @@
       <nav class="nav-links" aria-label="主导航">
         <a href="#wall">表情墙</a>
         <a href="#archive">来源</a>
+        <a href="about.html">关于</a>
       </nav>
       <div class="nav-right">
         <div class="nav-social" aria-label="网站作者链接">
@@ -123,6 +124,14 @@
             </svg>
           </a>
         </div>
+        <button class="nav-join" type="button" data-open-qr aria-label="加入 QQ 群：复制群号并显示二维码">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="9" cy="8" r="3.1" />
+            <path d="M3.8 19.6c0-2.9 2.3-4.9 5.2-4.9s5.2 2 5.2 4.9" />
+            <path d="M16.2 5.6a3 3 0 0 1 0 5.4M17.2 15c1.8.7 3 2.4 3 4.6" />
+          </svg>
+          <span>加入群聊</span>
+        </button>
         <a class="nav-action" href="#wall">
           <span>去看看</span>
           <span aria-hidden="true">↓</span>
@@ -238,6 +247,24 @@
         </aside>
       </section>
 
+      <!-- 同人小游戏的宣传位：跑在 game.fisharchive.cc，和表情墙并列但更靠近首屏 -->
+      <section class="notice" data-reveal aria-labelledby="notice-title">
+        <span class="notice-badge" aria-hidden="true">新作</span>
+        <div class="notice-body">
+          <strong id="notice-title">同人跑酷小游戏</strong>
+          <p>社区同人制作的鲸鱼娘跑酷小游戏，欢迎试玩。</p>
+        </div>
+        <a
+          class="notice-cta"
+          href="https://game.fisharchive.cc/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <span>去玩一局</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+
       <section class="wall-section" id="wall" aria-labelledby="wall-title">
         <div class="wall-divider" aria-hidden="true">
           <svg class="divider-fish" viewBox="0 0 74 46">
@@ -283,8 +310,8 @@
             <circle class="empty-bubble empty-bubble-mid" cx="92" cy="24" r="5.5" />
             <circle class="empty-bubble empty-bubble-small" cx="112" cy="42" r="3.6" />
           </svg>
-          <strong>档案室还空着</strong>
-          <p>还没有可展示的表情包。往 media/ 目录放几张，刷新后就会出现在这里。</p>
+          <strong id="wall-empty-title">档案室还空着</strong>
+          <p id="wall-empty-message">新的表情正在整理，稍后再来看看吧。</p>
           <button class="retry-button" type="button" id="wall-retry">重新加载</button>
         </div>
       </section>
@@ -299,21 +326,22 @@
         </picture>
         <span>蓝色大肥鱼档案馆</span>
       </span>
-      <p>非官方同人整理 · 版权归原作者所有</p>
+      <p>非官方同人整理 · 版权归原作者所有 · <a href="about.html">关于本站</a></p>
       <a href="#top" aria-label="回到顶部">↑</a>
     </footer>
 
     <div class="lightbox" id="lightbox" aria-hidden="true">
       <div class="lightbox-backdrop" data-close-lightbox></div>
       <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="表情预览">
-        <span class="tape tape-panel" aria-hidden="true"></span>
+        <div class="lightbox-header">
+          <span class="lightbox-title">表情预览</span>
+          <div class="lightbox-pagination">
+            <button class="lightbox-nav lightbox-prev" id="lightbox-prev" type="button" aria-label="上一张表情"><span aria-hidden="true">‹</span></button>
+            <span class="lightbox-position" id="lightbox-position"></span>
+            <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="下一张表情"><span aria-hidden="true">›</span></button>
+          </div>
+        </div>
         <button class="lightbox-close" type="button" aria-label="关闭预览" data-close-lightbox>×</button>
-        <button class="lightbox-nav lightbox-prev" id="lightbox-prev" type="button" aria-label="上一张表情">
-          <span aria-hidden="true">‹</span>
-        </button>
-        <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="下一张表情">
-          <span aria-hidden="true">›</span>
-        </button>
         <div class="lightbox-media-shell">
           <img id="lightbox-image" src="" alt="表情包大图预览" />
         </div>
@@ -323,16 +351,21 @@
         </p>
         <div class="lightbox-actions">
           <button class="action-button action-primary" id="copy-button" type="button">
-            <span>复制图片</span><span aria-hidden="true">⌘</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></svg><span id="copy-label">复制图片</span>
           </button>
           <a class="action-button action-secondary" id="download-button" href="" download>
-            <span>下载原图</span><span aria-hidden="true">↓</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><span>下载原图</span>
           </a>
         </div>
         <p class="action-status" id="action-status" role="status"></p>
       </div>
     </div>
 
+    <div class="mascot-tools" id="mascot-tools" role="group" aria-label="看板娘设置">
+      <button class="mascot-tool" id="mascot-mute" type="button" aria-label="静音看板娘" aria-pressed="false">静音</button>
+      <button class="mascot-tool" id="mascot-hide" type="button" aria-label="收起看板娘" aria-controls="mascot" aria-expanded="true">收起</button>
+    </div>
+    <button class="mascot-restore" id="mascot-restore" type="button" aria-controls="mascot" aria-expanded="false" hidden>鲸鱼娘 <span aria-hidden="true">↗</span></button>
     <div class="mascot" id="mascot" role="button" tabindex="0" aria-label="戳一戳鲸鱼娘看板娘">
       <span class="mascot-bubble" id="mascot-bubble">戳我</span>
       <span class="mascot-sticker" aria-hidden="true">
@@ -346,6 +379,28 @@
     </div>
     <audio id="mascot-audio" src="memes/xixi.aac" preload="none"></audio>
 
+    <div class="qr-modal" id="qr-modal" aria-hidden="true">
+      <div class="qr-modal-backdrop" data-close-qr></div>
+      <div class="qr-modal-panel" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title" data-qr-scope>
+        <button class="qr-modal-close" type="button" aria-label="关闭二维码" data-close-qr>×</button>
+        <span class="qr-modal-badge">QQ GROUP</span>
+        <h2 class="qr-modal-title" id="qr-modal-title">加入 QQ 群</h2>
+        <p class="qr-modal-note">扫码进群，投稿、交流或反馈问题都可以。</p>
+        <span class="qr-modal-code">
+          <picture>
+            <source srcset="assets/qq-group-qr.webp" type="image/webp" />
+            <img src="assets/qq-group-qr.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
+          </picture>
+        </span>
+        <div class="qr-modal-row">
+          <span class="qr-modal-number" data-group-number>1041665197</span>
+          <button class="about-copy" type="button" data-copy-group>复制群号</button>
+        </div>
+        <p class="qr-modal-status" data-copy-status role="status" aria-live="polite"></p>
+      </div>
+    </div>
+
     <script src="app.js" defer></script>
+    <script src="qr-modal.js" defer></script>
   </body>
 </html>

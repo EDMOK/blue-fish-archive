@@ -9,6 +9,8 @@ const lightboxMediaShell = document.querySelector('.lightbox-media-shell');
 const lightboxMeta = document.querySelector('#lightbox-meta');
 const lightboxPrev = document.querySelector('#lightbox-prev');
 const lightboxNext = document.querySelector('#lightbox-next');
+const lightboxPosition = document.querySelector('#lightbox-position');
+const copyLabel = document.querySelector('#copy-label');
 const copyButton = document.querySelector('#copy-button');
 const downloadButton = document.querySelector('#download-button');
 const actionStatus = document.querySelector('#action-status');
@@ -23,6 +25,9 @@ let activeIndex = -1;
 let activeSticker = null;
 let lightboxRequestId = 0;
 let pendingLightboxImage = null;
+let copyRequestId = 0;
+let lightboxReturnFocus = null;
+let previousBodyOverflow = '';
 
 const revealItems = document.querySelectorAll('[data-reveal]');
 revealItems.forEach((item) => {
@@ -54,9 +59,8 @@ function createStickerCard(sticker, index) {
   const card = document.createElement('button');
   card.className = 'sticker-card';
   card.type = 'button';
-  card.style.setProperty('--tilt', `${index % 2 === 0 ? 0.4 : -0.4}deg`);
-  card.style.setProperty('--sticker-delay', `${Math.min(index, 16) * 58}ms`);
-  card.setAttribute('aria-label', '打开表情预览');
+  card.style.setProperty('--sticker-delay', `${Math.min(index, 8) * 24}ms`);
+  card.setAttribute('aria-label', `打开第 ${index + 1} 张表情预览`);
 
   const inner = document.createElement('span');
   inner.className = 'sticker-card-inner';
@@ -92,15 +96,6 @@ function createStickerCard(sticker, index) {
 
   inner.appendChild(image);
   card.appendChild(inner);
-
-  // 每隔几张随手贴一段和纸胶带,整面墙更像手账本
-  const tapeSlot = index % 6;
-  if (tapeSlot === 1 || tapeSlot === 4) {
-    const tape = document.createElement('span');
-    tape.className = tapeSlot === 4 ? 'card-tape is-right' : 'card-tape';
-    tape.setAttribute('aria-hidden', 'true');
-    card.appendChild(tape);
-  }
 
   if (isAnimatedSticker(sticker)) {
     card.classList.add('is-animated');
@@ -157,10 +152,13 @@ function renderStickers(stickers) {
 }
 
 function openLightbox(index) {
+  lightboxReturnFocus = document.activeElement;
+  previousBodyOverflow = document.body.style.overflow;
   showSticker(index);
   lightbox.classList.add('is-open');
   lightbox.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+  document.body.classList.add('is-previewing');
   copyButton.focus();
 }
 
@@ -179,6 +177,10 @@ function showSticker(index) {
   if (!sticker) return;
   activeIndex = index;
   activeSticker = sticker;
+  copyRequestId += 1;
+  copyButton.disabled = false;
+  copyButton.classList.remove('is-copied');
+  copyLabel.textContent = '复制图片';
   const animated = isAnimatedSticker(sticker);
   cancelLightboxLoad();
   const requestId = lightboxRequestId;
@@ -193,7 +195,7 @@ function showSticker(index) {
   lightboxImage.onload = () => {
     if (requestId !== lightboxRequestId) return;
     lightboxImage.classList.add('is-ready');
-    if (lightboxImage.getAttribute('src') === source) actionStatus.textContent = '';
+    if (lightboxImage.getAttribute('src') === source && actionStatus.textContent === '正在加载图片…') actionStatus.textContent = '';
   };
   lightboxImage.onerror = () => {
     if (requestId !== lightboxRequestId) return;
@@ -216,7 +218,7 @@ function showSticker(index) {
       pendingLightboxImage = null;
       lightboxImage.src = source;
       lightboxImage.classList.add('is-ready');
-      actionStatus.textContent = '';
+      if (actionStatus.textContent === '正在加载图片…') actionStatus.textContent = '';
     };
     image.onerror = () => {
       if (requestId !== lightboxRequestId) return;
@@ -240,8 +242,8 @@ function updateLightboxMeta(sticker, index) {
   if (!lightboxMeta) return;
   const format = (sticker.filename || sticker.original).split('.').pop().toUpperCase();
   const size = sticker.width > 0 && sticker.height > 0 ? `${sticker.width}×${sticker.height}` : '';
+  lightboxPosition.textContent = `${index + 1} / ${stickerList.length}`;
   lightboxMeta.textContent = [
-    `第 ${index + 1} / ${stickerList.length} 枚`,
     format,
     size,
   ]
@@ -256,11 +258,14 @@ function stepLightbox(step) {
 
 function closeLightbox() {
   cancelLightboxLoad();
+  copyRequestId += 1;
   lightboxImage.onload = null;
   lightboxImage.onerror = null;
   lightbox.classList.remove('is-open');
   lightbox.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
+  document.body.style.overflow = previousBodyOverflow;
+  document.body.classList.remove('is-previewing');
+  if (lightboxReturnFocus?.isConnected) lightboxReturnFocus.focus({ preventScroll: true });
   window.setTimeout(() => {
     if (!lightbox.classList.contains('is-open')) {
       lightboxImage.removeAttribute('src');
@@ -327,7 +332,10 @@ async function copyImage() {
     return;
   }
 
+  const requestId = ++copyRequestId;
   copyButton.disabled = true;
+  copyButton.classList.remove('is-copied');
+  copyLabel.textContent = '复制中…';
   actionStatus.textContent = '正在准备图片…';
 
   try {
@@ -354,13 +362,18 @@ async function copyImage() {
     await navigator.clipboard.write([
       new ClipboardItem({ 'image/png': pngBlobPromise }),
     ]);
+    if (requestId !== copyRequestId) return;
+    copyLabel.textContent = '已复制';
+    copyButton.classList.add('is-copied');
     actionStatus.textContent = animated
-      ? '已复制（动图已转为静态图）'
+      ? '已复制静态画面，保留动画请下载原图'
       : '图片已复制';
   } catch (error) {
-    actionStatus.textContent = '复制失败，请下载原图';
+    if (requestId !== copyRequestId) return;
+    copyLabel.textContent = '重新复制';
+    actionStatus.textContent = '复制失败，请重试或下载原图';
   } finally {
-    copyButton.disabled = false;
+    if (requestId === copyRequestId) copyButton.disabled = false;
   }
 }
 
@@ -372,7 +385,20 @@ document.querySelectorAll('[data-close-lightbox]').forEach((element) => {
 });
 document.addEventListener('keydown', (event) => {
   if (!lightbox.classList.contains('is-open')) return;
-  if (event.key === 'Escape') {
+  if (event.key === 'Tab') {
+    const controls = [...lightbox.querySelectorAll('button, a[href]')]
+      .filter((element) => !element.disabled && !element.hidden && element.getClientRects().length);
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (!first) return;
+    if (!lightbox.contains(document.activeElement) || (event.shiftKey && document.activeElement === first)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  } else if (event.key === 'Escape') {
     closeLightbox();
   } else if (event.key === 'ArrowLeft') {
     stepLightbox(-1);
@@ -398,6 +424,57 @@ function initMascot() {
   const clickComboWindow = 620;
   const shortAudioCooldown = 120;
   const storageKey = 'deepseek-mascot-position';
+  const preferenceKey = 'deepseek-mascot-preferences';
+  const tools = document.querySelector('#mascot-tools');
+  const muteButton = document.querySelector('#mascot-mute');
+  const hideButton = document.querySelector('#mascot-hide');
+  const restoreButton = document.querySelector('#mascot-restore');
+  let preferences = { muted: false, collapsed: false };
+  try {
+    const saved = JSON.parse(localStorage.getItem(preferenceKey));
+    if (saved) preferences = { muted: saved.muted === true, collapsed: saved.collapsed === true };
+  } catch (_) { /* 偏好无法读取时仍可正常互动 */ }
+
+  function savePreferences() {
+    try { localStorage.setItem(preferenceKey, JSON.stringify(preferences)); } catch (_) { /* 当前会话仍生效 */ }
+  }
+
+  function syncPreferences() {
+    mascot.hidden = preferences.collapsed;
+    tools.hidden = preferences.collapsed;
+    restoreButton.hidden = !preferences.collapsed;
+    hideButton.setAttribute('aria-expanded', String(!preferences.collapsed));
+    if (mascotAudio) mascotAudio.muted = preferences.muted;
+    muteButton.setAttribute('aria-pressed', String(preferences.muted));
+    muteButton.setAttribute('aria-label', preferences.muted ? '开启看板娘声音' : '静音看板娘');
+    muteButton.textContent = preferences.muted ? '开启声音' : '静音';
+  }
+
+  muteButton.addEventListener('click', () => {
+    preferences.muted = !preferences.muted;
+    if (mascotAudio) mascotAudio.pause();
+    syncPreferences();
+    savePreferences();
+  });
+  hideButton.addEventListener('click', () => {
+    preferences.collapsed = true;
+    if (mascotAudio) mascotAudio.pause();
+    clearHoldTimer();
+    clearBopTimer();
+    mascot.classList.remove('is-talking', 'is-holding', 'is-bopping', 'is-combo-bopping');
+    syncPreferences();
+    savePreferences();
+    restoreButton.focus({ preventScroll: true });
+  });
+  restoreButton.addEventListener('click', () => {
+    preferences.collapsed = false;
+    syncPreferences();
+    restorePosition();
+    const rect = mascot.getBoundingClientRect();
+    setPosition(rect.left, rect.top);
+    savePreferences();
+    mascot.focus({ preventScroll: true });
+  });
   let pointerId = null;
   let startX = 0;
   let startY = 0;
@@ -413,12 +490,30 @@ function initMascot() {
   let lastClickAt = 0;
   let lastShortAudioAt = 0;
 
+  function syncMascotToolsPosition() {
+    if (!tools) return;
+    const rect = mascot.getBoundingClientRect();
+    const toolWidth = tools.offsetWidth;
+    const minCenter = toolWidth / 2 + 8;
+    const maxCenter = window.innerWidth - toolWidth / 2 - 8;
+    const center = Math.min(Math.max(minCenter, rect.left + rect.width / 2), maxCenter);
+    tools.style.left = `${center}px`;
+    tools.style.top = `${rect.bottom + 6}px`;
+    tools.style.right = 'auto';
+    tools.style.bottom = 'auto';
+    tools.classList.add('is-positioned');
+  }
+
   function clampPosition(x, y) {
     const rect = mascot.getBoundingClientRect();
     const padding = 10;
+    const toolsReserve = tools && !tools.hidden ? tools.offsetHeight + 6 : 0;
     return {
       x: Math.min(Math.max(padding, x), window.innerWidth - rect.width - padding),
-      y: Math.min(Math.max(padding, y), window.innerHeight - rect.height - padding),
+      y: Math.min(
+        Math.max(padding, y),
+        window.innerHeight - rect.height - padding - toolsReserve,
+      ),
     };
   }
 
@@ -428,8 +523,9 @@ function initMascot() {
     mascot.style.top = `${position.y}px`;
     mascot.style.right = 'auto';
     mascot.style.bottom = 'auto';
+    syncMascotToolsPosition();
     if (persist) {
-      localStorage.setItem(storageKey, JSON.stringify(position));
+      try { localStorage.setItem(storageKey, JSON.stringify(position)); } catch (_) { /* 拖动仍可用 */ }
     }
   }
 
@@ -440,7 +536,7 @@ function initMascot() {
         setPosition(saved.x, saved.y);
       }
     } catch (error) {
-      localStorage.removeItem(storageKey);
+      try { localStorage.removeItem(storageKey); } catch (_) { /* 存储不可用 */ }
     }
   }
 
@@ -455,7 +551,7 @@ function initMascot() {
   }
 
   function playMascotAudio({ full = false } = {}) {
-    if (!mascotAudio) return;
+    if (!mascotAudio || preferences.muted || preferences.collapsed) return;
     const now = performance.now();
     if (!full && now - lastShortAudioAt < shortAudioCooldown) return;
     window.clearTimeout(audioStopTimer);
@@ -548,7 +644,7 @@ function initMascot() {
   function endPress(event) {
     if (event.pointerId !== pointerId) return;
     clearHoldTimer();
-    mascot.releasePointerCapture(pointerId);
+    if (mascot.hasPointerCapture(pointerId)) mascot.releasePointerCapture(pointerId);
     pointerId = null;
     mascot.classList.remove('is-pressed', 'is-holding', 'is-dragging');
     if (hasDragged) {
@@ -564,6 +660,8 @@ function initMascot() {
   }
 
   restorePosition();
+  syncPreferences();
+  syncMascotToolsPosition();
   mascot.addEventListener('pointerdown', startPress);
   mascot.addEventListener('pointermove', movePress);
   mascot.addEventListener('pointerup', endPress);
@@ -575,8 +673,10 @@ function initMascot() {
     }
   });
   window.addEventListener('resize', () => {
+    if (mascot.hidden) return;
     const rect = mascot.getBoundingClientRect();
     setPosition(rect.left, rect.top, true);
+    syncMascotToolsPosition();
   });
 }
 
@@ -587,8 +687,12 @@ async function loadStickers() {
     if (!response.ok) throw new Error('manifest unavailable');
     const stickers = await response.json();
     renderStickers(stickers);
+    document.querySelector('#wall-empty-title').textContent = '档案室还空着';
+    document.querySelector('#wall-empty-message').textContent = '新的表情正在整理，稍后再来看看吧。';
   } catch (error) {
     renderStickers([]);
+    document.querySelector('#wall-empty-title').textContent = '表情暂时没有加载出来';
+    document.querySelector('#wall-empty-message').textContent = '请检查网络，或点击下方按钮重新加载。';
   }
 }
 

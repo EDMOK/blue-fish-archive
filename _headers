@@ -8,6 +8,12 @@
 /app.js
   Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
 
+/about.js
+  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
+
+/qr-modal.js
+  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
+
 /styles.css
   Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
 
