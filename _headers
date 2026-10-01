@@ -1,24 +1,17 @@
 # Content-hash filenames (media/、previews/) never change → cache forever.
-# HTML 仍然每次向边缘做条件请求(max-age=0),保证新部署立刻生效;
-# 只加 s-maxage 让边缘短暂缓存源站响应,减少重复访问的回源等待。
-# 脚本/清单同理: 浏览器短缓存 + 边缘缓存,并保留 ETag 校验。
+# 没带内容哈希的文件(HTML/脚本/样式/清单)反过来: 发布新版本必须尽快可见。
+# 注意 Cloudflare 的 Browser Cache TTL 会把 max-age 改写成 31 天(这里写的 max-age 可能不生效),
+# 所以样式和脚本还要靠 HTML 里的 ?v= 版本号换 URL; 边缘缓存窗口也压到 1 分钟,
+# 避免 stale-while-revalidate 把上一个部署的 CSS 继续吐给刚更新过的页面。
 /
-  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400
+  Cache-Control: public, max-age=0, s-maxage=60, stale-while-revalidate=60
 
 /app.js
-  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
-
 /about.js
-  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
-
 /qr-modal.js
-  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
-
 /styles.css
-  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
-
 /stickers/manifest.json
-  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
+  Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
 
 # HTML、脚本和清单不是内容哈希文件，不能 immutable；发布更新最多在边缘缓存窗口内可见。
 
