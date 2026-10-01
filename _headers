@@ -6,10 +6,20 @@
 /
   Cache-Control: public, max-age=0, s-maxage=60, stale-while-revalidate=60
 
+# 规则必须一条路径一个块：Cloudflare Pages 只会把紧跟其后的头应用到最后一个路径，
+# 多路径合并写法会静默失效（实测只有最后一条生效），别图省事合并。
 /app.js
+  Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
+
 /about.js
+  Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
+
 /qr-modal.js
+  Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
+
 /styles.css
+  Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
+
 /stickers/manifest.json
   Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
 
