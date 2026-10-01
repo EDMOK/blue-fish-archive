@@ -44,9 +44,11 @@ jobs:
         env:
           BASE_REV: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
+          echo "head: $(git rev-parse HEAD)"
           if [ -z "$BASE_REV" ] || [ "$BASE_REV" = "0000000000000000000000000000000000000000" ]; then
             echo "没有可比对的 base 版本，只做结构检查。"
             python scripts/check_asset_versions.py
           else
+            echo "base: $BASE_REV"
             python scripts/check_asset_versions.py --base "$BASE_REV"
           fi

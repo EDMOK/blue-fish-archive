@@ -10,6 +10,8 @@ styles.css、app.js、about.js、qr-modal.js 的文件名里没有内容哈希�
 用法：
     python scripts/check_asset_versions.py                  # 只做结构检查
     python scripts/check_asset_versions.py --base HEAD~1    # 顺带对比上一个提交
+
+给定 --base 时不会静默跳过：拿不到那个提交就直接失败，避免 CI 里出现永远绿的空壳检查。
 """
 
 from __future__ import annotations
@@ -122,9 +124,10 @@ def check_changes(
 
 
 def main() -> int:
-    # Windows 下 stdout 被管道接管时默认按 GBK 编码，中文日志会变成乱码，统一改成 UTF-8
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    # Windows 下输出被管道接管时默认按 GBK 编码，CI 日志里中文会变成乱码；stdout/stderr 都统一成 UTF-8
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
 
     parser = argparse.ArgumentParser(
         description=__doc__,
@@ -142,13 +145,16 @@ def main() -> int:
 
     versioned = check_structure(pages, problems)
 
-    compared = False
     if args.base:
+        # 给定 base 就一定要比出结果：静默跳过会让这个检查在 CI 里变成永远绿的空壳
         if git("rev-parse", "--verify", f"{args.base}^{{commit}}").returncode != 0:
-            print(f"警告：本地没有版本 {args.base}，跳过变更检查，只报告结构检查结果。")
-        else:
-            compared = True
-            check_changes(args.base, versioned, problems)
+            print(
+                f"无法解析对比版本 {args.base}，变更检查没法进行；"
+                f"浅克隆或 force-push 后请先取到该提交再重跑。",
+                file=sys.stderr,
+            )
+            return 1
+        check_changes(args.base, versioned, problems)
 
     if problems:
         print("静态资源版本号检查未通过：\n")
@@ -157,7 +163,7 @@ def main() -> int:
         print("\n修法：把 HTML 里对应的 ?v= 换成新值（例如 ?v=20261002），和资源一起提交。")
         return 1
 
-    scope = f"，对比 {args.base}" if compared else ""
+    scope = f"，对比 {args.base}" if args.base else ""
     print(f"静态资源版本号检查通过：{len(versioned)} 处引用{scope}。")
     return 0
 
