@@ -2108,6 +2108,7 @@ h1 span::after {
 
 .sticker-card.is-animated::before,
 .sticker-card.is-animated .sticker-card-inner::after,
+.lightbox-media-shell::before,
 .lightbox-media-shell::after {
   pointer-events: none;
 }
@@ -3222,6 +3223,23 @@ h1 {
   line-height: 1.5;
 }
 
+/* 站长自作:和「动图」徽章同一套样式,放右上角,两个徽章可以同时出现 */
+.sticker-card .sticker-badge {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 14px;
+  padding: 3px 7px;
+  color: var(--deep);
+  background: rgba(247,248,251,.94);
+  border: 1px solid rgba(96,122,169,.15);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
 .skeleton-card {
   margin-bottom: 20px;
   border: 1px solid rgba(96,122,169,.1);
@@ -3369,6 +3387,23 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
   border: 1px solid rgba(96,122,169,.12);
   border-radius: 6px;
   background: rgba(247,248,251,.94);
+  box-shadow: none;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* 站长自作:和「动态表情」提示同一套样式,并肩放左下角 */
+.lightbox-media-shell.is-self-made::before {
+  position: absolute;
+  z-index: 2;
+  bottom: 12px;
+  left: 12px;
+  padding: 4px 8px;
+  content: '站长自作';
+  color: var(--deep);
+  background: rgba(247,248,251,.94);
+  border: 1px solid rgba(96,122,169,.12);
+  border-radius: 6px;
   box-shadow: none;
   font-size: 11px;
   font-weight: 500;

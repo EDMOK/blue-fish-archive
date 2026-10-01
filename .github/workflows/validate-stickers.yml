@@ -5,6 +5,7 @@ on:
     paths:
       - "media/**"
       - "stickers/manifest.json"
+      - "stickers/self-made.json"
       - "scripts/*.py"
       - ".github/workflows/**"
   workflow_dispatch:

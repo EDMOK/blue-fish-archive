@@ -57,6 +57,8 @@ PNG · JPG · JPEG · GIF · WebP · APNG
 
 向 GitHub 仓库上传或删除图片后，GitHub Actions 会自动为 `media/` 里的图片生成 WebP 缩略图（`previews/`，页面瀑布流展示用）并更新 `stickers/manifest.json`。连接 Vercel 或 Cloudflare Pages 后，内容会随仓库更新自动重新部署；下载和复制仍保留 `media/` 下的原始文件，不降质。
 
+站长自己制作的表情，把文件名写进 [`stickers/self-made.json`](stickers/self-made.json)，`sync_stickers.py` 会给对应条目加上 `selfMade: true`，页面就在卡片右上角显示「自作」、预览里显示「站长自作」。清单里写了 `media/` 中不存在的文件会直接报错。
+
 ```text
 修改「media/」目录
         ↓

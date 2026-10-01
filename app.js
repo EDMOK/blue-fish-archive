@@ -60,7 +60,12 @@ function createStickerCard(sticker, index) {
   card.className = 'sticker-card';
   card.type = 'button';
   card.style.setProperty('--sticker-delay', `${Math.min(index, 8) * 24}ms`);
-  card.setAttribute('aria-label', `打开第 ${index + 1} 张表情预览`);
+  card.setAttribute(
+    'aria-label',
+    sticker.selfMade
+      ? `打开第 ${index + 1} 张表情预览（站长自作）`
+      : `打开第 ${index + 1} 张表情预览`,
+  );
 
   const inner = document.createElement('span');
   inner.className = 'sticker-card-inner';
@@ -99,6 +104,15 @@ function createStickerCard(sticker, index) {
 
   if (isAnimatedSticker(sticker)) {
     card.classList.add('is-animated');
+  }
+
+  if (sticker.selfMade) {
+    const badge = document.createElement('span');
+    badge.className = 'sticker-badge';
+    badge.textContent = '自作';
+    // 徽章只是视觉提示,读屏信息已经在卡的 aria-label 里
+    badge.setAttribute('aria-hidden', 'true');
+    card.appendChild(badge);
   }
 
   card.addEventListener('click', () => openLightbox(index));
@@ -232,6 +246,7 @@ function showSticker(index) {
   downloadButton.href = sticker.original;
   downloadButton.download = sticker.filename || 'sticker';
   lightboxMediaShell.classList.toggle('is-animated', animated);
+  lightboxMediaShell.classList.toggle('is-self-made', Boolean(sticker.selfMade));
   updateLightboxMeta(sticker, index);
   const hasNeighbours = stickerList.length > 1;
   if (lightboxPrev) lightboxPrev.hidden = !hasNeighbours;
