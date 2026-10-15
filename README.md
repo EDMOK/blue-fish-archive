@@ -104,7 +104,9 @@ python scripts/make_og_card.py
 
 - `robots.txt`：除内部路径（`/functions.disabled/`、`/scripts/`）外都允许收录。不屏蔽 `media/`、`large/`，图片是站内主要内容。
 - `sitemap.xml`：只列两个可索引页面。改过页面内容后更新对应的 `lastmod`。
-- 首页和关于页都声明了 `canonical` / `og:url` 指向 `https://fisharchive.cc/`。`fisharchive.pages.dev` 与自定义域名内容相同，靠 canonical 合并而不是跳转——爬虫反复请求预览域名不会消耗 Functions 额度。
+- 首页和关于页都声明了 `canonical` / `og:url` 指向 `https://fisharchive.cc/`（关于页是 `/about`）。`fisharchive.pages.dev` 与自定义域名内容相同，靠 canonical 合并而不是跳转——爬虫反复请求预览域名不会消耗 Functions 额度。
+- URL 一律写 Pages 的最终形态：Cloudflare Pages 会把 `/index.html`、`/about.html` 308 到 `/`、`/about`，所以站内链接、canonical、sitemap 都用不带扩展名的路径，别写 `.html`。
+- 注意本地预览没有这层重写：`python -m http.server` 下点击站内链接的 `/about` 会 404，预览关于页直接开 `about.html` 即可，这不是站点 bug。
 
 ## 版权与来源
 

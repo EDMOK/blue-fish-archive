@@ -9,7 +9,8 @@
       content="关于蓝色大肥鱼档案馆：非官方鲸鱼娘 DeepSeek 同人表情整理站，收集、投稿与分享下载，遵循 CC BY-NC-SA 4.0。"
     />
     <title>关于本站 · 蓝色大肥鱼档案馆</title>
-    <link rel="canonical" href="https://fisharchive.cc/about.html" />
+    <!-- Cloudflare Pages 会把 /about.html 308 到 /about，canonical/og:url 必须写最终 URL -->
+    <link rel="canonical" href="https://fisharchive.cc/about" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="蓝色大肥鱼档案馆" />
     <meta property="og:locale" content="zh_CN" />
@@ -18,7 +19,7 @@
       property="og:description"
       content="非官方鲸鱼娘 DeepSeek 同人表情整理站：收集、投稿与分享下载，遵循 CC BY-NC-SA 4.0。"
     />
-    <meta property="og:url" content="https://fisharchive.cc/about.html" />
+    <meta property="og:url" content="https://fisharchive.cc/about" />
     <meta property="og:image" content="https://fisharchive.cc/assets/og-card.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -55,7 +56,7 @@
     </div>
 
     <header class="site-nav" data-reveal>
-      <a class="wordmark" href="index.html" aria-label="回到表情墙首页">
+      <a class="wordmark" href="/" aria-label="回到表情墙首页">
         <picture>
           <source srcset="logo/deepseek-whale-color.webp" type="image/webp" />
           <img class="brand-logo brand-logo-color" src="logo/deepseek_蓝鲸_彩色.png" alt="DeepSeek 蓝鲸 Logo" width="36" height="36" decoding="async" />
@@ -63,9 +64,9 @@
         <span>蓝色大肥鱼档案馆</span>
       </a>
       <nav class="nav-links" aria-label="主导航">
-        <a href="index.html#wall">表情墙</a>
-        <a href="index.html#archive">来源</a>
-        <a href="about.html" aria-current="page">关于</a>
+        <a href="/#wall">表情墙</a>
+        <a href="/#archive">来源</a>
+        <a href="/about" aria-current="page">关于</a>
       </nav>
       <div class="nav-right">
         <div class="nav-social" aria-label="网站作者链接">
@@ -103,7 +104,7 @@
           </svg>
           <span>加入群聊</span>
         </button>
-        <a class="nav-action" href="index.html#wall">
+        <a class="nav-action" href="/#wall">
           <span>去看看</span>
           <span aria-hidden="true">↓</span>
         </a>
@@ -120,7 +121,7 @@
           </p>
           <div class="about-hero-actions">
             <button class="about-cta" type="button" data-open-qr>加入 QQ 群</button>
-            <a class="about-cta-ghost" href="index.html#wall">先逛逛表情墙</a>
+            <a class="about-cta-ghost" href="/#wall">先逛逛表情墙</a>
           </div>
         </div>
         <aside class="about-art" aria-hidden="true">
