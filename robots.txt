@@ -1,0 +1,8 @@
+# 纯静态站，除内部路径外都允许收录。
+# 不屏蔽 media/、large/：图片是这个站的主要内容，屏蔽掉等于放弃图片搜索。
+User-agent: *
+Allow: /
+Disallow: /functions.disabled/
+Disallow: /scripts/
+
+Sitemap: https://fisharchive.cc/sitemap.xml

@@ -8,11 +8,18 @@
     "/assets/*",
     "/logo/*",
     "/memes/*",
+    "/scripts/*",
+    "/functions/*",
+    "/原始立绘/*",
     "/styles.css",
     "/app.js",
     "/about.js",
     "/qr-modal.js",
     "/QRcode.png",
+    "/README.md",
+    "/favicon.ico",
+    "/robots.txt",
+    "/sitemap.xml",
     "/stickers/*"
   ]
 }

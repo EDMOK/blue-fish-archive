@@ -73,7 +73,8 @@ function createStickerCard(sticker, index) {
   const source = sticker.preview || sticker.original;
   const image = document.createElement('img');
   image.src = source;
-  image.alt = '';
+  // 卡片本身是带 aria-label 的按钮,读屏名以按钮为准,这里的 alt 主要供图片搜索索引。
+  image.alt = sticker.alt || '';
   image.loading = index < 6 ? 'eager' : 'lazy';
   image.fetchPriority = index < 2 ? 'high' : 'low';
   image.decoding = 'async';

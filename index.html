@@ -6,9 +6,32 @@
     <meta name="theme-color" content="#182340" />
     <meta
       name="description"
-      content="蓝色大肥鱼档案馆：鲸鱼娘 DeepSeek 同人表情收藏。"
+      content="蓝色大肥鱼档案馆：鲸鱼娘 DeepSeek 非官方同人表情包收藏站，可在线预览、复制和下载原图。"
     />
-    <title>蓝色大肥鱼档案馆</title>
+    <title>蓝色大肥鱼档案馆 · 鲸鱼娘 DeepSeek 同人表情包</title>
+    <!-- pages.dev 与 .cc 同内容；canonical/og:url 统一指向 .cc，让搜索引擎只收录一个入口
+         （比恢复 301 更适合爬虫：爬虫反复请求 pages.dev 不会消耗 Functions 额度）。 -->
+    <link rel="canonical" href="https://fisharchive.cc/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="蓝色大肥鱼档案馆" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content="蓝色大肥鱼档案馆 · 鲸鱼娘 DeepSeek 同人表情包" />
+    <meta
+      property="og:description"
+      content="鲸鱼娘 DeepSeek 非官方同人表情包收藏站，可在线预览、复制和下载原图。"
+    />
+    <meta property="og:url" content="https://fisharchive.cc/" />
+    <meta property="og:image" content="https://fisharchive.cc/assets/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="蓝色大肥鱼档案馆 · 鲸鱼娘 DeepSeek 同人表情包" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="蓝色大肥鱼档案馆 · 鲸鱼娘 DeepSeek 同人表情包" />
+    <meta
+      name="twitter:description"
+      content="鲸鱼娘 DeepSeek 非官方同人表情包收藏站，可在线预览、复制和下载原图。"
+    />
+    <meta name="twitter:image" content="https://fisharchive.cc/assets/og-card.png" />
     <link rel="icon" type="image/png" href="logo/favicon.png" />
     <link rel="apple-touch-icon" href="logo/favicon.png" />
     <meta name="msapplication-TileImage" content="logo/apple-touch-icon.png" />
@@ -390,8 +413,8 @@
         <p class="qr-modal-note">扫码进群，投稿、交流或反馈问题都可以。</p>
         <span class="qr-modal-code">
           <picture>
-            <source srcset="assets/qq-group-qr.webp" type="image/webp" />
-            <img src="assets/qq-group-qr.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
+            <source srcset="QRcode.png" type="image/webp" />
+            <img src="QRcode.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
           </picture>
         </span>
         <div class="qr-modal-row">
@@ -402,7 +425,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=20261002" defer></script>
+    <script src="app.js?v=20261015" defer></script>
     <script src="qr-modal.js?v=20261002" defer></script>
   </body>
 </html>

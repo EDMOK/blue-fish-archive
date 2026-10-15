@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 全站只有两个可索引页面：表情墙（首页）和关于页。
+     表情墙内容由 JS 从 stickers/manifest.json 渲染，没有单图 URL，所以没有别的可列条目。
+     改过页面内容后把对应的 lastmod 一起更新（YYYY-MM-DD）。 -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://fisharchive.cc/</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://fisharchive.cc/about.html</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+</urlset>

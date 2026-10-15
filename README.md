@@ -7,6 +7,8 @@
 
   <a href="https://github.com/EDMOK/blue-fish-archive">GitHub</a>
   ·
+  <a href="#加入-qq-群">加入 QQ 群</a>
+  ·
   <a href="#版权与来源">版权与来源</a>
   ·
   <a href="#网站作者">网站作者</a>
@@ -45,6 +47,16 @@
 
 原始文件不加水印、不改格式、不降低分辨率。
 
+## 加入 QQ 群
+
+群号：**1041665197**
+
+扫码加入：
+
+![QQ 群二维码](QRcode.png)
+
+也可以访问项目的 [GitHub 仓库](https://github.com/EDMOK/blue-fish-archive) 查看源码、提交内容或反馈问题。
+
 ## 内容管理
 
 表情包文件统一存放在 [`media/`](media/) 目录中。
@@ -77,6 +89,22 @@ CI 会检查这件事：资源内容变了但 `?v=` 没动、或者引用的本�
 python scripts/check_asset_versions.py                # 只检查有没有漏掉版本号
 python scripts/check_asset_versions.py --base HEAD~1  # 顺带对比上一个提交
 ```
+
+### 改站名或副标题时
+
+`assets/og-card.png` 是分享到 QQ 群 / TG / Discord 时显示的卡片图，站名和域名是烧进图片里的。改了标题文案就重新生成：
+
+```bash
+python scripts/make_og_card.py
+```
+
+卡片沿用首页的深海配色和贴纸卡造型，配色常量写在脚本里；改了 `styles.css` 的 `:root` 变量要一起同步。
+
+## 收录相关
+
+- `robots.txt`：除内部路径（`/functions.disabled/`、`/scripts/`）外都允许收录。不屏蔽 `media/`、`large/`，图片是站内主要内容。
+- `sitemap.xml`：只列两个可索引页面。改过页面内容后更新对应的 `lastmod`。
+- 首页和关于页都声明了 `canonical` / `og:url` 指向 `https://fisharchive.cc/`。`fisharchive.pages.dev` 与自定义域名内容相同，靠 canonical 合并而不是跳转——爬虫反复请求预览域名不会消耗 Functions 额度。
 
 ## 版权与来源
 
