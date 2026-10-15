@@ -10,6 +10,9 @@
     "/memes/*",
     "/styles.css",
     "/app.js",
+    "/about.js",
+    "/qr-modal.js",
+    "/QRcode.png",
     "/stickers/*"
   ]
 }
