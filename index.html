@@ -9,9 +9,13 @@
       content="蓝色大肥鱼档案馆：鲸鱼娘 DeepSeek 非官方同人表情包收藏站，可在线预览、复制和下载原图。"
     />
     <title>蓝色大肥鱼档案馆 · 鲸鱼娘 DeepSeek 同人表情包</title>
-    <!-- pages.dev 与 .cc 同内容；canonical/og:url 统一指向 .cc，让搜索引擎只收录一个入口
-         （比恢复 301 更适合爬虫：爬虫反复请求 pages.dev 不会消耗 Functions 额度）。 -->
     <link rel="canonical" href="https://fisharchive.cc/" />
+    <link
+      rel="alternate"
+      type="application/json"
+      href="https://fisharchive.cc/stickers/index.json"
+      title="表情包数据"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="蓝色大肥鱼档案馆" />
     <meta property="og:locale" content="zh_CN" />
@@ -35,9 +39,7 @@
     <link rel="icon" type="image/png" href="logo/favicon.png" />
     <link rel="apple-touch-icon" href="logo/favicon.png" />
     <meta name="msapplication-TileImage" content="logo/apple-touch-icon.png" />
-    <!-- styles.css / app.js 都不是内容哈希文件名：改完样式或脚本要把下面的 ?v= 一起推进，
-         否则浏览器会一直用旧缓存（Cloudflare 会把 max-age 改写成 31 天），新版 HTML 配旧版 CSS 就会错版。 -->
-    <link rel="stylesheet" href="styles.css?v=20261002" />
+    <link rel="stylesheet" href="styles.css?v=20261020" />
     <link rel="preload" href="assets/deepseek_whale.webp" as="image" type="image/webp" />
     <!-- manifest 由 defer 脚本按需加载，避免 fetch preload 在不同浏览器中因 credentials mode 不一致而重复请求。 -->
   </head>
@@ -315,6 +317,10 @@
           </div>
           <span class="wall-squiggle" aria-hidden="true"></span>
         </div>
+        <div class="tag-filter" id="tag-filter" hidden>
+          <span class="tag-filter-label" aria-hidden="true">标签</span>
+          <div class="tag-filter-list" id="tag-filter-list" role="group" aria-label="按标签筛选表情"></div>
+        </div>
         <div class="sticker-grid" id="sticker-grid" aria-live="polite">
           <!-- 首屏骨架:manifest 到达前先摆好卡片位置,避免白墙忽然后弹出 -->
           <div class="skeleton-card" style="--skeleton-height: 214px" aria-hidden="true"></div>
@@ -326,6 +332,7 @@
           <div class="skeleton-card" style="--skeleton-height: 238px" aria-hidden="true"></div>
           <div class="skeleton-card" style="--skeleton-height: 178px" aria-hidden="true"></div>
         </div>
+        <p class="filter-empty" id="filter-empty" hidden>没有这个标签的表情，换一个试试。</p>
         <div class="wall-empty" id="wall-empty" hidden>
           <svg class="wall-empty-art" viewBox="0 0 190 140" aria-hidden="true">
             <path class="empty-bowl-wave" d="M16 60h158" />
@@ -351,7 +358,7 @@
         </picture>
         <span>蓝色大肥鱼档案馆</span>
       </span>
-      <p>非官方同人整理 · 版权归原作者所有 · <a href="/about">关于本站</a></p>
+      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/about">关于本站</a></p>
       <a href="#top" aria-label="回到顶部">↑</a>
     </footer>
 
@@ -370,6 +377,8 @@
         <div class="lightbox-media-shell">
           <img id="lightbox-image" src="" alt="表情包大图预览" />
         </div>
+        <p class="lightbox-alt" id="lightbox-alt" hidden></p>
+        <div class="lightbox-tags" id="lightbox-tags" aria-label="表情标签" hidden></div>
         <p class="lightbox-caption">
           <span class="lightbox-meta" id="lightbox-meta"></span>
           <span class="lightbox-hint" aria-hidden="true">← → 切换</span>
@@ -425,7 +434,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=20261015" defer></script>
+    <script src="app.js?v=20261020" defer></script>
     <script src="qr-modal.js?v=20261002" defer></script>
   </body>
 </html>

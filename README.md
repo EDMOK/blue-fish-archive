@@ -5,6 +5,8 @@
 
   **鲸鱼娘 DeepSeek 同人表情包展示站**
 
+  <a href="https://fisharchive.cc/"><strong>访问网站</strong></a>
+  ·
   <a href="https://github.com/EDMOK/blue-fish-archive">GitHub</a>
   ·
   <a href="#加入-qq-群">加入 QQ 群</a>
@@ -23,6 +25,8 @@
 ## 项目简介
 
 围绕鲸鱼娘 DeepSeek 的同人表情包收集与展示项目。
+
+在线访问：**<https://fisharchive.cc/>**
 
 页面采用卡通贴纸风格，提供自然瀑布流浏览、大图预览、复制图片和下载原图功能。
 
@@ -56,57 +60,6 @@
 ![QQ 群二维码](QRcode.png)
 
 也可以访问项目的 [GitHub 仓库](https://github.com/EDMOK/blue-fish-archive) 查看源码、提交内容或反馈问题。
-
-## 内容管理
-
-表情包文件统一存放在 [`media/`](media/) 目录中。
-
-支持格式：
-
-```text
-PNG · JPG · JPEG · GIF · WebP · APNG
-```
-
-向 GitHub 仓库上传或删除图片后，GitHub Actions 会自动为 `media/` 里的图片生成 WebP 缩略图（`previews/`，页面瀑布流展示用）并更新 `stickers/manifest.json`。连接 Vercel 或 Cloudflare Pages 后，内容会随仓库更新自动重新部署；下载和复制仍保留 `media/` 下的原始文件，不降质。
-
-站长自己制作的表情，把文件名写进 [`stickers/self-made.json`](stickers/self-made.json)，`sync_stickers.py` 会给对应条目加上 `selfMade: true`，页面就在卡片右上角显示「自作」、预览里显示「站长自作」。清单里写了 `media/` 中不存在的文件会直接报错。
-
-```text
-修改「media/」目录
-        ↓
-生成 WebP 缩略图 + 同步 manifest.json
-        ↓
-自动部署
-```
-
-### 改样式或脚本时
-
-`styles.css`、`app.js`、`about.js`、`qr-modal.js` 的文件名里没有内容哈希，而 Cloudflare 会把浏览器缓存拉到 31 天。改了这些文件就要把 HTML 里的 `?v=` 一起换成新值（例如 `?v=20261002`），否则老访客会一直用旧文件，出现「新 HTML + 旧 CSS」的排版错乱。
-
-CI 会检查这件事：资源内容变了但 `?v=` 没动、或者引用的本地 css/js 干脆没带版本号，都会直接失败。本地可以先跑：
-
-```bash
-python scripts/check_asset_versions.py                # 只检查有没有漏掉版本号
-python scripts/check_asset_versions.py --base HEAD~1  # 顺带对比上一个提交
-```
-
-### 改站名或副标题时
-
-`assets/og-card.png` 是分享到 QQ 群 / TG / Discord 时显示的卡片图，站名和域名是烧进图片里的。改了标题文案就重新生成：
-
-```bash
-python scripts/make_og_card.py
-```
-
-卡片沿用首页的深海配色和贴纸卡造型，配色常量写在脚本里；改了 `styles.css` 的 `:root` 变量要一起同步。
-
-## 收录相关
-
-- `robots.txt`：除内部路径（`/functions.disabled/`、`/scripts/`）外都允许收录。不屏蔽 `media/`、`large/`，图片是站内主要内容。
-- `sitemap.xml`：只列两个可索引页面。改过页面内容后更新对应的 `lastmod`。
-- 首页和关于页都声明了 `canonical` / `og:url` 指向 `https://fisharchive.cc/`（关于页是 `/about`）。`fisharchive.pages.dev` 与自定义域名内容相同，靠 canonical 合并而不是跳转——爬虫反复请求预览域名不会消耗 Functions 额度。
-- URL 一律写 Pages 的最终形态：Cloudflare Pages 会把 `/index.html`、`/about.html` 308 到 `/`、`/about`，所以站内链接、canonical、sitemap 都用不带扩展名的路径，别写 `.html`。
-- 注意本地预览没有这层重写：`python -m http.server` 下点击站内链接的 `/about` 会 404，预览关于页直接开 `about.html` 即可，这不是站点 bug。
 
 ## 版权与来源
 

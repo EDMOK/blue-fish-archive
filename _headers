@@ -20,20 +20,24 @@
 /styles.css
   Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
 
-/stickers/manifest.json
+/stickers/*
   Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
+  Access-Control-Allow-Origin: *
 
 # HTML、脚本和清单不是内容哈希文件，不能 immutable；发布更新最多在边缘缓存窗口内可见。
 
 /media/*
   Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
 
 /previews/*
   Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
 
 # 灯箱大图层: 同样由 make_previews.py 生成,文件名稳定,缓存永久
 /large/*
   Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
 
 # 品牌素材和互动素材使用一周浏览器缓存，并允许边缘缓存更久。
 /logo/*

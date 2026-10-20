@@ -1,0 +1,30 @@
+# 蓝色大肥鱼档案馆
+
+> 鲸鱼娘 DeepSeek 非官方同人表情包收藏站。在线浏览、复制和下载原图，不加水印、不改格式、不降分辨率。
+
+本站是纯静态站点，以下地址可以直接访问，不需要执行 JavaScript。
+
+## 页面
+
+- [首页](https://fisharchive.cc/)：瀑布流表情墙、标签筛选、大图预览
+- [全部表情（静态列表）](https://fisharchive.cc/gallery)：每张图的缩略图、原图和大图链接，不依赖 JavaScript
+- [关于本站](https://fisharchive.cc/about)
+
+## 数据
+
+- [stickers/index.json](https://fisharchive.cc/stickers/index.json)：全部表情的 alt、tags、尺寸，以及带绝对 URL 的 original / preview / large
+- [stickers/manifest.json](https://fisharchive.cc/stickers/manifest.json)：站点前端使用的清单（相对路径）
+- [sitemap.xml](https://fisharchive.cc/sitemap.xml)
+
+## 图片来源与授权
+
+- 鲸鱼娘角色形象原作：上善无形（Bilibili）
+- DeepSeek 元素女仆鲸鱼娘二次设计：ZipZipPipe（Bilibili），依 CC BY-NC-SA 4.0 授权
+- 单张表情的相关权利归各自创作者。转载或二次使用时请保留出处和作者信息，不要用于商业用途。
+- 本站为非官方同人整理项目，不代表任何官方立场。
+
+## 使用建议
+
+- 需要单张图片时优先使用 `large`（压缩后的大图）或 `original`（原始文件）。
+- 清单已经提供完整图片地址，无需遍历页面发现资源；请勿高频批量抓取。
+- 发现版权或展示问题时，请通过 [GitHub 仓库](https://github.com/EDMOK/blue-fish-archive) 联系网站作者。

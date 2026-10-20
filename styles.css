@@ -3164,6 +3164,88 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
+/* 标签筛选:和卡片同一套细线/浅底语言,不做成彩色按钮墙 */
+.tag-filter {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: -2px 0 18px;
+  padding: 0 2px;
+}
+
+.tag-filter[hidden] {
+  display: none;
+}
+
+.tag-filter-label {
+  flex: none;
+  padding-top: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.tag-filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  min-width: 0;
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 32px;
+  padding: 4px 11px;
+  color: var(--blue);
+  background: var(--white);
+  border: 1px solid rgba(96, 122, 169, 0.16);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.tag-chip:hover {
+  color: var(--deep);
+  background: #f6f8fc;
+  border-color: rgba(96, 122, 169, 0.34);
+}
+
+.tag-chip:focus-visible {
+  outline: 3px solid #607aa9;
+  outline-offset: 2px;
+}
+
+.tag-chip.is-active {
+  color: var(--white);
+  background: #344f7d;
+  border-color: #344f7d;
+}
+
+.tag-chip-count {
+  color: inherit;
+  font-size: 11px;
+  opacity: 0.58;
+  font-variant-numeric: tabular-nums;
+}
+
+.filter-empty {
+  margin: 18px 0 6px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.filter-empty[hidden] {
+  display: none;
+}
+
 .sticker-grid {
   column-gap: 20px;
 }
@@ -3238,6 +3320,25 @@ h1 {
   font-weight: 500;
   line-height: 1.5;
   pointer-events: none;
+}
+
+/* 卡片底部的标签:只做展示,筛选交给上面的标签条 */
+.sticker-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 7px 1px 0;
+  text-align: left;
+}
+
+.sticker-tag {
+  padding: 2px 7px;
+  color: var(--blue);
+  background: #edf2f9;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .skeleton-card {
@@ -3415,6 +3516,53 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
   font-weight: 400;
   line-height: 1.5;
   flex-shrink: 0;
+}
+
+/* 大图下方的可读描述与标签;标签可点,关掉预览并回到墙上筛选 */
+.lightbox-alt {
+  max-width: min(100%, 92vw);
+  margin: 10px 0 0;
+  padding: 0 1px;
+  color: var(--deep);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.lightbox-alt[hidden],
+.lightbox-tags[hidden] {
+  display: none;
+}
+
+.lightbox-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.lightbox-tag {
+  min-height: 28px;
+  padding: 3px 9px;
+  color: var(--blue);
+  background: #edf2f9;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.lightbox-tag:hover {
+  color: var(--deep);
+  background: #e2eaf5;
+}
+
+.lightbox-tag:focus-visible {
+  outline: 3px solid #607aa9;
+  outline-offset: 2px;
 }
 
 .lightbox-hint {
@@ -3615,6 +3763,29 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
   .sticker-count {
     min-height: 30px;
     font-size: 12px;
+  }
+  .tag-filter {
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 14px;
+  }
+  .tag-filter-label {
+    padding-top: 0;
+  }
+  .tag-chip {
+    min-height: 30px;
+    padding: 3px 9px;
+    font-size: 12px;
+  }
+  .sticker-tags {
+    margin-top: 5px;
+  }
+  .sticker-tag {
+    padding: 1px 6px;
+    font-size: 10px;
+  }
+  .lightbox-alt {
+    font-size: 13px;
   }
   .lightbox {
     padding: 12px;

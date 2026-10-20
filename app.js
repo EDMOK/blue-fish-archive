@@ -17,10 +17,33 @@ const actionStatus = document.querySelector('#action-status');
 const mascot = document.querySelector('#mascot');
 const mascotBubble = document.querySelector('#mascot-bubble');
 const mascotAudio = document.querySelector('#mascot-audio');
+const tagFilter = document.querySelector('#tag-filter');
+const tagFilterList = document.querySelector('#tag-filter-list');
+const filterEmpty = document.querySelector('#filter-empty');
+const lightboxAlt = document.querySelector('#lightbox-alt');
+const lightboxTags = document.querySelector('#lightbox-tags');
 
 const isAnimatedSticker = (sticker) => /\.(gif|apng)$/i.test(sticker.original);
 
+// 防御坏数据:tags 不是有效字符串数组时忽略,避免整面墙出错
+const stickerTags = (sticker) =>
+  Array.isArray(sticker.tags)
+    ? sticker.tags.filter((tag) => typeof tag === 'string' && tag.trim())
+    : [];
+
+// 未标注图片的通用 alt,不值得重复展示
+const GENERIC_ALT = '鲸鱼娘同人表情包';
+const specificAlt = (sticker) => {
+  const alt = typeof sticker.alt === 'string' ? sticker.alt.trim() : '';
+  return alt && alt !== GENERIC_ALT ? alt : '';
+};
+
 let stickerList = [];
+// 灯箱只看当前筛选结果,翻页不会跳出标签
+let lightboxList = [];
+let stickerCards = [];
+let tagButtons = [];
+let activeTag = '';
 let activeIndex = -1;
 let activeSticker = null;
 let lightboxRequestId = 0;
@@ -60,12 +83,11 @@ function createStickerCard(sticker, index) {
   card.className = 'sticker-card';
   card.type = 'button';
   card.style.setProperty('--sticker-delay', `${Math.min(index, 8) * 24}ms`);
-  card.setAttribute(
-    'aria-label',
-    sticker.selfMade
-      ? `打开第 ${index + 1} 张表情预览（站长自作）`
-      : `打开第 ${index + 1} 张表情预览`,
-  );
+  const labelParts = [`打开第 ${index + 1} 张表情预览`];
+  const alt = specificAlt(sticker);
+  if (alt) labelParts.push(alt);
+  if (sticker.selfMade) labelParts.push('站长自作');
+  card.setAttribute('aria-label', labelParts.join('，'));
 
   const inner = document.createElement('span');
   inner.className = 'sticker-card-inner';
@@ -102,6 +124,21 @@ function createStickerCard(sticker, index) {
 
   inner.appendChild(image);
   card.appendChild(inner);
+
+  const tags = stickerTags(sticker);
+  if (tags.length) {
+    const tagRow = document.createElement('span');
+    tagRow.className = 'sticker-tags';
+    // 卡片本身是按钮,标签只做视觉提示,读屏信息已经在 aria-label 里
+    tagRow.setAttribute('aria-hidden', 'true');
+    tags.slice(0, 3).forEach((tag) => {
+      const chip = document.createElement('span');
+      chip.className = 'sticker-tag';
+      chip.textContent = tag;
+      tagRow.appendChild(chip);
+    });
+    card.appendChild(tagRow);
+  }
 
   if (isAnimatedSticker(sticker)) {
     card.classList.add('is-animated');
@@ -150,26 +187,125 @@ function renderStickers(stickers) {
     ).values(),
   ];
   stickerList = uniqueStickers;
+  lightboxList = uniqueStickers;
   const isEmpty = !uniqueStickers.length;
 
   if (wallEmpty) wallEmpty.hidden = !isEmpty;
-  if (stickerCount) {
-    stickerCount.hidden = isEmpty;
-    if (!isEmpty) animateStickerCount(uniqueStickers.length);
+  if (stickerCount) stickerCount.hidden = isEmpty;
+  if (isEmpty) {
+    stickerCards = [];
+    renderTagFilter();
+    return;
   }
-  if (isEmpty) return;
 
   const fragment = document.createDocumentFragment();
+  stickerCards = [];
   uniqueStickers.forEach((sticker, index) => {
-    fragment.appendChild(createStickerCard(sticker, index));
+    const card = createStickerCard(sticker, index);
+    stickerCards.push(card);
+    fragment.appendChild(card);
   });
   stickerGrid.appendChild(fragment);
+
+  renderTagFilter();
+  if (activeTag) {
+    applyTagFilter();
+  } else if (stickerCount) {
+    animateStickerCount(uniqueStickers.length);
+  }
+}
+
+function renderTagFilter() {
+  if (!tagFilter || !tagFilterList) return;
+  const counts = new Map();
+  stickerList.forEach((sticker) => {
+    stickerTags(sticker).forEach((tag) => {
+      counts.set(tag, (counts.get(tag) || 0) + 1);
+    });
+  });
+
+  if (!counts.size) {
+    activeTag = '';
+    tagFilter.hidden = true;
+    tagFilterList.replaceChildren();
+    tagButtons = [];
+    if (filterEmpty) filterEmpty.hidden = true;
+    return;
+  }
+  // 重新加载后旧标签可能已经不存在,静默回到「全部」
+  if (activeTag && !counts.has(activeTag)) activeTag = '';
+  tagFilter.hidden = false;
+
+  const entries = [...counts.entries()].sort(
+    (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-Hans-CN'),
+  );
+  const fragment = document.createDocumentFragment();
+  tagButtons = [];
+  addTagChip(fragment, '', '全部', stickerList.length);
+  entries.forEach(([tag, count]) => addTagChip(fragment, tag, tag, count));
+  tagFilterList.replaceChildren(fragment);
+  syncTagFilterState();
+}
+
+function addTagChip(fragment, value, label, count) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'tag-chip';
+  button.dataset.tag = value;
+  button.setAttribute('aria-pressed', 'false');
+  button.setAttribute(
+    'aria-label',
+    value ? `筛选标签 ${label}，${count} 张` : `显示全部，${count} 张`,
+  );
+  button.appendChild(document.createTextNode(label));
+  const badge = document.createElement('span');
+  badge.className = 'tag-chip-count';
+  badge.textContent = String(count);
+  badge.setAttribute('aria-hidden', 'true');
+  button.appendChild(badge);
+  button.addEventListener('click', () => setActiveTag(value));
+  tagButtons.push(button);
+  fragment.appendChild(button);
+}
+
+function syncTagFilterState() {
+  tagButtons.forEach((button) => {
+    const isActive = (button.dataset.tag || '') === activeTag;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
+function setActiveTag(tag) {
+  activeTag = typeof tag === 'string' ? tag : '';
+  syncTagFilterState();
+  applyTagFilter();
+}
+
+function applyTagFilter() {
+  const total = stickerList.length;
+  let visible = 0;
+  lightboxList = [];
+  stickerCards.forEach((card, index) => {
+    const sticker = stickerList[index];
+    const matches = !activeTag || stickerTags(sticker).includes(activeTag);
+    card.hidden = !matches;
+    if (matches) {
+      visible += 1;
+      lightboxList.push(sticker);
+    }
+  });
+  if (filterEmpty) filterEmpty.hidden = !(activeTag && visible === 0);
+  if (stickerCount) {
+    stickerCount.textContent = activeTag ? `${visible} / ${total} 枚` : `已收录 ${total} 枚`;
+  }
 }
 
 function openLightbox(index) {
   lightboxReturnFocus = document.activeElement;
   previousBodyOverflow = document.body.style.overflow;
-  showSticker(index);
+  const position = lightboxList.indexOf(stickerList[index]);
+  showSticker(position >= 0 ? position : 0);
   lightbox.classList.add('is-open');
   lightbox.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
@@ -188,7 +324,7 @@ function cancelLightboxLoad() {
 }
 
 function showSticker(index) {
-  const sticker = stickerList[index];
+  const sticker = lightboxList[index];
   if (!sticker) return;
   activeIndex = index;
   activeSticker = sticker;
@@ -249,7 +385,8 @@ function showSticker(index) {
   lightboxMediaShell.classList.toggle('is-animated', animated);
   lightboxMediaShell.classList.toggle('is-self-made', Boolean(sticker.selfMade));
   updateLightboxMeta(sticker, index);
-  const hasNeighbours = stickerList.length > 1;
+  updateLightboxDetails(sticker);
+  const hasNeighbours = lightboxList.length > 1;
   if (lightboxPrev) lightboxPrev.hidden = !hasNeighbours;
   if (lightboxNext) lightboxNext.hidden = !hasNeighbours;
 }
@@ -258,7 +395,7 @@ function updateLightboxMeta(sticker, index) {
   if (!lightboxMeta) return;
   const format = (sticker.filename || sticker.original).split('.').pop().toUpperCase();
   const size = sticker.width > 0 && sticker.height > 0 ? `${sticker.width}×${sticker.height}` : '';
-  lightboxPosition.textContent = `${index + 1} / ${stickerList.length}`;
+  lightboxPosition.textContent = `${index + 1} / ${lightboxList.length}`;
   lightboxMeta.textContent = [
     format,
     size,
@@ -267,9 +404,35 @@ function updateLightboxMeta(sticker, index) {
     .join(' · ');
 }
 
+function updateLightboxDetails(sticker) {
+  const alt = specificAlt(sticker);
+  if (lightboxAlt) {
+    lightboxAlt.textContent = alt;
+    lightboxAlt.hidden = !alt;
+  }
+  if (!lightboxTags) return;
+
+  const tags = stickerTags(sticker);
+  lightboxTags.replaceChildren();
+  tags.forEach((tag) => {
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'lightbox-tag';
+    chip.textContent = tag;
+    chip.setAttribute('aria-label', `筛选标签：${tag}`);
+    chip.addEventListener('click', () => {
+      closeLightbox();
+      setActiveTag(tag);
+      document.querySelector('#wall')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    lightboxTags.appendChild(chip);
+  });
+  lightboxTags.hidden = !tags.length;
+}
+
 function stepLightbox(step) {
-  if (stickerList.length < 2 || activeIndex < 0) return;
-  showSticker((activeIndex + step + stickerList.length) % stickerList.length);
+  if (lightboxList.length < 2 || activeIndex < 0) return;
+  showSticker((activeIndex + step + lightboxList.length) % lightboxList.length);
 }
 
 function closeLightbox() {

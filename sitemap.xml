@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 全站只有两个可索引页面：表情墙（首页）和关于页。
-     表情墙内容由 JS 从 stickers/manifest.json 渲染，没有单图 URL，所以没有别的可列条目。
+<!-- 可索引页面：表情墙（首页）、静态画廊和关于页。
+     静态画廊由 scripts/sync_stickers.py 生成，不依赖 JS，便于抓取工具发现图片。
      改过页面内容后把对应的 lastmod 一起更新（YYYY-MM-DD）。
-     URL 必须写最终地址：Cloudflare Pages 会把 /index.html、/about.html 308 到不带扩展名的
-     路径，列带 .html 的地址会变成“跳转中的 URL”。 -->
+     URL 必须写最终地址：Cloudflare Pages 会把 /index.html、/about.html、/gallery.html
+     308 到不带扩展名的路径，列带 .html 的地址会变成“跳转中的 URL”。 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fisharchive.cc/</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-20</lastmod>
+  </url>
+  <url>
+    <loc>https://fisharchive.cc/gallery</loc>
+    <lastmod>2026-10-20</lastmod>
   </url>
   <url>
     <loc>https://fisharchive.cc/about</loc>
