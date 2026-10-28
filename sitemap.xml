@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 可索引页面：表情墙（首页）、静态画廊和关于页。
+<!-- 可索引页面：表情墙（首页）、静态画廊、角色立绘和关于页。
      静态画廊由 scripts/sync_stickers.py 生成，不依赖 JS，便于抓取工具发现图片。
      改过页面内容后把对应的 lastmod 一起更新（YYYY-MM-DD）。
      URL 必须写最终地址：Cloudflare Pages 会把 /index.html、/about.html、/gallery.html
@@ -7,14 +7,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fisharchive.cc/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://fisharchive.cc/gallery</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-10-28</lastmod>
+  </url>
+  <url>
+    <loc>https://fisharchive.cc/characters</loc>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://fisharchive.cc/about</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
 </urlset>

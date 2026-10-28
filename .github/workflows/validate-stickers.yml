@@ -8,7 +8,11 @@ on:
       - "stickers/index.json"
       - "gallery.html"
       - "stickers/self-made.json"
+      - "characters.html"
+      - "characters.js"
+      - "character-art/**"
       - "scripts/*.py"
+      - "styles.css"
       - ".github/workflows/**"
   workflow_dispatch:
 
@@ -35,3 +39,6 @@ jobs:
 
       - name: Validate sticker manifest
         run: python scripts/sync_stickers.py --check
+
+      - name: Validate character reference page
+        run: python scripts/check_characters.py

@@ -291,6 +291,7 @@ def gallery_text(manifest: list[dict[str, object]]) -> str:
         f"      <p>{len(manifest)} 张表情的纯静态列表，不依赖 JavaScript。"
         "每张图都可以直接打开原图或大图。</p>\n"
         '      <p class="links"><a href="/">返回首页</a> · '
+        '<a href="/characters">角色立绘</a> · '
         '<a href="stickers/index.json">JSON 数据</a> · '
         '<a href="https://fisharchive.cc/sitemap.xml">站点地图</a></p>\n'
         "    </header>\n"

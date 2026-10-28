@@ -39,7 +39,7 @@
     <link rel="icon" type="image/png" href="logo/favicon.png" />
     <link rel="apple-touch-icon" href="logo/favicon.png" />
     <meta name="msapplication-TileImage" content="logo/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=20261020" />
+    <link rel="stylesheet" href="styles.css?v=20261028" />
     <link rel="preload" href="assets/deepseek_whale.webp" as="image" type="image/webp" />
     <!-- manifest 由 defer 脚本按需加载，避免 fetch preload 在不同浏览器中因 credentials mode 不一致而重复请求。 -->
   </head>
@@ -120,6 +120,7 @@
       </a>
       <nav class="nav-links" aria-label="主导航">
         <a href="#wall">表情墙</a>
+        <a href="/characters">立绘</a>
         <a href="#archive">来源</a>
         <a href="/about">关于</a>
       </nav>
@@ -292,6 +293,19 @@
         </a>
       </section>
 
+      <!-- 立绘参考入口：只放文字，不在首页加载 16 张大图 -->
+      <section class="notice character-notice" data-reveal aria-labelledby="character-notice-title">
+        <span class="notice-badge" aria-hidden="true">图鉴</span>
+        <div class="notice-body">
+          <strong id="character-notice-title">角色立绘参考</strong>
+          <p>8 个 AI 拟人角色的全身与 Q 版立绘，高清 WebP，供二创取用。</p>
+        </div>
+        <a class="notice-cta" href="/characters">
+          <span>翻开图鉴</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+
       <section class="wall-section" id="wall" aria-labelledby="wall-title">
         <div class="wall-divider" aria-hidden="true">
           <svg class="divider-fish" viewBox="0 0 74 46">
@@ -358,7 +372,7 @@
         </picture>
         <span>蓝色大肥鱼档案馆</span>
       </span>
-      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/about">关于本站</a></p>
+      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/characters">角色立绘</a> · <a href="/about">关于本站</a></p>
       <a href="#top" aria-label="回到顶部">↑</a>
     </footer>
 

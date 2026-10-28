@@ -20,6 +20,18 @@
 /styles.css
   Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
 
+/characters
+  Cache-Control: public, max-age=0, s-maxage=60, stale-while-revalidate=60
+
+/characters.js
+  Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
+
+# 立绘放在版本目录（character-art/v1）里：换图时新建 v2 并更新页面引用，
+# 所以这些路径可以放心用一年缓存。CORS 供复制图片时取图。
+/character-art/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
 /stickers/*
   Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
   Access-Control-Allow-Origin: *
