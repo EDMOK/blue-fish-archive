@@ -9,6 +9,8 @@
   ·
   <a href="https://github.com/EDMOK/blue-fish-archive">GitHub</a>
   ·
+  <a href="#投稿方式">投稿方式</a>
+  ·
   <a href="#加入-qq-群">加入 QQ 群</a>
   ·
   <a href="#版权与来源">版权与来源</a>
@@ -51,15 +53,25 @@
 
 原始文件不加水印、不改格式、不降低分辨率。
 
+## 投稿方式
+
+欢迎投稿表情包，以下三种方式任选其一：
+
+- **提交 Pull Request**：把图片放进仓库的 [`media/`](https://github.com/EDMOK/blue-fish-archive/tree/main/media) 目录，然后发起 PR。
+- **提交 Issue**：在 [GitHub Issues](https://github.com/EDMOK/blue-fish-archive/issues) 附上图片或来源链接。
+- **QQ 群**：加入群 **1041665197**（二维码见下方），在群里直接把图片发给站长。
+
+支持的格式：PNG、JPG、JPEG、GIF、WebP、APNG。
+
 ## 加入 QQ 群
 
 群号：**1041665197**
 
 扫码加入：
 
-![QQ 群二维码](QRcode.png)
+<a href="QRcode.png"><img src="QRcode.png" alt="QQ 群二维码" width="200" /></a>
 
-也可以访问项目的 [GitHub 仓库](https://github.com/EDMOK/blue-fish-archive) 查看源码、提交内容或反馈问题。
+点击二维码查看大图。也可以在 [GitHub 仓库](https://github.com/EDMOK/blue-fish-archive) 查看源码，或通过 [Issues](https://github.com/EDMOK/blue-fish-archive/issues) 反馈问题。
 
 ## 版权与来源
 
