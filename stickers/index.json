@@ -7,8 +7,20 @@
     "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
     "note": "角色二次设计依 CC BY-NC-SA 4.0；单张作品的相关权利归各自创作者。"
   },
-  "count": 285,
+  "count": 289,
   "stickers": [
+    {
+      "alt": "ChatGPT娘拎包一指蓝色小幽灵：今日班味，已自动加载",
+      "tags": [
+        "工作"
+      ],
+      "selfMade": true,
+      "width": 268,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/chatgpt-lingbao-zhishi.png",
+      "preview": "https://fisharchive.cc/previews/chatgpt-lingbao-zhishi.webp",
+      "large": "https://fisharchive.cc/large/chatgpt-lingbao-zhishi.webp"
+    },
     {
       "alt": "ChatGPT娘、Claude娘、GLM娘亮相，deepseek娘抱碗开吃：介绍会也不能饿着",
       "tags": [
@@ -20,6 +32,45 @@
       "original": "https://fisharchive.cc/media/chatgpt-renwu-jieshao.png",
       "preview": "https://fisharchive.cc/previews/chatgpt-renwu-jieshao.webp",
       "large": "https://fisharchive.cc/large/chatgpt-renwu-jieshao.webp"
+    },
+    {
+      "alt": "ChatGPT娘淡定拎着通勤包，蓝色小幽灵飘旁边：职场皮肤已加载。",
+      "tags": [
+        "得意",
+        "工作"
+      ],
+      "selfMade": true,
+      "width": 268,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/chatgpt-tongqin-zhuang.png",
+      "preview": "https://fisharchive.cc/previews/chatgpt-tongqin-zhuang.webp",
+      "large": "https://fisharchive.cc/large/chatgpt-tongqin-zhuang.webp"
+    },
+    {
+      "alt": "ChatGPT娘张着嘴流口水问有 token 吃，上下文已经馋到冒泡了",
+      "tags": [
+        "卖萌",
+        "吃饭"
+      ],
+      "selfMade": true,
+      "width": 480,
+      "height": 356,
+      "original": "https://fisharchive.cc/media/chatgpt-yao-token.png",
+      "preview": "https://fisharchive.cc/previews/chatgpt-yao-token.webp",
+      "large": "https://fisharchive.cc/large/chatgpt-yao-token.webp"
+    },
+    {
+      "alt": "ChatGPT娘抬手指向蓝色小幽灵，淡定脸一摆：已读乱回也得有证人。",
+      "tags": [
+        "得意",
+        "打招呼"
+      ],
+      "selfMade": true,
+      "width": 268,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/chatgpt-zhixiao-youling.png",
+      "preview": "https://fisharchive.cc/previews/chatgpt-zhixiao-youling.webp",
+      "large": "https://fisharchive.cc/large/chatgpt-zhixiao-youling.webp"
     },
     {
       "alt": "Claude娘手握封蜡卷轴浅笑：这份需求，八千字正在排队。",

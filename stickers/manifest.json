@@ -1,5 +1,18 @@
 [
   {
+    "original": "media/chatgpt-lingbao-zhishi.png",
+    "filename": "chatgpt-lingbao-zhishi.png",
+    "alt": "ChatGPT娘拎包一指蓝色小幽灵：今日班味，已自动加载",
+    "tags": [
+      "工作"
+    ],
+    "selfMade": true,
+    "preview": "previews/chatgpt-lingbao-zhishi.webp",
+    "large": "large/chatgpt-lingbao-zhishi.webp",
+    "width": 268,
+    "height": 480
+  },
+  {
     "original": "media/chatgpt-renwu-jieshao.png",
     "filename": "chatgpt-renwu-jieshao.png",
     "alt": "ChatGPT娘、Claude娘、GLM娘亮相，deepseek娘抱碗开吃：介绍会也不能饿着",
@@ -10,6 +23,48 @@
     "preview": "previews/chatgpt-renwu-jieshao.webp",
     "large": "large/chatgpt-renwu-jieshao.webp",
     "width": 380,
+    "height": 480
+  },
+  {
+    "original": "media/chatgpt-tongqin-zhuang.png",
+    "filename": "chatgpt-tongqin-zhuang.png",
+    "alt": "ChatGPT娘淡定拎着通勤包，蓝色小幽灵飘旁边：职场皮肤已加载。",
+    "tags": [
+      "得意",
+      "工作"
+    ],
+    "selfMade": true,
+    "preview": "previews/chatgpt-tongqin-zhuang.webp",
+    "large": "large/chatgpt-tongqin-zhuang.webp",
+    "width": 268,
+    "height": 480
+  },
+  {
+    "original": "media/chatgpt-yao-token.png",
+    "filename": "chatgpt-yao-token.png",
+    "alt": "ChatGPT娘张着嘴流口水问有 token 吃，上下文已经馋到冒泡了",
+    "tags": [
+      "卖萌",
+      "吃饭"
+    ],
+    "selfMade": true,
+    "preview": "previews/chatgpt-yao-token.webp",
+    "large": "large/chatgpt-yao-token.webp",
+    "width": 480,
+    "height": 356
+  },
+  {
+    "original": "media/chatgpt-zhixiao-youling.png",
+    "filename": "chatgpt-zhixiao-youling.png",
+    "alt": "ChatGPT娘抬手指向蓝色小幽灵，淡定脸一摆：已读乱回也得有证人。",
+    "tags": [
+      "得意",
+      "打招呼"
+    ],
+    "selfMade": true,
+    "preview": "previews/chatgpt-zhixiao-youling.webp",
+    "large": "large/chatgpt-zhixiao-youling.webp",
+    "width": 268,
     "height": 480
   },
   {
