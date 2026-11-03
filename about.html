@@ -33,7 +33,8 @@
     <link rel="icon" type="image/png" href="logo/favicon.png" />
     <link rel="apple-touch-icon" href="logo/favicon.png" />
     <meta name="msapplication-TileImage" content="logo/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=20261028" />
+    <link rel="stylesheet" href="styles.css?v=20261105h" />
+    <link rel="stylesheet" href="assets/navigation.css?v=20261103b" />
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
@@ -65,7 +66,7 @@
       <nav class="nav-links" aria-label="主导航">
         <a href="/#wall">表情墙</a>
         <a href="/characters">立绘</a>
-        <a href="/#archive">来源</a>
+        <a class="is-featured" href="/manual">万事屋</a>
         <a href="/about" aria-current="page">关于</a>
       </nav>
       <div class="nav-right">
@@ -120,7 +121,10 @@
             蓝色大肥鱼档案馆是一个非官方的鲸鱼娘 DeepSeek 同人表情整理站。它只做一件事：把散落在各处的同人表情收拢到一起，保留原图，方便翻看、取用，也方便继续画下去。
           </p>
           <div class="about-hero-actions">
-            <button class="about-cta" type="button" data-open-qr>加入 QQ 群</button>
+            <button class="about-cta" type="button" data-open-qr>
+              <span>加入 QQ 群</span>
+              <span class="about-cta-knob" aria-hidden="true">→</span>
+            </button>
             <a class="about-cta-ghost" href="/#wall">先逛逛表情墙</a>
           </div>
         </div>
@@ -201,6 +205,59 @@
         </div>
       </section>
 
+      <!-- 开放数据：单独一条通栏，放在「能做什么」之后、常见问答之前，
+           给开发者和机器人作者一个显眼的入口，而不是塞进某张卡片底部。 -->
+      <section class="about-api" id="api" data-reveal aria-labelledby="api-title">
+        <span class="tape tape-api" aria-hidden="true"></span>
+        <div class="about-api-copy">
+          <span class="about-api-eyebrow">OPEN DATA · 开放数据</span>
+          <h2 id="api-title">把表情库接进你的项目</h2>
+          <p class="about-api-lede">
+            本站是纯静态站，没有服务端随机接口，也不需要申请密钥。完整表情清单直接公开，网页、机器人和脚本都能读取，图片同样允许跨域。
+          </p>
+          <a class="about-api-endpoint" href="/stickers/index.json" target="_blank" rel="noreferrer">
+            <span class="about-api-method">GET</span>
+            <code>https://fisharchive.cc/stickers/index.json</code>
+            <span class="about-api-open" aria-hidden="true">↗</span>
+          </a>
+          <ul class="about-api-fields">
+            <li><code>count</code> 与 <code>stickers[]</code>，条目数以此为准</li>
+            <li><code>alt</code>、<code>tags</code>、<code>width</code>、<code>height</code></li>
+            <li><code>original</code> / <code>large</code> / <code>preview</code> 三个绝对地址</li>
+          </ul>
+          <p class="about-api-meta">
+            跨域响应头已配置 · 机器可读说明见 <a href="/llms.txt">llms.txt</a>
+          </p>
+        </div>
+        <div class="about-api-code">
+          <div class="about-api-code-bar">
+            <span class="about-api-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="about-api-code-title">随机取一张 · 浏览器控制台</span>
+            <button class="about-api-copybtn" type="button" data-copy-snippet="api-snippet">复制代码</button>
+          </div>
+          <p class="about-api-copy-status" role="status" aria-live="polite"></p>
+          <pre><code id="api-snippet">(async () => {
+  const res = await fetch(
+    'https://fisharchive.cc' +
+    '/stickers/index.json'
+  );
+  if (!res.ok) throw new Error(`请求失败: ${res.status}`);
+  const { stickers } = await res.json();
+  if (!stickers.length) throw new Error('清单为空');
+  const pick = stickers[Math.floor(
+    Math.random() * stickers.length
+  )];
+  const img = document.createElement('img');
+  img.src = pick.large; // original 为原图
+  img.alt = pick.alt;
+  document.body.append(img);
+})();</code></pre>
+          <p class="about-api-note">
+            可按需下载到本地并缓存清单，请勿高频抓取。角色二次设计遵循 CC BY-NC-SA 4.0；单张作品权利归各自创作者，请核实授权、保留出处和署名，不得商用。
+          </p>
+        </div>
+      </section>
+
       <div class="about-layout">
         <div class="about-main">
           <section class="about-card" data-reveal>
@@ -257,6 +314,7 @@
               <a href="https://github.com/EDMOK/blue-fish-archive" target="_blank" rel="noreferrer">GitHub</a>
             </p>
           </section>
+
         </div>
 
         <aside class="about-side">
@@ -270,9 +328,9 @@
             <p class="about-status" data-copy-status role="status" aria-live="polite"></p>
             <button class="about-qr" type="button" data-open-qr aria-label="查看 QQ 群二维码大图">
               <picture>
-                <source srcset="QRcode.png" type="image/webp" />
+                <source srcset="assets/qq-group-qr.webp" type="image/webp" />
                 <img
-                  src="QRcode.png"
+                  src="assets/qq-group-qr.png"
                   alt="QQ 群二维码，群号 1041665197"
                   width="583"
                   height="558"
@@ -296,7 +354,7 @@
         </picture>
         <span>蓝色大肥鱼档案馆</span>
       </span>
-      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/characters">角色立绘</a></p>
+      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/characters">角色立绘</a> · <a href="/manual">万事屋</a> · <a href="/about#api">开放数据</a></p>
       <a href="#top" aria-label="回到顶部">↑</a>
     </footer>
 
@@ -309,8 +367,8 @@
         <p class="qr-modal-note">扫码进群，投稿、交流或反馈问题都可以。</p>
         <span class="qr-modal-code">
           <picture>
-            <source srcset="QRcode.png" type="image/webp" />
-            <img src="QRcode.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
+            <source data-srcset="assets/qq-group-qr.webp" type="image/webp" />
+            <img data-src="assets/qq-group-qr.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
           </picture>
         </span>
         <div class="qr-modal-row">
@@ -321,7 +379,7 @@
       </div>
     </div>
 
-    <script src="qr-modal.js?v=20261002" defer></script>
-    <script src="about.js?v=20261002" defer></script>
+    <script src="qr-modal.js?v=20261103a" defer></script>
+    <script src="about.js?v=20261105b" defer></script>
   </body>
 </html>
