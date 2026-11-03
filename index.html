@@ -39,11 +39,16 @@
     <link rel="icon" type="image/png" href="logo/favicon.png" />
     <link rel="apple-touch-icon" href="logo/favicon.png" />
     <meta name="msapplication-TileImage" content="logo/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=20261028" />
+    <!-- 首屏 LCP 是 hero 的水彩纸背景（由 hero-art.css 引用）。CSS 里的 url() 要等样式表解析完才被发现，
+         这里提前声明，避免在慢网络上白屏等 CSS。 -->
+    <link rel="preload" href="art/v1/ocean-paper-background.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="preload" href="assets/deepseek_whale.webp" as="image" type="image/webp" />
+    <link rel="stylesheet" href="styles.css?v=20261105h" />
+    <link rel="stylesheet" href="assets/hero-art.css?v=20261103b" />
     <!-- manifest 由 defer 脚本按需加载，避免 fetch preload 在不同浏览器中因 credentials mode 不一致而重复请求。 -->
+    <link rel="stylesheet" href="assets/navigation.css?v=20261103b" />
   </head>
-  <body>
+  <body class="home-page">
     <div class="grain" aria-hidden="true"></div>
     <div class="bubble bubble-one" aria-hidden="true"></div>
     <div class="bubble bubble-two" aria-hidden="true"></div>
@@ -121,7 +126,7 @@
       <nav class="nav-links" aria-label="主导航">
         <a href="#wall">表情墙</a>
         <a href="/characters">立绘</a>
-        <a href="#archive">来源</a>
+        <a class="is-featured" href="/manual">万事屋</a>
         <a href="/about">关于</a>
       </nav>
       <div class="nav-right">
@@ -169,50 +174,24 @@
 
     <main id="top" class="page-shell">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-stickers" aria-hidden="true">
-          <svg class="hero-sticker sticker-wave" viewBox="0 0 360 150" preserveAspectRatio="none">
-            <path class="sticker-wave-fill" d="M8 76C55 40 95 43 136 72c43 30 81 31 119 0 36-29 67-30 97-5v70H8Z" />
-            <path class="sticker-outline" d="M8 76C55 40 95 43 136 72c43 30 81 31 119 0 36-29 67-30 97-5" />
-            <path class="sticker-wave-line" d="M20 96c39-25 72-24 105 1 39 29 77 28 112 1 35-27 67-29 102-7" />
-            <path class="sticker-wave-line sticker-wave-line-light" d="M38 119c31-18 58-17 85 3 31 23 62 22 92 1 29-20 55-22 83-8" />
-          </svg>
-          <svg class="hero-sticker sticker-bow" viewBox="0 0 130 100">
-            <path class="sticker-bow-wing" d="M62 48C43 16 16 12 10 25c-6 14 13 34 48 35Z" />
-            <path class="sticker-bow-wing sticker-bow-wing-right" d="M68 48c19-32 46-36 52-23 6 14-13 34-48 35Z" />
-            <circle class="sticker-bow-knot" cx="65" cy="51" r="14" />
-            <path class="sticker-bow-tail" d="M57 62 42 91l23-16 23 16-15-29" />
-          </svg>
-          <svg class="hero-sticker sticker-chip" viewBox="0 0 130 130">
-            <rect class="sticker-chip-body" x="24" y="24" width="82" height="82" rx="18" />
-            <rect class="sticker-chip-core" x="43" y="43" width="44" height="44" rx="10" />
-            <path class="sticker-chip-circuit" d="M52 57h11l7-7M78 73H66l-8 8M50 74h7M74 56h7M24 49H9M24 68H5M24 87H12M106 49h15M106 68h19M106 87h12M49 24V9M68 24V5M87 24v10M49 106v15M68 106v19M87 106v-10" />
-            <circle class="sticker-chip-light" cx="65" cy="65" r="6" />
-          </svg>
-          <svg class="hero-sticker sticker-scan" viewBox="0 0 180 100">
-            <path class="sticker-scan-line" d="M18 18h35M18 18v27M162 18h-35M162 18v27M18 82h35M18 82V55M162 82h-35M162 82V55" />
-            <path class="sticker-scan-beam" d="M42 50h96" />
-            <circle class="sticker-scan-dot" cx="84" cy="50" r="5" />
-            <circle class="sticker-scan-dot sticker-scan-dot-two" cx="104" cy="50" r="3" />
-          </svg>
-          <svg class="hero-sticker sticker-apron" viewBox="0 0 150 170">
-            <path class="sticker-apron-shape" d="M54 18c5 13 37 13 42 0l14 18 20 11-17 20-4 83H41l-4-83-17-20 20-11Z" />
-            <path class="sticker-apron-line" d="M55 18c-2 19-5 35-12 49m52-49c2 19 5 35 12 49M42 117c20 8 46 8 66 0" />
-            <path class="sticker-apron-lace" d="M42 137h66M43 145h64M45 153h60" />
-            <circle class="sticker-apron-dot" cx="75" cy="77" r="5" />
-          </svg>
-          <svg class="hero-sticker sticker-shell" viewBox="0 0 130 130">
-            <path class="sticker-shell-shape" d="M65 112C33 112 12 94 12 67 12 38 36 15 65 15s53 23 53 52c0 27-21 45-53 45Z" />
-            <path class="sticker-shell-line" d="M65 111V17M37 101c9-18 13-40 12-70M93 101c-9-18-13-40-12-70M20 69c27-15 63-15 90 0" />
-          </svg>
-        </div>
         <div class="hero-copy" data-reveal>
           <p class="hero-kicker">鲸鱼娘 DEEPSEEK</p>
           <h1 id="hero-title">蓝色大肥鱼<br /><span>档案馆</span></h1>
-          <p class="hero-lede">同人表情收藏</p>
-          <a class="hero-cta" href="#wall">
-            <span>进入表情墙</span>
-            <span class="cta-arrow" aria-hidden="true">↘</span>
-          </a>
+          <p class="hero-lede">同人表情收藏 · 原图不降质</p>
+          <div class="hero-actions">
+            <a class="hero-cta" href="#wall">
+              <span>进入表情墙</span>
+              <span class="cta-arrow" aria-hidden="true">↘</span>
+            </a>
+            <button class="hero-random" type="button" id="hero-random" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 7h3l10 10h3M4 17h3l10-10h3" />
+                <path d="m17 4 3 3-3 3M17 14l3 3-3 3" />
+              </svg>
+              <span>随机翻一张</span>
+            </button>
+          </div>
+          <ul class="hero-tags" id="hero-tags" aria-label="常用标签" hidden></ul>
         </div>
 
         <div class="hero-art-area" data-reveal data-delay="120">
@@ -241,70 +220,181 @@
             </div>
           </div>
           <span class="art-note">鲸鱼娘</span>
+          <img
+            class="hero-chibi"
+            src="art/v1/deepseek-chibi-hug.webp"
+            srcset="art/v1/deepseek-chibi-hug-360.webp 360w, art/v1/deepseek-chibi-hug.webp 640w"
+            sizes="(max-width: 700px) 108px, (max-width: 1060px) 132px, 174px"
+            width="640"
+            height="585"
+            alt=""
+            aria-hidden="true"
+            fetchpriority="low"
+            decoding="async"
+          />
         </div>
 
-        <aside class="source-panel" data-reveal data-delay="220" id="archive">
-          <h2>来源</h2>
-          <div class="source-list">
-            <a
-              class="source-card"
-              href="https://space.bilibili.com/4456176"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span class="source-icon" aria-hidden="true">↗</span>
-              <span class="source-body">
-                <strong>鲸鱼娘角色形象原作</strong>
-                <small>上善无形 · Bilibili</small>
-              </span>
-            </a>
-            <a
-              class="source-card"
-              href="https://space.bilibili.com/4168597"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span class="source-icon" aria-hidden="true">↗</span>
-              <span class="source-body">
-                <strong>DeepSeek 元素二次设计</strong>
-                <small>ZipZipPipe · Bilibili</small>
-              </span>
-            </a>
+        <!-- 档案卡：把收录数量、规格、来源和授权收进一张卡，避免右侧散成几张白卡片 -->
+        <aside class="source-panel archive-panel" data-reveal data-delay="220" id="archive" aria-labelledby="archive-title">
+          <span class="archive-tape" aria-hidden="true"></span>
+          <div class="archive-head">
+            <h2 id="archive-title">档案卡</h2>
+            <span class="archive-stamp" aria-hidden="true">NO.001</span>
           </div>
-          <p class="license-note">CC BY-NC-SA 4.0<br />非商业使用 / 二创同协议授权</p>
+          <dl class="archive-specs">
+            <div>
+              <dt>已收录</dt>
+              <dd><b data-hero-count>—</b> 枚</dd>
+            </div>
+            <div>
+              <dt>角色</dt>
+              <dd><b>8</b> 位</dd>
+            </div>
+            <div>
+              <dt>原图格式</dt>
+              <dd>PNG · GIF · WebP</dd>
+            </div>
+            <div>
+              <dt>授权</dt>
+              <dd>CC BY-NC-SA 4.0</dd>
+            </div>
+          </dl>
+          <div class="archive-sources">
+            <p class="archive-label">来源</p>
+            <div class="source-list">
+              <a
+                class="source-card"
+                href="https://space.bilibili.com/4456176"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span class="source-icon" aria-hidden="true">↗</span>
+                <span class="source-body">
+                  <strong>鲸鱼娘角色形象原作</strong>
+                  <small>上善无形 · Bilibili</small>
+                </span>
+              </a>
+              <a
+                class="source-card"
+                href="https://space.bilibili.com/4168597"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span class="source-icon" aria-hidden="true">↗</span>
+                <span class="source-body">
+                  <strong>DeepSeek 元素二次设计</strong>
+                  <small>ZipZipPipe · Bilibili</small>
+                </span>
+              </a>
+            </div>
+          </div>
+          <p class="license-note">非商业使用 / 二创同协议授权</p>
         </aside>
       </section>
 
-      <!-- 同人小游戏的宣传位：跑在 game.fisharchive.cc，和表情墙并列但更靠近首屏 -->
-      <section class="notice" data-reveal aria-labelledby="notice-title">
-        <span class="notice-badge" aria-hidden="true">新作</span>
-        <div class="notice-body">
-          <strong id="notice-title">同人跑酷小游戏</strong>
-          <p>社区同人制作的鲸鱼娘跑酷小游戏，欢迎试玩。</p>
-        </div>
+      <!-- 两个入口并排：游戏与万事屋各占一张大卡，图鉴横跨一行。
+           整张卡就是链接，点击面积更实在；万事屋卡用米色方格纸区分教程内容。 -->
+      <nav class="entry-hub" aria-label="更多内容">
         <a
-          class="notice-cta"
+          class="entry-card entry-card-feature"
           href="https://game.fisharchive.cc/"
           target="_blank"
           rel="noreferrer"
+          data-reveal
         >
-          <span>去玩一局</span>
-          <span aria-hidden="true">↗</span>
+          <svg class="entry-wave" viewBox="0 0 320 140" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0 78c42-34 82-31 120 0 40 32 80 32 118 0 30-25 58-27 82-8v70H0Z" fill="rgba(241, 199, 197, 0.26)" />
+            <path d="M0 100c38-26 71-24 103 1 38 29 76 27 111 0 33-25 63-27 94-7" fill="none" stroke="rgba(241, 199, 197, 0.55)" stroke-linecap="round" stroke-width="3" />
+            <path d="M18 120c31-18 58-17 85 3 31 23 62 22 92 1 27-19 52-21 79-8" fill="none" stroke="rgba(96, 122, 169, 0.3)" stroke-linecap="round" stroke-width="3" />
+          </svg>
+          <span class="tape entry-tape" aria-hidden="true"></span>
+          <span class="entry-head">
+            <span class="entry-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48">
+                <path d="M14.5 16h19c5 0 8.8 4.3 7.7 9.2l-2.2 10c-.8 3.6-5.3 4.6-7.6 1.8l-3.6-4.4c-1.8-2.2-5.7-2.2-7.5 0l-3.6 4.4c-2.3 2.8-6.8 1.8-7.6-1.8l-2.2-10C5.7 20.3 9.5 16 14.5 16Z" />
+                <path d="M16 21.5v6M13 24.5h6" />
+                <circle class="entry-icon-fill" cx="31.8" cy="22.6" r="1.6" />
+                <circle class="entry-icon-fill" cx="35.6" cy="26.8" r="1.6" />
+              </svg>
+            </span>
+            <span class="entry-badge">新作</span>
+          </span>
+          <span class="entry-body">
+            <strong class="entry-title">同人跑酷小游戏</strong>
+            <span class="entry-desc">社区同人制作的鲸鱼娘跑酷小游戏，欢迎试玩。</span>
+          </span>
+          <span class="entry-cta">
+            <span>去玩一局</span>
+            <span class="entry-cta-arrow" aria-hidden="true">↗</span>
+          </span>
         </a>
-      </section>
 
-      <!-- 立绘参考入口：只放文字，不在首页加载 16 张大图 -->
-      <section class="notice character-notice" data-reveal aria-labelledby="character-notice-title">
-        <span class="notice-badge" aria-hidden="true">图鉴</span>
-        <div class="notice-body">
-          <strong id="character-notice-title">角色立绘参考</strong>
-          <p>8 个 AI 拟人角色的全身与 Q 版立绘，高清 WebP，供二创取用。</p>
-        </div>
-        <a class="notice-cta" href="/characters">
-          <span>翻开图鉴</span>
-          <span aria-hidden="true">↗</span>
+        <a
+          class="entry-card entry-card-feature entry-card-manual"
+          href="/manual"
+          data-reveal
+        >
+          <span class="tape entry-tape entry-tape-gold" aria-hidden="true"></span>
+          <span class="entry-head">
+            <span class="entry-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48">
+                <path d="M24 15.4C20.6 12.9 15.8 12 11.4 13v22c4.4-1 9.2-.1 12.6 2.4 3.4-2.5 8.2-3.4 12.6-2.4V13c-4.4-1-9.2-.1-12.6 2.4Z" />
+                <path d="M24 15.4v22" />
+                <path d="M15.5 19.2c2.2-.2 4.1.1 5.6.8M15.5 24c2.2-.2 4.1.1 5.6.8" />
+                <path class="entry-icon-fill" d="M35.8 5.4l1.3 3.4 3.4 1.3-3.4 1.3-1.3 3.4-1.3-3.4-3.4-1.3 3.4-1.3Z" opacity=".7" />
+              </svg>
+            </span>
+            <span class="entry-badge entry-badge-gold">教程</span>
+          </span>
+          <span class="entry-body">
+            <strong class="entry-title">肥鱼万事屋</strong>
+            <span class="entry-desc">免费分享 DSH 养鱼的经验、教程和乐趣：从群接话到语音唱歌，步骤都实测过，附报错表与上线检查清单。</span>
+            <span class="entry-chips" aria-hidden="true">
+              <span>搭建教程</span>
+              <span>语音 / 唱歌</span>
+              <span>排错清单</span>
+              <span>免费</span>
+            </span>
+          </span>
+          <span class="entry-cta">
+            <span>进屋看看</span>
+            <span class="entry-cta-arrow" aria-hidden="true">↗</span>
+          </span>
         </a>
-      </section>
+
+        <a
+          class="entry-card entry-card-compact entry-card-mist entry-card-wide"
+          href="/characters"
+          data-reveal
+        >
+          <span class="entry-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48">
+              <rect x="9.5" y="10" width="29" height="30" rx="4.5" />
+              <circle cx="24" cy="21.5" r="4.6" />
+              <path d="M15.5 34.6c1.5-4.4 4.7-6.8 8.5-6.8s7 2.4 8.5 6.8" />
+              <path class="entry-icon-fill" d="M38.2 4.6l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9Z" opacity=".65" />
+            </svg>
+          </span>
+          <span class="entry-body">
+            <span class="entry-badge">图鉴</span>
+            <strong class="entry-title">角色立绘参考</strong>
+            <span class="entry-desc">8 个 AI 拟人角色的全身与 Q 版立绘，高清 WebP，供二创取用。</span>
+          </span>
+          <span class="entry-arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a class="entry-card entry-card-compact entry-card-mist entry-card-wide" href="/about#api" data-reveal>
+          <span class="entry-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="m18 14-10 10 10 10M30 14l10 10-10 10M27 10l-6 28" /></svg>
+          </span>
+          <span class="entry-body">
+            <span class="entry-badge">开放数据</span>
+            <strong class="entry-title">把表情库接入你的项目</strong>
+            <span class="entry-desc">公开 JSON 清单、跨域读取和随机表情示例，适用于网页与机器人。</span>
+          </span>
+          <span class="entry-arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
 
       <section class="wall-section" id="wall" aria-labelledby="wall-title">
         <div class="wall-divider" aria-hidden="true">
@@ -372,7 +462,7 @@
         </picture>
         <span>蓝色大肥鱼档案馆</span>
       </span>
-      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/characters">角色立绘</a> · <a href="/about">关于本站</a></p>
+      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/characters">角色立绘</a> · <a href="/manual">万事屋</a> · <a href="/about#api">开放数据</a> · <a href="/about">关于本站</a></p>
       <a href="#top" aria-label="回到顶部">↑</a>
     </footer>
 
@@ -419,8 +509,12 @@
       <span class="mascot-sticker" aria-hidden="true">
         <span class="mascot-body">
           <picture>
-            <source srcset="memes/120302wg44ju245iDQ38xu.webp" type="image/webp" />
-            <img src="memes/120302wg44ju245iDQ38xu.png" alt="" draggable="false" />
+            <source
+              srcset="memes/120302wg44ju245iDQ38xu-480.webp 480w, memes/120302wg44ju245iDQ38xu.webp 1080w"
+              sizes="(max-width: 733px) 88px, (max-width: 1183px) 12vw, 142px"
+              type="image/webp"
+            />
+            <img src="memes/120302wg44ju245iDQ38xu.png" alt="" width="480" height="480" draggable="false" />
           </picture>
         </span>
       </span>
@@ -436,8 +530,8 @@
         <p class="qr-modal-note">扫码进群，投稿、交流或反馈问题都可以。</p>
         <span class="qr-modal-code">
           <picture>
-            <source srcset="QRcode.png" type="image/webp" />
-            <img src="QRcode.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
+            <source data-srcset="assets/qq-group-qr.webp" type="image/webp" />
+            <img data-src="assets/qq-group-qr.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
           </picture>
         </span>
         <div class="qr-modal-row">
@@ -448,7 +542,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=20261020" defer></script>
-    <script src="qr-modal.js?v=20261002" defer></script>
+    <script src="app.js?v=20261104" defer></script>
+    <script src="qr-modal.js?v=20261103a" defer></script>
   </body>
 </html>

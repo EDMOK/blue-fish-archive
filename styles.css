@@ -686,39 +686,56 @@ button {
 .nav-right {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
+/* 三级层次：社交图标最轻 → 入群按钮次级 → 「去看看」是唯一实心主按钮。
+   社交图标只留细描边圆圈，不和右侧两个胶囊抢注意力。 */
 .nav-social {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
+  padding-right: 14px;
 }
 
-/* 两个社交图标做成品牌色小贴纸:白底时用品牌色线条,悬停整块翻成品牌色 */
+/* 一条极淡的竖线，把图标组和两个行动按钮分成两组 */
+.nav-social::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 1px;
+  height: 22px;
+  content: '';
+  background: rgba(96, 122, 169, 0.28);
+  transform: translateY(-50%);
+}
+
+/* 默认就是品牌色实心圆章、白色图标：一眼认得出是 B 站和 GitHub。
+   体量比右侧两个胶囊小一档，所以依旧排在主按钮之后。 */
 .nav-social-link {
   --link-brand: var(--deep);
+  --link-brand-hover: #16223c;
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   place-items: center;
-  color: var(--link-brand);
-  background: var(--white);
-  border: 3px solid var(--white);
-  border-radius: 10px 13px 9px 12px;
-  box-shadow: 3px 4px 0 var(--sticker-shadow);
-  transition: color 300ms var(--ease), background 300ms var(--ease), transform 300ms var(--ease), box-shadow 300ms var(--ease);
+  color: var(--white);
+  background: var(--link-brand);
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  box-shadow: 0 3px 8px color-mix(in srgb, var(--link-brand) 34%, transparent);
+  transition: background 220ms var(--ease), transform 220ms var(--ease), box-shadow 220ms var(--ease);
 }
 
-/* 哔哩哔哩粉,压深一点保证白底上看得清 */
 .nav-social-link:first-child {
-  --link-brand: #ea5c8c;
-  transform: rotate(-5deg);
+  --link-brand: #e2517f;
+  --link-brand-hover: #c93e6b;
 }
 
 .nav-social-link:last-child {
   --link-brand: #24292f;
-  transform: rotate(5deg);
+  --link-brand-hover: #101418;
 }
 
 .nav-social-link svg {
@@ -728,8 +745,8 @@ button {
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.9;
-  transition: transform 380ms var(--ease);
+  stroke-width: 2;
+  transition: transform 300ms var(--ease);
 }
 
 .nav-social-link:last-child svg {
@@ -738,19 +755,23 @@ button {
 }
 
 .nav-social-link:hover {
-  color: var(--white);
-  background: var(--link-brand);
-  box-shadow: 1px 2px 0 var(--sticker-shadow);
-  transform: translate(2px, 2px) rotate(0deg) scale(1.03);
+  background: var(--link-brand-hover);
+  box-shadow: 0 7px 16px color-mix(in srgb, var(--link-brand) 42%, transparent);
+  transform: translateY(-3px);
 }
 
 .nav-social-link:hover svg {
-  transform: rotate(-7deg) scale(1.06);
+  transform: scale(1.12);
+}
+
+.nav-social-link:active {
+  box-shadow: none;
+  transform: translateY(0) scale(0.95);
 }
 
 .nav-social-link:focus-visible {
-  outline: 4px solid var(--coral);
-  outline-offset: 4px;
+  outline: 3px solid var(--coral);
+  outline-offset: 2px;
 }
 
 .site-footer a {
@@ -763,45 +784,66 @@ button {
   transform: translateY(-2px);
 }
 
+/* 唯一的主按钮：最深、最高、投影最实，视线先落在这里。
+   右侧白色圆钮里放箭头，悬停翻成珊瑚粉，和入群按钮的粉色互相呼应。 */
 .nav-action {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 9px 8px 16px;
+  min-height: 46px;
+  padding: 4px 4px 4px 20px;
   color: var(--white);
-  background: var(--deep);
-  border: 3px solid var(--white);
+  background: linear-gradient(140deg, #33496f, #16223c);
+  border: 1px solid rgba(12, 22, 42, 0.55);
   border-radius: 999px;
-  box-shadow: 4px 5px 0 var(--sticker-shadow);
-  font-size: 11px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 3px 0 #101b31,
+    0 14px 26px rgba(20, 32, 60, 0.22);
+  font-size: 14px;
   font-weight: 800;
-  transition: transform 300ms var(--ease), box-shadow 300ms var(--ease), background 300ms var(--ease);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  transition: transform 260ms var(--ease), box-shadow 260ms var(--ease), background 260ms var(--ease);
 }
 
 .nav-action span:last-child {
   display: grid;
-  width: 25px;
-  height: 25px;
+  width: 36px;
+  height: 36px;
   place-items: center;
   color: var(--deep);
-  background: var(--mist);
+  background: var(--white);
   border-radius: 50%;
+  box-shadow: inset 0 -2px 0 rgba(24, 37, 68, 0.12);
   font-size: 15px;
-  transition: transform 300ms var(--ease), background 300ms var(--ease);
+  font-weight: 800;
+  transition: transform 300ms var(--ease), background 300ms var(--ease), color 300ms var(--ease);
 }
 
 .nav-action:hover {
-  background: var(--blue);
-  box-shadow: 2px 3px 0 var(--sticker-shadow);
-  transform: translate(2px, 2px);
+  background: linear-gradient(140deg, #3b5480, #1d2c4c);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 3px 0 #101b31,
+    0 18px 30px rgba(20, 32, 60, 0.28);
+  transform: translateY(-2px);
 }
 
 .nav-action:hover span:last-child {
-  background: var(--white);
-  transform: translateY(2px);
+  color: var(--deep);
+  background: var(--coral);
+  transform: rotate(-6deg) scale(1.05);
 }
 
-.nav-action:active,
+.nav-action:active {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 0 #101b31,
+    0 8px 16px rgba(20, 32, 60, 0.2);
+  transform: translateY(1px) scale(0.99);
+}
+
 .hero-cta:active,
 .source-card:active,
 .sticker-card:active,
@@ -2675,23 +2717,29 @@ h1 span::after {
 
   .nav-social {
     gap: 4px;
+    padding-right: 9px;
   }
 
   .nav-social-link {
-    width: 28px;
-    height: 28px;
-    border-width: 2px;
-    box-shadow: 2px 3px 0 var(--sticker-shadow);
+    width: 33px;
+    height: 33px;
   }
 
   .nav-social-link svg {
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
   }
 
   .nav-action {
-    padding-left: 13px;
-    font-size: 10px;
+    min-height: 42px;
+    padding: 3px 3px 3px 14px;
+    font-size: 12px;
+  }
+
+  .nav-action span:last-child {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
   }
 
   .hero {
@@ -3125,12 +3173,12 @@ h1 {
   font-weight: 700;
 }
 
-.nav-links, .hero-cta, .nav-action {
+.nav-links, .hero-cta {
   font-size: 14px;
   font-weight: 600;
 }
 
-.hero-cta, .nav-action {
+.hero-cta {
   min-height: 44px;
 }
 
@@ -3743,7 +3791,7 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
     font-size: 12px;
   }
   .nav-action {
-    font-size: 13px;
+    font-size: 12px;
   }
   .sticker-grid {
     column-gap: 12px;
@@ -3902,119 +3950,397 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
   padding: 24px 0 130px;
 }
 
-/* 导航里的入群按钮：珊瑚粉按站点强调色，和深蓝的「去看看」区分开 */
+/* 次级动作：白底 + 珊瑚粉细边，比主按钮轻一档；
+   左侧圆形图标底片用珊瑚粉，把入群这件事单独标出来。 */
 .nav-join {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  min-height: 44px;
-  padding: 0 14px 0 13px;
+  min-height: 46px;
+  padding: 4px 18px 4px 4px;
   color: var(--deep);
-  background: var(--coral);
-  border: 3px solid var(--white);
+  background: linear-gradient(160deg, #fffaf9, #fdf0ef);
+  border: 1px solid rgba(214, 138, 133, 0.42);
   border-radius: 999px;
-  box-shadow: 4px 5px 0 var(--sticker-shadow);
-  font-size: 14px;
-  font-weight: 600;
+  box-shadow: 0 2px 0 rgba(214, 138, 133, 0.18), 0 8px 16px rgba(32, 45, 82, 0.06);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
   white-space: nowrap;
-  transition: transform 300ms var(--ease), box-shadow 300ms var(--ease), background 300ms var(--ease);
+  transition: transform 240ms var(--ease), box-shadow 240ms var(--ease), background 240ms var(--ease), border-color 240ms var(--ease);
 }
 
 .nav-join svg {
-  width: 17px;
-  height: 17px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
   flex: 0 0 auto;
+  padding: 10px;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.9;
-  transition: transform 380ms var(--ease);
+  background: var(--coral);
+  border-radius: 50%;
+  transition: transform 320ms var(--ease), background 240ms var(--ease);
 }
 
 .nav-join:hover {
-  background: #eab4b1;
-  box-shadow: 2px 3px 0 var(--sticker-shadow);
-  transform: translate(2px, 2px);
+  background: var(--white);
+  border-color: rgba(214, 138, 133, 0.78);
+  box-shadow: 0 2px 0 rgba(214, 138, 133, 0.28), 0 12px 22px rgba(32, 45, 82, 0.09);
+  transform: translateY(-2px);
 }
 
 .nav-join:hover svg {
-  transform: rotate(-6deg) scale(1.06);
+  transform: rotate(-8deg) scale(1.06);
 }
 
 .nav-join:active {
-  transform: translate(3px, 3px);
-  box-shadow: 1px 2px 0 var(--sticker-shadow);
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 rgba(214, 138, 133, 0.24), 0 4px 10px rgba(32, 45, 82, 0.06);
 }
 
-/* 同人小游戏的宣传条：走廊式窄卡，珊瑚粉描边与入群按钮呼应，
-   位置在首屏与表情墙之间，扫一眼就能看见但不打断浏览。 */
-.notice {
+/* 首页入口组合：游戏与手册并排各占一张大卡，图鉴横跨一行。
+   整张卡就是一个链接，点击面积也更实在。 */
+.entry-hub {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  /* 和表情墙顶部的虚线分隔线拉开距离，否则两条线会粘在一起 */
+  margin-bottom: 38px;
+}
+
+.entry-card-wide {
+  grid-column: 1 / -1;
+}
+
+.entry-card {
+  position: relative;
+  isolation: isolate;
+  color: var(--deep);
+  background: var(--white);
+  border: 1px solid rgba(96, 122, 169, 0.16);
+  border-radius: 20px;
+  box-shadow: 5px 6px 0 rgba(32, 45, 82, 0.12), 0 18px 32px rgba(32, 45, 82, 0.06);
+  /* 带上 opacity，data-reveal 的入场淡入才不会被这条 transition 覆盖掉 */
+  transition: opacity 620ms var(--ease), transform 280ms var(--ease), box-shadow 280ms var(--ease), border-color 280ms var(--ease);
+}
+
+.entry-card:hover {
+  border-color: rgba(96, 122, 169, 0.32);
+  box-shadow: 3px 4px 0 rgba(32, 45, 82, 0.14), 0 12px 24px rgba(32, 45, 82, 0.07);
+  transform: translate(2px, 2px);
+}
+
+.entry-card:active {
+  box-shadow: 2px 2px 0 rgba(32, 45, 82, 0.12), 0 8px 16px rgba(32, 45, 82, 0.05);
+  transform: translate(3px, 3px);
+}
+
+.entry-card:focus-visible {
+  outline: 3px solid #607aa9;
+  outline-offset: 4px;
+}
+
+/* ---------- 新作大卡 ---------- */
+
+.entry-card-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 238px;
+  padding: 24px 26px;
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(241, 199, 197, 0.5), transparent 58%),
+    linear-gradient(150deg, #fff9f8, var(--white) 62%);
+  border-color: rgba(241, 199, 197, 0.8);
+}
+
+.entry-card-feature:hover {
+  border-color: rgba(241, 199, 197, 0.98);
+}
+
+/* 右下角探出的海浪，呼应站点水线。左侧用渐隐遮罩淡出，
+   避免波浪路径起始处露出一条竖直硬边；圆角单独裁，和卡片内缘对齐。 */
+.entry-wave {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  width: min(64%, 340px);
+  height: 74%;
+  overflow: hidden;
+  border-radius: 0 0 19px 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 46%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 46%);
+}
+
+.entry-tape {
+  top: -14px;
+  right: 34px;
+  width: 92px;
+  height: 24px;
+  transform: rotate(5deg);
+}
+
+.entry-head {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
-  gap: 16px;
-  /* 和表情墙顶部的虚线分隔线拉开距离，否则两条线会粘在一起 */
-  margin-bottom: 30px;
-  padding: 15px 18px;
-  background: linear-gradient(120deg, #fdf6f6, var(--white) 62%);
-  border: 1px solid rgba(241, 199, 197, 0.62);
-  border-radius: 16px;
-  box-shadow: 0 3px 10px rgba(32, 45, 82, 0.045);
+  gap: 12px;
 }
 
-.notice-badge {
+.entry-icon {
+  display: grid;
   flex: 0 0 auto;
-  padding: 5px 10px;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  color: var(--deep);
+  background: var(--coral);
+  border-radius: 16px 19px 15px 18px;
+  box-shadow: 3px 4px 0 rgba(24, 37, 68, 0.16);
+  transition: transform 320ms var(--ease), background 320ms var(--ease);
+}
+
+.entry-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+}
+
+.entry-icon svg .entry-icon-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.entry-card:hover .entry-icon {
+  transform: rotate(-5deg) scale(1.05);
+}
+
+.entry-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 11px;
   color: var(--deep);
   background: var(--coral);
   border-radius: 999px;
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: 0.1em;
 }
 
-.notice-body {
+.entry-body {
+  position: relative;
+  z-index: 1;
   display: grid;
-  gap: 3px;
+  gap: 7px;
   min-width: 0;
-  margin-right: auto;
 }
 
-.notice-body strong {
+.entry-title {
   color: var(--deep);
-  font-size: 15px;
-  font-weight: 600;
+  font-family: var(--round);
+  font-weight: 900;
+  line-height: 1.35;
 }
 
-.notice-body p {
-  margin: 0;
+.entry-card-feature .entry-title {
+  font-size: clamp(1.45rem, 2vw, 1.8rem);
+  letter-spacing: -0.01em;
+}
+
+.entry-desc {
   color: var(--muted);
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.75;
+  text-wrap: pretty;
 }
 
-.notice-cta {
+.entry-cta {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
-  flex: 0 0 auto;
   align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 0 16px;
+  align-self: flex-start;
+  gap: 10px;
+  min-height: 46px;
+  margin-top: auto;
+  padding: 0 20px;
   color: var(--white);
-  background: #344f7d;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #3a5684, #26395f);
+  border-radius: 999px;
+  box-shadow: 4px 5px 0 rgba(24, 37, 68, 0.2);
   font-size: 14px;
-  font-weight: 600;
-  white-space: nowrap;
-  transition: background 160ms ease, transform 160ms ease;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: background 240ms ease, box-shadow 240ms var(--ease);
 }
 
-.notice-cta:hover {
-  background: #293f65;
+.entry-card:hover .entry-cta {
+  background: linear-gradient(135deg, #2f4976, #1f3054);
+  box-shadow: 3px 4px 0 rgba(24, 37, 68, 0.22);
 }
 
-.notice-cta:active {
-  transform: scale(.98);
+.entry-cta-arrow {
+  font-size: 15px;
+  transition: transform 240ms var(--ease);
+}
+
+.entry-card:hover .entry-cta-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- 图鉴 / 手册窄卡 ---------- */
+
+.entry-card-compact {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 15px;
+  align-items: center;
+  padding: 16px 18px;
+}
+
+.entry-card-mist {
+  background: linear-gradient(120deg, #f1f6fc, var(--white) 68%);
+  border-color: rgba(96, 122, 169, 0.24);
+}
+
+/* 手册大卡：米色方格纸 + 左侧装订虚线，和游戏的粉色大卡区分开 */
+.entry-card-manual {
+  background:
+    linear-gradient(rgba(185, 154, 103, 0.1) 1px, transparent 1px) 0 0 / 100% 26px,
+    linear-gradient(90deg, rgba(185, 154, 103, 0.1) 1px, transparent 1px) 0 0 / 26px 100%,
+    linear-gradient(150deg, #fdf8ee, var(--white) 66%);
+  border-color: rgba(185, 154, 103, 0.42);
+}
+
+.entry-card-manual:hover {
+  border-color: rgba(185, 154, 103, 0.72);
+}
+
+.entry-card-manual::before {
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  left: 12px;
+  z-index: 0;
+  content: "";
+  border-left: 2px dashed rgba(185, 154, 103, 0.38);
+}
+
+.entry-tape-gold {
+  background-color: rgba(226, 205, 167, 0.92);
+}
+
+.entry-card-compact .entry-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px 17px 13px 16px;
+}
+
+.entry-card-compact .entry-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.entry-card-mist .entry-icon {
+  background: var(--mist);
+}
+
+.entry-card-manual .entry-icon {
+  color: #7a6134;
+  background: #f1e6d2;
+}
+
+.entry-card-compact .entry-badge {
+  justify-self: start;
+  min-height: 20px;
+  padding: 0 9px;
+  font-size: 10px;
+}
+
+.entry-card-mist .entry-badge {
+  color: #3d557f;
+  background: var(--mist);
+}
+
+.entry-badge-gold {
+  color: #7a6134;
+  background: #f1e6d2;
+}
+
+.entry-card-compact .entry-body {
+  gap: 4px;
+}
+
+.entry-card-compact .entry-title {
+  font-size: 16px;
+}
+
+.entry-card-compact .entry-desc {
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* 手册大卡的分类小标签，让「里面有什么」一眼可见 */
+.entry-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.entry-chips span {
+  padding: 3px 10px;
+  color: #6d5730;
+  background: rgba(241, 230, 210, 0.8);
+  border: 1px solid rgba(185, 154, 103, 0.3);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.entry-arrow {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: var(--deep);
+  background: var(--white);
+  border: 1px solid rgba(96, 122, 169, 0.22);
+  border-radius: 50%;
+  box-shadow: 2px 3px 0 rgba(24, 37, 68, 0.12);
+  font-size: 15px;
+  transition: color 240ms var(--ease), background 240ms var(--ease), transform 240ms var(--ease), box-shadow 240ms var(--ease);
+}
+
+.entry-card:hover .entry-arrow {
+  color: var(--white);
+  background: var(--deep);
+  box-shadow: 2px 2px 0 rgba(24, 37, 68, 0.16);
+  transform: translateX(3px);
+}
+
+/* 两栏 Bento 在 1180px 以下会把窄卡的说明挤成两三行，
+   改成大卡独占一行、图鉴与手册并排，读完一行再往下扫。 */
+@media (max-width: 1180px) {
+  .entry-hub {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .entry-card-feature {
+    min-height: 0;
+  }
 }
 
 .about-hero {
@@ -4072,26 +4398,63 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
   margin-top: 24px;
 }
 
+/* 和导航主按钮同一套：胶囊 + 顶部内高光 + 硬投影 + 右侧白圆钮 */
 .about-cta {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  min-height: 46px;
-  padding: 0 20px;
+  gap: 12px;
+  min-height: 48px;
+  padding: 5px 5px 5px 22px;
   color: var(--white);
-  background: #344f7d;
-  border-radius: 12px;
+  background: linear-gradient(140deg, #33496f, #16223c);
+  border: 1px solid rgba(12, 22, 42, 0.55);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 3px 0 #101b31,
+    0 14px 26px rgba(20, 32, 60, 0.22);
   font-size: 15px;
-  font-weight: 600;
-  transition: background 180ms ease, transform 180ms ease;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  transition: background 260ms var(--ease), transform 260ms var(--ease), box-shadow 260ms var(--ease);
+}
+
+.about-cta-knob {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  margin-left: 2px;
+  place-items: center;
+  color: var(--deep);
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow: inset 0 -2px 0 rgba(24, 37, 68, 0.12);
+  font-size: 15px;
+  font-weight: 800;
+  transition: transform 300ms var(--ease), background 300ms var(--ease), color 300ms var(--ease);
 }
 
 .about-cta:hover {
-  background: #293f65;
+  background: linear-gradient(140deg, #3b5480, #1d2c4c);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 3px 0 #101b31,
+    0 18px 30px rgba(20, 32, 60, 0.28);
+  transform: translateY(-2px);
+}
+
+.about-cta:hover .about-cta-knob {
+  color: var(--deep);
+  background: var(--coral);
+  transform: rotate(-6deg) scale(1.05);
 }
 
 .about-cta:active {
-  transform: scale(.98);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 0 #101b31,
+    0 8px 16px rgba(20, 32, 60, 0.2);
+  transform: translateY(1px) scale(0.99);
 }
 
 /* 次按钮按住时不抢主按钮的注意力 */
@@ -4099,12 +4462,12 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 46px;
-  padding: 0 18px;
+  min-height: 48px;
+  padding: 0 22px;
   color: #344f7d;
   background: #f2f5fa;
   border: 1px solid #e0e7f0;
-  border-radius: 12px;
+  border-radius: 999px;
   font-size: 15px;
   font-weight: 600;
   transition: background 180ms ease, transform 180ms ease;
@@ -4286,6 +4649,323 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
 
 .about-feature-link:active {
   transform: scale(.98);
+}
+
+/* ---------- 开放数据通栏 ----------
+   不塞进普通卡片：给足通栏宽度和深色代码面板，开发者一眼能认出这是接入入口。 */
+.about-api {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(330px, 0.92fr);
+  align-items: center;
+  gap: clamp(26px, 4vw, 52px);
+  margin-top: 38px;
+  padding: clamp(26px, 3.4vw, 40px);
+  background:
+    radial-gradient(95% 130% at 0% 0%, rgba(223, 232, 245, 0.85), transparent 56%),
+    radial-gradient(80% 120% at 100% 100%, rgba(241, 199, 197, 0.34), transparent 62%),
+    var(--white);
+  border: 1px solid rgba(96, 122, 169, 0.22);
+  border-radius: 22px;
+  box-shadow: 0 18px 40px rgba(32, 45, 82, 0.08);
+  scroll-margin-top: 110px;
+}
+
+/* 沿用站点的胶带贴纸语言，提示这是一块被"贴"上来的公告 */
+.tape-api {
+  top: -13px;
+  left: 38px;
+  width: 104px;
+  height: 24px;
+  transform: rotate(-4deg);
+}
+
+.about-api-copy {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.about-api-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.about-api-eyebrow::before {
+  width: 22px;
+  height: 3px;
+  content: '';
+  background: var(--coral);
+  border-radius: 3px;
+}
+
+.about-api h2 {
+  margin: 0;
+  color: var(--deep);
+  font-family: var(--round);
+  font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.about-api-lede {
+  max-width: 44em;
+  margin: 0;
+  color: #4a5878;
+  font-size: 14.5px;
+  line-height: 1.8;
+}
+
+/* 接口地址做成可点的药丸，GET 用深蓝小标签标出来 */
+.about-api-endpoint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 6px 8px 6px 6px;
+  background: var(--white);
+  border: 1px solid rgba(96, 122, 169, 0.28);
+  border-radius: 11px;
+  box-shadow: 0 3px 10px rgba(32, 45, 82, 0.06);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms var(--ease);
+}
+
+.about-api-endpoint:hover {
+  border-color: rgba(96, 122, 169, 0.5);
+  box-shadow: 0 6px 16px rgba(32, 45, 82, 0.1);
+  transform: translateY(-1px);
+}
+
+.about-api-method {
+  flex: 0 0 auto;
+  padding: 4px 8px;
+  color: var(--white);
+  background: var(--deep);
+  border-radius: 7px;
+  font-family: var(--body);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.about-api-endpoint code {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--deep);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.about-api-open {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 0 4px;
+  color: var(--blue);
+  font-size: 15px;
+}
+
+.about-api-fields {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-api-fields li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.about-api-fields li::before {
+  position: absolute;
+  top: 0.72em;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  content: '';
+  background: var(--mist);
+  border: 1px solid rgba(96, 122, 169, 0.5);
+  border-radius: 50%;
+}
+
+.about-api-fields code,
+.about-api-note code {
+  padding: 1px 6px;
+  color: var(--deep);
+  background: rgba(223, 232, 245, 0.7);
+  border-radius: 5px;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 0.92em;
+  white-space: nowrap;
+}
+
+.about-api-meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.about-api-meta a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.about-api-meta a:hover {
+  color: var(--deep);
+}
+
+/* ---------- 代码面板 ---------- */
+
+.about-api-code {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+  overflow: hidden;
+  background: #16213d;
+  border: 1px solid rgba(24, 37, 68, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 16px 32px rgba(22, 33, 61, 0.28);
+}
+
+.about-api-code-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about-api-dots {
+  display: inline-flex;
+  gap: 5px;
+  flex: 0 0 auto;
+}
+
+.about-api-dots i {
+  width: 9px;
+  height: 9px;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+}
+
+.about-api-dots i:first-child {
+  background: var(--coral);
+}
+
+.about-api-dots i:nth-child(2) {
+  background: var(--mist);
+}
+
+.about-api-code-title {
+  color: rgba(232, 238, 251, 0.66);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.about-api-copybtn {
+  margin-left: auto;
+  padding: 5px 11px;
+  color: #e8eefb;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.about-api-copybtn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.about-api-copybtn.is-copied {
+  color: #16213d;
+  background: var(--coral);
+  border-color: var(--coral);
+}
+
+.about-api-copy-status:empty {
+  display: none;
+}
+
+.about-api-copy-status {
+  margin: 0;
+  padding: 8px 16px 0;
+  color: #e8eefb;
+  font-size: 12px;
+}
+
+.about-api-code pre {
+  margin: 0;
+  padding: 16px 16px 14px;
+  overflow-x: auto;
+  color: #dbe5f7;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  tab-size: 2;
+}
+
+.about-api-code pre code {
+  font: inherit;
+}
+
+.about-api-note {
+  margin: 0;
+  padding: 11px 16px 14px;
+  color: rgba(219, 229, 247, 0.62);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+
+/* 双栏放不下时改成「说明在上、代码在下」，代码面板仍保持完整宽度 */
+@media (max-width: 980px) {
+  .about-api {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .about-api {
+    margin-top: 28px;
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+
+  .tape-api {
+    left: 26px;
+    width: 88px;
+  }
+
+  .about-api-endpoint code {
+    font-size: 11.5px;
+  }
+
+  .about-api-code pre {
+    padding: 14px;
+    font-size: 11.5px;
+  }
 }
 
 .about-layout {
@@ -4736,20 +5416,36 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
   }
 
   .nav-join {
-    padding: 0 12px;
-    font-size: 13px;
+    min-height: 42px;
+    padding: 3px 13px 3px 3px;
+    font-size: 12px;
   }
 
-  /* 窄屏放不下「徽章 + 文案 + 按钮」一行，按钮独占一行更好点 */
-  .notice {
-    flex-wrap: wrap;
-    gap: 12px;
-    padding: 14px;
+  .nav-join svg {
+    width: 14px;
+    height: 14px;
+    padding: 8px;
   }
 
-  .notice-cta {
-    width: 100%;
-    justify-content: center;
+  /* 窄屏下大卡与两张窄卡都改成单列，图标和文字保持同行 */
+  .entry-hub {
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+
+  .entry-card-feature {
+    min-height: 0;
+    padding: 22px 20px;
+  }
+
+  .entry-card-compact {
+    gap: 13px;
+    padding: 15px 16px;
+  }
+
+  .entry-wave {
+    width: 54%;
+    opacity: 0.85;
   }
 }
 
@@ -4759,10 +5455,16 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
    档案卡里；查看器只加载当前这一张大图，翻页时再按需预取相邻角色。
    ========================================================================== */
 
+/* 当前页做成实心贴纸：浅灰底看起来像卡住的悬停态，深蓝底才能一眼看出位置 */
 .nav-links a[aria-current="page"] {
-  color: var(--deep);
-  background: var(--mist);
-  box-shadow: 2px 3px 0 rgba(24, 37, 68, 0.12);
+  color: var(--white);
+  background: var(--deep);
+  box-shadow: 2px 3px 0 rgba(24, 37, 68, 0.22);
+}
+
+.nav-links a[aria-current="page"]:hover {
+  color: var(--white);
+  background: var(--deep);
 }
 
 .characters-shell {
@@ -5290,16 +5992,6 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
 .viewer-tabs button:focus-visible {
   outline: 4px solid var(--coral);
   outline-offset: 3px;
-}
-
-/* 首页的立绘入口：和同人游戏通知同款，但用雾蓝调区分 */
-.character-notice {
-  background: linear-gradient(120deg, #f2f7fc, var(--white) 62%);
-  border-color: rgba(96, 122, 169, 0.22);
-}
-
-.character-notice .notice-badge {
-  background: var(--mist);
 }
 
 /* ---------- 立绘查看器 ---------- */
@@ -5846,5 +6538,309 @@ button:focus-visible, a:focus-visible, .sticker-card:focus-visible, .source-card
   .character-chibi:focus-visible,
   .character-hero-deck:hover .deck-card-front {
     transform: none;
+  }
+}
+
+/* ==========================================================================
+   首页 hero 增强：快捷入口、热门标签、档案卡，以及导航里的手册高亮
+   ========================================================================== */
+
+/* 导航常驻高亮：手册是新板块，需要比普通文字链接更容易被注意到 */
+.nav-links a.is-featured {
+  position: relative;
+  padding: 7px 16px;
+  color: var(--deep);
+  background: var(--coral);
+  border-radius: 999px;
+  box-shadow: 2px 3px 0 rgba(24, 37, 68, 0.22);
+  transform: rotate(-1.5deg);
+  transition: color 300ms var(--ease), background 300ms var(--ease), transform 300ms var(--ease), box-shadow 300ms var(--ease);
+}
+
+.nav-links a.is-featured::after {
+  position: absolute;
+  top: -8px;
+  right: -9px;
+  display: grid;
+  width: 19px;
+  height: 19px;
+  place-items: center;
+  content: "新";
+  color: var(--deep);
+  background: var(--white);
+  border: 2px solid var(--deep);
+  border-radius: 50%;
+  font-family: var(--body);
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1;
+  transform: rotate(6deg);
+}
+
+.nav-links a.is-featured:hover {
+  color: var(--deep);
+  background: #f6bab7;
+  box-shadow: 3px 5px 0 rgba(24, 37, 68, 0.2);
+  transform: rotate(-1.5deg) translateY(-2px);
+}
+
+.nav-links a.is-featured[aria-current="page"] {
+  color: var(--white);
+  background: var(--deep);
+  box-shadow: 2px 3px 0 rgba(24, 37, 68, 0.28);
+}
+
+.nav-links a.is-featured[aria-current="page"]::after {
+  color: var(--white);
+  background: var(--coral);
+  border-color: var(--white);
+}
+
+/* hero 操作区：主按钮 + 随机入口 */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-random {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  color: var(--deep);
+  background: rgba(255, 255, 255, 0.78);
+  border: 3px solid var(--white);
+  border-radius: 12px 17px 13px 16px;
+  box-shadow: 4px 5px 0 rgba(32, 45, 82, 0.17);
+  font-size: 13px;
+  font-weight: 800;
+  transition: transform 350ms var(--ease), box-shadow 350ms var(--ease), background 350ms var(--ease);
+}
+
+.hero-random svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.hero-random:hover {
+  background: var(--white);
+  box-shadow: 2px 3px 0 var(--sticker-shadow);
+  transform: translate(2px, 2px) rotate(-1deg);
+}
+
+.hero-random[hidden],
+.hero-tags[hidden] {
+  display: none;
+}
+
+/* hero 热门标签：直接从 manifest 里取数量最多的几个 */
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-tags button {
+  padding: 5px 12px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  box-shadow: 2px 3px 0 rgba(32, 45, 82, 0.1);
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 700;
+  transition: color 200ms ease, background 200ms ease, transform 200ms var(--ease), box-shadow 200ms ease;
+}
+
+.hero-tags button:hover {
+  color: var(--deep);
+  background: var(--white);
+  box-shadow: 2px 4px 0 rgba(32, 45, 82, 0.14);
+  transform: translateY(-2px);
+}
+
+/* 右侧档案卡：数量、规格、来源和授权收进同一张卡 */
+.archive-panel {
+  position: relative;
+  align-self: center;
+  padding: 20px 18px 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 3px solid var(--white);
+  border-radius: 18px 24px 16px 22px;
+  box-shadow: 6px 7px 0 rgba(32, 45, 82, 0.16), 0 18px 34px rgba(32, 45, 82, 0.08);
+  transform: rotate(0.8deg);
+}
+
+.archive-tape {
+  position: absolute;
+  top: -11px;
+  right: 26px;
+  width: 76px;
+  height: 22px;
+  background: var(--tape-coral);
+  border-radius: 3px;
+  transform: rotate(4deg);
+}
+
+.archive-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.archive-head h2 {
+  margin: 0;
+  color: var(--deep);
+  font-family: var(--round);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.archive-stamp {
+  padding: 3px 8px;
+  color: var(--deep);
+  background: var(--mist);
+  border-radius: 5px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  transform: rotate(-4deg);
+}
+
+.archive-specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.archive-specs > div {
+  padding: 9px 10px;
+  background: rgba(223, 232, 245, 0.55);
+  border-radius: 10px;
+}
+
+.archive-specs dt {
+  margin: 0 0 2px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.archive-specs dd {
+  margin: 0;
+  color: var(--deep);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.archive-specs b {
+  font-size: 16px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.archive-label {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.archive-panel .source-card {
+  min-height: 58px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 2px 3px 0 rgba(32, 45, 82, 0.12);
+}
+
+.archive-panel .license-note {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(22, 33, 61, 0.12);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+@media (max-width: 1060px) {
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .hero-cta,
+  .hero-random {
+    padding-inline: 14px;
+    font-size: 12px;
+  }
+
+  .hero-cta {
+    gap: 10px;
+  }
+
+  .cta-arrow {
+    width: 27px;
+    height: 27px;
+    font-size: 17px;
+  }
+
+  .hero-tags {
+    gap: 6px;
+  }
+
+  .hero-tags button {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 1060px) {
+  .archive-panel {
+    display: block;
+    grid-column: 1 / -1;
+    justify-self: end;
+    width: min(100%, 460px);
+    margin-top: 6px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .hero-random {
+    padding: 0 13px;
+    font-size: 12px;
+  }
+
+  .hero-tags {
+    margin-top: 18px;
+  }
+
+  .archive-panel {
+    width: 100%;
+    margin-top: 14px;
+  }
+
+  .archive-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

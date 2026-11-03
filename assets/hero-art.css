@@ -1,0 +1,45 @@
+/* Generated watercolor artwork is confined to the homepage hero. */
+.home-page .hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -30px calc((100% - 100vw) / 2) 0;
+  background: url("../art/v1/ocean-paper-background.webp") center bottom / cover no-repeat;
+  pointer-events: none;
+  mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+}
+.home-page > :is(.hero-wave, .sea-floor, .sea-rays, .sea-band, .wave) { display: none; }
+.home-page .hero { gap: clamp(24px, 3vw, 48px); }
+.home-page .hero-copy { padding-bottom: 36px; }
+.home-page .hero-chibi {
+  position: absolute;
+  z-index: 3;
+  width: clamp(110px, 12vw, 174px);
+  height: auto;
+  bottom: -34px;
+  left: -48px;
+  pointer-events: none;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 7px 8px #31446b20);
+}
+.home-page .art-tag { bottom: 18px; left: auto; right: 18px; }
+.home-page .hero-cta { box-shadow: 0 4px 0 #15213c, 0 10px 22px #26395818; border-width: 2px; }
+.home-page .hero-lede { line-height: 1.8; }
+@media (min-width: 1061px) {
+  .home-page .hero { grid-template-columns: minmax(230px, .85fr) minmax(330px, 1.15fr) minmax(230px, .7fr); padding-top: 54px; padding-bottom: 105px; min-height: 680px; }
+  .home-page .hero-art-window img { min-height: 420px; height: min(65vh, 590px); }
+}
+@media (max-width: 1060px) {
+  .home-page .hero-chibi { left: -24px; bottom: -22px; width: 132px; }
+}
+@media (max-width: 700px) {
+  .home-page .hero::before { background-size: auto 100%; opacity: .75; }
+  .home-page .hero-copy { padding-bottom: 12px; }
+  .home-page .hero-chibi { width: 108px; left: -12px; bottom: -18px; }
+  .home-page .hero .archive-panel { margin-top: 28px; }
+}
+.home-page .hero-art-sticker { border-width: 2px; border-radius: 18px; box-shadow: 3px 5px 0 #c7d1e0, 0 22px 48px #293d6420; }
+.home-page .hero-art-sticker::before { border-width: 1px; }
+.home-page .hero-art-sticker:hover { box-shadow: 2px 4px 0 #c7d1e0, 0 28px 52px #293d6426; }
+.home-page .archive-panel { border-width: 1px; border-radius: 14px; box-shadow: 0 3px 0 #d8e0eb, 0 16px 38px #293d6410; }
+.home-page .archive-panel .source-card { box-shadow: none; border-bottom: 1px solid #e9edf4; border-radius: 4px; }

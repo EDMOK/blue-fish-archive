@@ -22,6 +22,9 @@ const tagFilterList = document.querySelector('#tag-filter-list');
 const filterEmpty = document.querySelector('#filter-empty');
 const lightboxAlt = document.querySelector('#lightbox-alt');
 const lightboxTags = document.querySelector('#lightbox-tags');
+const heroCount = document.querySelector('[data-hero-count]');
+const heroTags = document.querySelector('#hero-tags');
+const heroRandom = document.querySelector('#hero-random');
 
 const isAnimatedSticker = (sticker) => /\.(gif|apng)$/i.test(sticker.original);
 
@@ -190,6 +193,10 @@ function renderStickers(stickers) {
   lightboxList = uniqueStickers;
   const isEmpty = !uniqueStickers.length;
 
+  // hero 区的档案卡和随机入口跟着清单一起就绪
+  if (heroCount) heroCount.textContent = isEmpty ? '—' : String(uniqueStickers.length);
+  if (heroRandom) heroRandom.hidden = isEmpty;
+
   if (wallEmpty) wallEmpty.hidden = !isEmpty;
   if (stickerCount) stickerCount.hidden = isEmpty;
   if (isEmpty) {
@@ -215,6 +222,36 @@ function renderStickers(stickers) {
   }
 }
 
+// hero 里的热门标签：只取数量最多的几个，点一下等于在表情墙里筛选
+function renderHeroTags(counts) {
+  if (!heroTags) return;
+  if (!counts || !counts.size) {
+    heroTags.hidden = true;
+    heroTags.replaceChildren();
+    return;
+  }
+  const top = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5);
+  const fragment = document.createDocumentFragment();
+  top.forEach(([tag, count]) => {
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = tag;
+    button.setAttribute('aria-label', `筛选标签 ${tag}，${count} 张`);
+    button.addEventListener('click', () => {
+      setActiveTag(tag);
+      const wall = document.querySelector('#wall');
+      if (!wall) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      wall.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+    item.appendChild(button);
+    fragment.appendChild(item);
+  });
+  heroTags.replaceChildren(fragment);
+  heroTags.hidden = false;
+}
+
 function renderTagFilter() {
   if (!tagFilter || !tagFilterList) return;
   const counts = new Map();
@@ -230,8 +267,11 @@ function renderTagFilter() {
     tagFilterList.replaceChildren();
     tagButtons = [];
     if (filterEmpty) filterEmpty.hidden = true;
+    renderHeroTags(null);
     return;
   }
+
+  renderHeroTags(counts);
   // 重新加载后旧标签可能已经不存在,静默回到「全部」
   if (activeTag && !counts.has(activeTag)) activeTag = '';
   tagFilter.hidden = false;
@@ -554,6 +594,17 @@ async function copyImage() {
   } finally {
     if (requestId === copyRequestId) copyButton.disabled = false;
   }
+}
+
+// 随机翻一张：优先在当前筛选结果里抽，避免抽到被隐藏的图
+if (heroRandom) {
+  heroRandom.addEventListener('click', () => {
+    const pool = lightboxList.length ? lightboxList : stickerList;
+    if (!pool.length) return;
+    const sticker = pool[Math.floor(Math.random() * pool.length)];
+    const index = stickerList.indexOf(sticker);
+    openLightbox(index >= 0 ? index : 0);
+  });
 }
 
 copyButton.addEventListener('click', copyImage);
