@@ -65,8 +65,23 @@ async function copyGroupNumber(button) {
   }, 1800));
 }
 
+// 弹窗平时只是 visibility:hidden，整屏 fixed 容器会让里面的图片照样按首屏资源加载。
+// 第一次打开时再补 src：没点「加入群聊」之前，二维码一张字节都不下载。
+let qrHydrated = false;
+function hydrateQrImage() {
+  if (qrHydrated) return;
+  qrHydrated = true;
+  qrModal?.querySelectorAll('source[data-srcset]').forEach((source) => {
+    source.srcset = source.dataset.srcset;
+  });
+  qrModal?.querySelectorAll('img[data-src]').forEach((image) => {
+    image.src = image.dataset.src;
+  });
+}
+
 function openQrModal() {
   if (!qrModal) return;
+  hydrateQrImage();
   qrReturnFocus = document.activeElement;
   qrModal.classList.add('is-open');
   qrModal.setAttribute('aria-hidden', 'false');

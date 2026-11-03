@@ -26,6 +26,11 @@
 /characters.js
   Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
 
+# 首页插画放在版本目录（art/v1）里：换图时新建 v2 并更新页面引用，
+# 所以这里也可以放心用一年缓存，不必跟着 /assets/* 的 7 天走。
+/art/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # 立绘放在版本目录（character-art/v1）里：换图时新建 v2 并更新页面引用，
 # 所以这些路径可以放心用一年缓存。CORS 供复制图片时取图。
 /character-art/*

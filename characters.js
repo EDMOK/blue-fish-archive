@@ -35,22 +35,7 @@ function initNavScroll() {
 
 initNavScroll();
 
-// 二维码弹窗平时是隐藏的，但整屏 fixed 容器会让懒加载图片照样进首屏队列。
-// 第一次点「加入群聊」时再补 src，省掉一次约 90KB 的图片请求。
-let qrHydrated = false;
-function hydrateQrImage() {
-  if (qrHydrated) return;
-  qrHydrated = true;
-  document.querySelectorAll('#qr-modal source[data-srcset]').forEach((source) => {
-    source.srcset = source.dataset.srcset;
-  });
-  document.querySelectorAll('#qr-modal img[data-src]').forEach((image) => {
-    image.src = image.dataset.src;
-  });
-}
-document.querySelectorAll('[data-open-qr]').forEach((button) => {
-  button.addEventListener('click', hydrateQrImage, { once: true });
-});
+// 二维码的懒加载统一放在 qr-modal.js：弹窗在那个文件里打开，补 src 也跟着走。
 
 const cards = [...document.querySelectorAll('.character-card')];
 const artNodes = cards.map((card) => ({
