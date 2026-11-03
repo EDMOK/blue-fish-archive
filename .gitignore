@@ -13,3 +13,11 @@ Thumbs.db
 # Local credentials
 .env
 .env.*
+
+# Generated art sources and QA screenshots: only the WebP derivatives ship.
+/assets/deepseek-chibi-hug-v1.png
+/assets/ocean-paper-background-v1.png
+/assets/*-review-*.png
+
+# Local tutorial drafts: the published HTML lives under manual/.
+/markdown_note/
