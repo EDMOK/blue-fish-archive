@@ -1,0 +1,53 @@
+/* Shared navigation: quiet paper surface, clear links, compact actions. */
+.site-nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  width: min(1280px, calc(100% - 48px));
+  height: 76px;
+  margin-top: 18px;
+  padding: 10px 18px;
+  top: 12px;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 20px;
+  background: rgba(255,255,255,.82);
+  box-shadow: 0 2px 0 #dce4ef80, 0 8px 28px #31446b08;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.site-nav.is-scrolled {
+  background: rgba(255,255,255,.95);
+  border-color: #e2e8f1;
+  box-shadow: 0 4px 24px #31446b12;
+}
+.site-nav .wordmark { gap: 10px; font-size: 13px; letter-spacing: -.02em; white-space: nowrap; }
+.site-nav .wordmark picture { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: #edf3fb; }
+.site-nav .brand-logo-color { width: 32px; height: 32px; filter: none; transform: rotate(-7deg); }
+.site-nav .wordmark:hover .brand-logo-color { transform: rotate(3deg) translateY(-2px); }
+.site-nav .nav-links { display: flex; align-items: center; justify-content: center; gap: 4px; min-width: 0; }
+.site-nav .nav-right { gap: 10px; }
+@media (max-width: 1100px) {
+  .site-nav { gap: 12px; padding-inline: 14px; }
+}
+@media (max-width: 800px) {
+  .site-nav { grid-template-columns: 1fr auto; gap: 8px 10px; height: auto; width: calc(100% - 24px); margin-top: 10px; top: 8px; padding: 10px 12px 8px; border-radius: 18px; }
+  .site-nav .wordmark { font-size: 12px; gap: 8px; }
+  .site-nav .wordmark picture { width: 36px; height: 40px; border-radius: 11px; }
+  .site-nav .brand-logo-color { width: 28px; height: 28px; }
+  .site-nav .nav-right { gap: 4px; }
+  .site-nav .nav-links { grid-row: 2; grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 4px; padding-top: 7px; border-top: 1px solid #eaf0f6; }
+}
+@media (max-width: 360px) {
+  .site-nav { padding-inline: 8px; gap: 8px 4px; }
+  .site-nav .wordmark { gap: 4px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-nav, .site-nav * { animation: none !important; transition: none !important; }
+}
+
+@media (max-width: 380px) {
+  .site-nav { grid-template-columns: 1fr; }
+  .site-nav .wordmark { justify-self: center; }
+  .site-nav .nav-right { grid-row: 2; justify-self: center; }
+  .site-nav .nav-links { grid-row: 3; }
+}
