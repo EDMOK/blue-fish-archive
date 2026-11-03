@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#182340" />
+    <meta
+      name="description"
+      content="肥鱼万事屋：免费分享 DSH（DeepSeek Harness）养鱼的经验、教程和乐趣。从把机器人接进 QQ 群到给它装嗓子唱歌，步骤、报错原文和检查清单都来自实测。"
+    />
+    <title>肥鱼万事屋 · DSH 养鱼经验与 QQ 机器人教程</title>
+    <link rel="canonical" href="https://fisharchive.cc/manual" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="蓝色大肥鱼档案馆" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content="肥鱼万事屋 · DSH 养鱼经验与 QQ 机器人教程" />
+    <meta
+      property="og:description"
+      content="免费分享 DSH 养鱼的经验、教程和乐趣：从把机器人接进 QQ 群到语音唱歌，都是实测过的步骤。"
+    />
+    <meta property="og:url" content="https://fisharchive.cc/manual" />
+    <meta property="og:image" content="https://fisharchive.cc/assets/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="蓝色大肥鱼档案馆 · 肥鱼万事屋" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="肥鱼万事屋 · DSH 养鱼经验与 QQ 机器人教程" />
+    <meta
+      name="twitter:description"
+      content="免费分享 DSH 养鱼的经验、教程和乐趣：从把机器人接进 QQ 群到语音唱歌。"
+    />
+    <meta name="twitter:image" content="https://fisharchive.cc/assets/og-card.png" />
+    <link rel="icon" type="image/png" href="logo/favicon.png" />
+    <link rel="apple-touch-icon" href="logo/favicon.png" />
+    <meta name="msapplication-TileImage" content="logo/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css?v=20261105h" />
+    <link rel="stylesheet" href="manual/manual.css?v=20261103n" />
+    <link rel="alternate" type="application/rss+xml" title="肥鱼万事屋 · RSS" href="/manual/feed.xml" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "CollectionPage",
+            "@id": "https://fisharchive.cc/manual#page",
+            "url": "https://fisharchive.cc/manual",
+            "name": "肥鱼万事屋",
+            "description": "免费分享 DSH 养鱼的经验、教程和乐趣：从 QQ 机器人搭建到语音唱歌，步骤都来自实测。",
+            "inLanguage": "zh-CN",
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "蓝色大肥鱼档案馆",
+              "url": "https://fisharchive.cc/"
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "在 QQ 里养一条会说话、会唱歌的「鱼」",
+                  "url": "https://fisharchive.cc/manual/talking-fish"
+                }
+              ]
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://fisharchive.cc/" },
+              { "@type": "ListItem", "position": 2, "name": "肥鱼万事屋" }
+            ]
+          }
+        ]
+      }
+    </script>
+    <noscript>
+      <style>
+        [data-reveal] { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
+    <link rel="stylesheet" href="assets/navigation.css?v=20261103b" />
+  </head>
+  <body class="manual-page">
+    <a class="manual-skip" href="#manual-main">跳到正文</a>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="bubble bubble-one" aria-hidden="true"></div>
+    <div class="bubble bubble-two" aria-hidden="true"></div>
+    <div class="wave wave-one" aria-hidden="true"></div>
+    <div class="sea-band sea-band-a" aria-hidden="true">
+      <svg viewBox="0 0 1920 120" preserveAspectRatio="none">
+        <path d="M0 60 Q 80 30 160 60 T 320 60 T 480 60 T 640 60 T 800 60 T 960 60 T 1120 60 T 1280 60 T 1440 60 T 1600 60 T 1760 60 T 1920 60 V 160 H 0 Z" fill="none" stroke="rgba(96,122,169,0.16)" stroke-width="3" />
+        <path d="M0 78 Q 90 46 180 78 T 360 78 T 540 78 T 720 78 T 900 78 T 1080 78 T 1260 78 T 1440 78 T 1620 78 T 1800 78 T 1920 78" fill="none" stroke="rgba(96,122,169,0.12)" stroke-width="3" />
+      </svg>
+    </div>
+
+    <header class="site-nav" data-reveal>
+      <a class="wordmark" href="/" aria-label="回到表情墙首页">
+        <picture>
+          <source srcset="logo/deepseek-whale-color.webp" type="image/webp" />
+          <img class="brand-logo brand-logo-color" src="logo/deepseek_蓝鲸_彩色.png" alt="DeepSeek 蓝鲸 Logo" width="36" height="36" decoding="async" />
+        </picture>
+        <span>蓝色大肥鱼档案馆</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="/#wall">表情墙</a>
+        <a href="/characters">立绘</a>
+        <a class="is-featured" href="/manual" aria-current="page">万事屋</a>
+        <a href="/about">关于</a>
+      </nav>
+      <div class="nav-right">
+        <div class="nav-social" aria-label="网站作者链接">
+          <a
+            class="nav-social-link"
+            href="https://space.bilibili.com/291892724"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="访问 EDMOK 的 Bilibili"
+            title="Bilibili · EDMOK"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8.2 4.8 6.4 2.7M15.8 4.8l1.8-2.1M5.1 6.2h13.8a2 2 0 0 1 2 2v7.4a2 2 0 0 1-2 2H5.1a2 2 0 0 1-2-2V8.2a2 2 0 0 1 2-2Z" />
+              <path d="M8 10.2v3.2M16 10.2v3.2M7.7 15.2h8.6" />
+            </svg>
+          </a>
+          <a
+            class="nav-social-link"
+            href="https://github.com/EDMOK/blue-fish-archive"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="访问 EDMOK 的 GitHub"
+            title="GitHub · EDMOK"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 2.8a9.2 9.2 0 0 0-2.9 17.9c.46.08.63-.2.63-.44v-1.58c-2.56.56-3.1-1.08-3.1-1.08-.42-1.07-1.02-1.36-1.02-1.36-.84-.58.06-.57.06-.57.93.07 1.42.96 1.42.96.83 1.42 2.18 1.01 2.71.77.08-.6.33-1.01.59-1.25-2.04-.23-4.19-1.02-4.19-4.53 0-1 .36-1.82.96-2.46-.1-.24-.42-1.16.09-2.42 0 0 .78-.25 2.54.94A8.8 8.8 0 0 1 12 9.4c.78 0 1.57.1 2.3.31 1.76-1.19 2.54-.94 2.54-.94.51 1.26.19 2.18.09 2.42.6.64.96 1.46.96 2.46 0 3.52-2.15 4.3-4.2 4.53.34.29.63.85.63 1.72v2.56c0 .25.17.53.64.44A9.2 9.2 0 0 0 12 2.8Z" />
+            </svg>
+          </a>
+        </div>
+        <button class="nav-join" type="button" data-open-qr aria-label="加入 QQ 群：复制群号并显示二维码">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="9" cy="8" r="3.1" />
+            <path d="M3.8 19.6c0-2.9 2.3-4.9 5.2-4.9s5.2 2 5.2 4.9" />
+            <path d="M16.2 5.6a3 3 0 0 1 0 5.4M17.2 15c1.8.7 3 2.4 3 4.6" />
+          </svg>
+          <span>加入群聊</span>
+        </button>
+        <a class="nav-action" href="/#wall">
+          <span>去看看</span>
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="page-shell" id="manual-main">
+      <nav aria-label="面包屑">
+        <ol class="manual-crumbs">
+          <li><a href="/">首页</a></li>
+          <li><span aria-current="page">肥鱼万事屋</span></li>
+        </ol>
+      </nav>
+
+      <section class="manual-hero" aria-labelledby="manual-title">
+        <div class="manual-hero-copy" data-reveal>
+          <p class="manual-eyebrow">Yorozuya</p>
+          <h1 id="manual-title">肥鱼万事屋<span>养鱼笔记，免费翻</span></h1>
+          <p class="manual-lede">
+            DSH 养鱼路上攒的经验、能直接照抄的教程、踩过的坑和好玩用法，都摆在这儿。
+            写下来的都实测过：报错原文、适用版本和上线检查清单都进正文，
+            能少走一段弯路。你要是有新发现，也欢迎回来添一笔。
+          </p>
+          <div class="manual-hero-actions">
+            <a class="manual-btn is-lead" href="/manual/talking-fish">
+              <span>从第一篇开始</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <a class="manual-btn is-ghost" href="#manual-index">看看写了什么 <span aria-hidden="true">↘</span></a>
+          </div>
+          <ul class="manual-hero-stats">
+            <li><strong>1</strong> 篇已发布</li>
+            <li><strong>2026-11-03</strong> 最近更新</li>
+          </ul>
+        </div>
+
+        <div class="manual-hero-art" data-reveal data-delay="120" aria-hidden="true">
+          <span class="manual-hero-orbit"></span>
+          <span class="manual-hero-orbit manual-hero-orbit-b"></span>
+
+          <figure class="manual-hero-figure">
+            <span class="manual-hero-tape"></span>
+            <img
+              src="character-art/v1/card/deepseek-full.webp"
+              alt=""
+              width="640"
+              height="1147"
+              fetchpriority="high"
+              decoding="async"
+            />
+            <figcaption>档案 · 鲸鱼娘</figcaption>
+          </figure>
+
+          <div class="manual-hero-terminal">
+            <div class="manual-hero-terminal-bar">
+              <i></i><i></i><i></i>
+              <span>dsh · web</span>
+            </div>
+            <pre><code><span class="terminal-prompt">$</span> node scripts/setup-dsh.mjs
+<span class="terminal-ok">✓</span> preset 与 MCP 已就绪
+<span class="terminal-ok">✓</span> SnowLuma 已连接</code></pre>
+          </div>
+
+          <span class="manual-hero-chip is-a">模型 · V4</span>
+          <span class="manual-hero-chip is-b">工具 · MCP</span>
+          <span class="manual-hero-chip is-c">接入 · IM</span>
+        </div>
+      </section>
+
+      <section class="manual-index" id="manual-index" aria-labelledby="manual-index-title">
+        <div class="manual-index-head" data-reveal>
+          <div>
+            <p class="manual-eyebrow">Index</p>
+            <h2 id="manual-index-title">已经写下的</h2>
+          </div>
+          <p class="manual-index-note">目前只有一篇，后续更新也放这里。</p>
+        </div>
+
+      <ul class="manual-list">
+        <li class="manual-card">
+          <span class="manual-card-index" aria-hidden="true">01</span>
+          <div class="manual-card-body">
+            <h3><a href="/manual/talking-fish">在 QQ 里养一条会说话、会唱歌的「鱼」</a></h3>
+            <p>
+              用 DSH + qq-bridge + SnowLuma 从零搭起，再接 GPT-SoVITS 发语音、ffmpeg 切歌、SenseVoice 听懂语音；含人格卡、记忆、成本、踩坑表和检查清单。
+            </p>
+            <p class="manual-card-meta">
+              <span class="manual-chip is-cat">起步</span>
+              <span>约 18 分钟</span>
+              <span>更新于 2026-11-03</span>
+            </p>
+            <ul class="manual-card-tags">
+              <li>DSH</li>
+              <li>qq-bridge</li>
+              <li>SnowLuma</li>
+              <li>语音 / 唱歌</li>
+            </ul>
+          </div>
+          <span class="manual-card-arrow" aria-hidden="true">→</span>
+        </li>
+
+      </ul>
+
+      </section>
+
+      <section class="manual-block" data-reveal aria-labelledby="manual-feedback-title">
+        <div class="manual-feedback">
+          <p>
+            <strong id="manual-feedback-title">哪里写错了，或者你有更好的做法？</strong>
+            在群里说一声，或者直接提 Issue；被指出来的问题会改在正文里。
+          </p>
+          <div class="manual-feedback-actions">
+            <button class="manual-btn is-ghost" type="button" data-open-qr>加入 QQ 群</button>
+            <a
+              class="manual-btn is-lead"
+              href="https://github.com/EDMOK/blue-fish-archive/issues/new"
+              target="_blank"
+              rel="noreferrer"
+            >
+              提 Issue <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" data-reveal id="rights">
+      <span class="divider-bubbles footer-bubbles" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="footer-brand">
+        <picture>
+          <source srcset="logo/deepseek-whale-black.webp" type="image/webp" />
+          <img class="brand-logo brand-logo-black" src="logo/deepseek_蓝鲸_黑色.png" alt="DeepSeek 蓝鲸 Logo" width="31" height="31" decoding="async" />
+        </picture>
+        <span>蓝色大肥鱼档案馆</span>
+      </span>
+      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/characters">角色立绘</a> · <a href="/manual">万事屋</a> · <a href="/about#api">开放数据</a> · <a href="/about">关于本站</a></p>
+      <a href="#manual-main" aria-label="回到顶部">↑</a>
+    </footer>
+
+    <div class="qr-modal" id="qr-modal" aria-hidden="true">
+      <div class="qr-modal-backdrop" data-close-qr></div>
+      <div class="qr-modal-panel" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title" data-qr-scope>
+        <button class="qr-modal-close" type="button" aria-label="关闭二维码" data-close-qr>×</button>
+        <span class="qr-modal-badge">QQ GROUP</span>
+        <h2 class="qr-modal-title" id="qr-modal-title">加入 QQ 群</h2>
+        <p class="qr-modal-note">选题、催更、报错都可以在群里说。</p>
+        <span class="qr-modal-code">
+          <picture>
+            <source data-srcset="assets/qq-group-qr.webp" type="image/webp" />
+            <img data-src="assets/qq-group-qr.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
+          </picture>
+        </span>
+        <div class="qr-modal-row">
+          <span class="qr-modal-number" data-group-number>1041665197</span>
+          <button class="about-copy" type="button" data-copy-group>复制群号</button>
+        </div>
+        <p class="qr-modal-status" data-copy-status role="status" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <script src="qr-modal.js?v=20261103a" defer></script>
+    <script src="manual/manual.js?v=20261103g" defer></script>
+  </body>
+</html>

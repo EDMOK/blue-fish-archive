@@ -26,6 +26,24 @@
 /characters.js
   Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
 
+# 万事屋：HTML 与文章更新频繁，走短缓存；自己的样式和脚本靠 ?v= 换 URL。
+/manual
+  Cache-Control: public, max-age=0, s-maxage=60, stale-while-revalidate=60
+
+/manual/*
+  Cache-Control: public, max-age=0, s-maxage=60, stale-while-revalidate=60
+
+/manual/manual.css
+  Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
+
+/manual/manual.js
+  Cache-Control: public, max-age=300, s-maxage=60, stale-while-revalidate=60
+
+# 配图放在版本目录（manual/media/v1）里：换图时新建 v2 并更新引用，
+# 所以这些路径可以放心用一年缓存。
+/manual/media/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # 首页插画放在版本目录（art/v1）里：换图时新建 v2 并更新页面引用，
 # 所以这里也可以放心用一年缓存，不必跟着 /assets/* 的 7 天走。
 /art/*

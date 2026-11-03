@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>肥鱼万事屋</title>
+    <link>https://fisharchive.cc/manual</link>
+    <atom:link href="https://fisharchive.cc/manual/feed.xml" rel="self" type="application/rss+xml" />
+    <description>免费分享 DSH 养鱼的经验、教程和乐趣。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 03 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>在 QQ 里养一条会说话、会唱歌的「鱼」</title>
+      <link>https://fisharchive.cc/manual/talking-fish</link>
+      <guid isPermaLink="true">https://fisharchive.cc/manual/talking-fish</guid>
+      <description>用 DSH + qq-bridge + SnowLuma 从一台空电脑搭起，再接 GPT-SoVITS 发语音、ffmpeg 切歌、SenseVoice 听懂语音。含白名单、人格卡、记忆、成本控制、排障表和上线检查清单。</description>
+      <category>起步</category>
+      <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

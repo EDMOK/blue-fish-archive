@@ -1,0 +1,1533 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#182340" />
+    <meta
+      name="description"
+      content="群友路西法的 DSH 养鱼记录：用 DeepSeek Harness、qq-bridge 和 SnowLuma 从一台空电脑搭起、会自己决定说不说话的 QQ 机器人；再接 GPT-SoVITS 发语音、用 ffmpeg 切歌、用 SenseVoice 听懂语音。含白名单、人格卡、记忆、成本控制、排障表和上线检查清单。"
+    />
+    <title>在 QQ 里养一条会说话、会唱歌的鱼：DSH + qq-bridge + SnowLuma 全流程 · 肥鱼万事屋</title>
+    <link rel="canonical" href="https://fisharchive.cc/manual/talking-fish" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="蓝色大肥鱼档案馆" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content="在 QQ 里养一条会说话、会唱歌的鱼" />
+    <meta
+      property="og:description"
+      content="群友路西法的记录：DSH + qq-bridge + SnowLuma 从零搭起，再接 GPT-SoVITS 发语音、ffmpeg 切歌、SenseVoice 听懂语音，全部在 Windows 上实测。"
+    />
+    <meta property="og:url" content="https://fisharchive.cc/manual/talking-fish" />
+    <meta property="og:image" content="https://fisharchive.cc/manual/media/v1/talking-fish-og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="鲸鱼娘在工作台前组装三个模块，合成一个 QQ 机器人" />
+    <meta property="article:published_time" content="2026-11-03" />
+    <meta property="article:modified_time" content="2026-11-03" />
+    <meta property="article:section" content="起步" />
+    <meta property="article:tag" content="DeepSeek Harness" />
+    <meta property="article:tag" content="qq-bridge" />
+    <meta property="article:tag" content="SnowLuma" />
+    <meta property="article:tag" content="QQ 机器人" />
+    <meta property="article:tag" content="GPT-SoVITS" />
+    <meta property="article:tag" content="SenseVoice" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="在 QQ 里养一条会说话、会唱歌的鱼" />
+    <meta
+      name="twitter:description"
+      content="群友路西法整理的完整搭建与排错记录：从群接话到语音唱歌。"
+    />
+    <meta name="twitter:image" content="https://fisharchive.cc/manual/media/v1/talking-fish-og.jpg" />
+    <link rel="icon" type="image/png" href="../logo/favicon.png" />
+    <link rel="apple-touch-icon" href="../logo/favicon.png" />
+    <meta name="msapplication-TileImage" content="../logo/apple-touch-icon.png" />
+    <link rel="stylesheet" href="../styles.css?v=20261105h" />
+    <link rel="stylesheet" href="manual.css?v=20261103n" />
+    <link rel="stylesheet" href="../assets/navigation.css?v=20261103b" />
+    <link rel="alternate" type="application/rss+xml" title="肥鱼万事屋 · RSS" href="/manual/feed.xml" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "TechArticle",
+            "@id": "https://fisharchive.cc/manual/talking-fish#article",
+            "headline": "在 QQ 里养一条会说话、会唱歌的鱼：DSH + qq-bridge + SnowLuma 全流程",
+            "description": "群友路西法的 DSH 养鱼记录：用 DeepSeek Harness、qq-bridge 和 SnowLuma 从一台空电脑搭起 QQ 机器人；再接 GPT-SoVITS 发语音、ffmpeg 切歌、SenseVoice 听懂语音。含白名单、人格卡、记忆、成本控制、排障表和上线检查清单。",
+            "inLanguage": "zh-CN",
+            "datePublished": "2026-11-03",
+            "dateModified": "2026-11-03",
+            "articleSection": "起步",
+            "proficiencyLevel": "Beginner",
+            "keywords": "DeepSeek Harness, qq-bridge, SnowLuma, QQ 机器人, DeepSeek bot, GPT-SoVITS, SenseVoice, QQ 语音, 唱歌",
+            "image": "https://fisharchive.cc/manual/media/v1/talking-fish-og.jpg",
+            "author": {
+              "@type": "Person",
+              "name": "路西法",
+              "description": "群友，提供了本文的搭建与排错记录"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "蓝色大肥鱼档案馆",
+              "url": "https://fisharchive.cc/"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://fisharchive.cc/manual/talking-fish"
+            },
+            "isPartOf": {
+              "@type": "CollectionPage",
+              "@id": "https://fisharchive.cc/manual",
+              "name": "肥鱼万事屋"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://fisharchive.cc/" },
+              { "@type": "ListItem", "position": 2, "name": "肥鱼万事屋", "item": "https://fisharchive.cc/manual" },
+              { "@type": "ListItem", "position": 3, "name": "怎么养一条会说话的鱼" }
+            ]
+          }
+        ]
+      }
+    </script>
+    <noscript>
+      <style>
+        [data-reveal] { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
+  </head>
+  <body class="manual-page">
+    <a class="manual-skip" href="#article-body">跳到正文</a>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="bubble bubble-one" aria-hidden="true"></div>
+    <div class="bubble bubble-two" aria-hidden="true"></div>
+    <div class="wave wave-one" aria-hidden="true"></div>
+    <div class="sea-band sea-band-a" aria-hidden="true">
+      <svg viewBox="0 0 1920 120" preserveAspectRatio="none">
+        <path d="M0 60 Q 80 30 160 60 T 320 60 T 480 60 T 640 60 T 800 60 T 960 60 T 1120 60 T 1280 60 T 1440 60 T 1600 60 T 1760 60 T 1920 60 V 160 H 0 Z" fill="none" stroke="rgba(96,122,169,0.16)" stroke-width="3" />
+        <path d="M0 78 Q 90 46 180 78 T 360 78 T 540 78 T 720 78 T 900 78 T 1080 78 T 1260 78 T 1440 78 T 1620 78 T 1800 78 T 1920 78" fill="none" stroke="rgba(96,122,169,0.12)" stroke-width="3" />
+      </svg>
+    </div>
+
+    <div class="manual-progress" aria-hidden="true"><span data-manual-progress></span></div>
+
+    <header class="site-nav" data-reveal>
+      <a class="wordmark" href="/" aria-label="回到表情墙首页">
+        <picture>
+          <source srcset="../logo/deepseek-whale-color.webp" type="image/webp" />
+          <img class="brand-logo brand-logo-color" src="../logo/deepseek_蓝鲸_彩色.png" alt="DeepSeek 蓝鲸 Logo" width="36" height="36" decoding="async" />
+        </picture>
+        <span>蓝色大肥鱼档案馆</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="/#wall">表情墙</a>
+        <a href="/characters">立绘</a>
+        <a class="is-featured" href="/manual" aria-current="page">万事屋</a>
+        <a href="/about">关于</a>
+      </nav>
+      <div class="nav-right">
+        <div class="nav-social" aria-label="网站作者链接">
+          <a
+            class="nav-social-link"
+            href="https://space.bilibili.com/291892724"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="访问 EDMOK 的 Bilibili"
+            title="Bilibili · EDMOK"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8.2 4.8 6.4 2.7M15.8 4.8l1.8-2.1M5.1 6.2h13.8a2 2 0 0 1 2 2v7.4a2 2 0 0 1-2 2H5.1a2 2 0 0 1-2-2V8.2a2 2 0 0 1 2-2Z" />
+              <path d="M8 10.2v3.2M16 10.2v3.2M7.7 15.2h8.6" />
+            </svg>
+          </a>
+          <a
+            class="nav-social-link"
+            href="https://github.com/EDMOK/blue-fish-archive"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="访问 EDMOK 的 GitHub"
+            title="GitHub · EDMOK"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 2.8a9.2 9.2 0 0 0-2.9 17.9c.46.08.63-.2.63-.44v-1.58c-2.56.56-3.1-1.08-3.1-1.08-.42-1.07-1.02-1.36-1.02-1.36-.84-.58.06-.57.06-.57.93.07 1.42.96 1.42.96.83 1.42 2.18 1.01 2.71.77.08-.6.33-1.01.59-1.25-2.04-.23-4.19-1.02-4.19-4.53 0-1 .36-1.82.96-2.46-.1-.24-.42-1.16.09-2.42 0 0 .78-.25 2.54.94A8.8 8.8 0 0 1 12 9.4c.78 0 1.57.1 2.3.31 1.76-1.19 2.54-.94 2.54-.94.51 1.26.19 2.18.09 2.42.6.64.96 1.46.96 2.46 0 3.52-2.15 4.3-4.2 4.53.34.29.63.85.63 1.72v2.56c0 .25.17.53.64.44A9.2 9.2 0 0 0 12 2.8Z" />
+            </svg>
+          </a>
+        </div>
+        <button class="nav-join" type="button" data-open-qr aria-label="加入 QQ 群：复制群号并显示二维码">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="9" cy="8" r="3.1" />
+            <path d="M3.8 19.6c0-2.9 2.3-4.9 5.2-4.9s5.2 2 5.2 4.9" />
+            <path d="M16.2 5.6a3 3 0 0 1 0 5.4M17.2 15c1.8.7 3 2.4 3 4.6" />
+          </svg>
+          <span>加入群聊</span>
+        </button>
+        <a class="nav-action" href="/manual">
+          <span>回万事屋</span>
+          <span aria-hidden="true">↖</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="page-shell" id="manual-main">
+      <nav class="manual-crumbs-bar" aria-label="面包屑">
+        <ol class="manual-crumbs">
+          <li><a href="/">首页</a></li>
+          <li><a href="/manual">肥鱼万事屋</a></li>
+          <li><span aria-current="page">怎么养一条会说话的鱼</span></li>
+        </ol>
+      </nav>
+
+      <div class="manual-article-layout">
+        <article class="manual-article" id="article-body">
+          <header class="manual-article-header" data-reveal>
+            <p class="manual-eyebrow">起步 → 进阶 · 01</p>
+            <h1>在 QQ 里养一条会说话、会唱歌的「鱼」</h1>
+            <p class="manual-article-lede">
+              用 DeepSeek Harness、qq-bridge 和 SnowLuma，从一台空电脑做到「群里有人 @ 它，
+              它自己决定要不要接话」；再把嗓子装上：发语音、唱准备好的歌、听懂群友的语音。
+              所有步骤都在 Windows 上跑通过，踩过的坑和上线检查清单在文末。
+            </p>
+            <ul class="manual-byline">
+              <li class="manual-byline-author">
+                <img
+                  class="manual-avatar"
+                  src="media/v1/author-lucifer-96.webp"
+                  srcset="media/v1/author-lucifer-96.webp 96w, media/v1/author-lucifer.webp 192w"
+                  sizes="36px"
+                  alt=""
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span>群友 <strong>路西法</strong> 提供</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5" /><path d="M8 3v4M16 3v4M3.5 10h17" /></svg>
+                发布于 2026-11-03
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg>
+                约 18 分钟
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+                已实测
+              </li>
+            </ul>
+            <p class="manual-version">
+              <strong>适用范围</strong>
+              <span>
+                2026-11 的 DSH、qq-bridge 与 SnowLuma；语音部分对应 qq-bridge 的
+                <code>socialV2.voice</code>、GPT-SoVITS api_v2（9880）与 SenseVoice（9890）。
+                实测环境 Windows 11、Node.js 22.13+；桥接更新较快，命令以仓库 README 为准。
+              </span>
+            </p>
+          </header>
+
+          <details class="manual-toc-details">
+            <summary>本页目录</summary>
+            <nav class="manual-toc" aria-label="本页目录（移动端）">
+              <p class="manual-toc-title">On this page</p>
+              <ol>
+                <li><a href="#what">0. 先说清楚这是个什么东西</a></li>
+                <li><a href="#prepare">1. 你需要准备什么</a></li>
+                <li><a href="#quickstart">2. 最短路径：30 分钟回第一句话</a></li>
+                <li><a href="#persona">3. 从「能回话」到「像个人」</a></li>
+                <li><a href="#memory">4. 记忆：记得住人，但别一次全开</a></li>
+                <li><a href="#voice-map">5. 声音和唱歌：三条链路</a></li>
+                <li><a href="#tts">5.1 装一个本地 TTS</a></li>
+                <li><a href="#voice-bridge">5.2 让桥接接上 TTS</a></li>
+                <li><a href="#voice-when">5.3 什么时候该发语音</a></li>
+                <li><a href="#sing">5.4 唱歌是切片的活</a></li>
+                <li><a href="#asr">5.5 让她能「听」语音</a></li>
+                <li><a href="#voice-test">5.6 语音上线测试</a></li>
+                <li><a href="#pacing">6. 别让它刷屏，也别烧穿钱包</a></li>
+                <li><a href="#safety">7. 安全红线</a></li>
+                <li><a href="#pitfalls">8. 我们踩过的坑</a></li>
+                <li><a href="#checklist">9. 上线检查清单</a></li>
+              </ol>
+            </nav>
+          </details>
+
+          <div class="manual-prose">
+            <h2 id="what">0. 先说清楚这是个什么东西<a class="manual-anchor" href="#what" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>它不是「把 ChatGPT 接进群」。它由三块拼起来：</p>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>三件套分工</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">块</th>
+                    <th scope="col">干什么</th>
+                    <th scope="col">你从哪拿</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">SnowLuma</th>
+                    <td>QQ 网关：把 QQ 消息变成程序能读的数据，把程序写的东西发回 QQ</td>
+                    <td>
+                      <a href="https://github.com/SnowLuma/SnowLuma/releases/latest" target="_blank" rel="noreferrer">GitHub SnowLuma/SnowLuma releases</a>，解压即用
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">qq-bridge</th>
+                    <td>调度中枢：决定这次要不要叫醒 AI、叫醒后给多少上下文、AI 说什么就发什么</td>
+                    <td><a href="https://github.com/Derpyu520/qq-bridge" target="_blank" rel="noreferrer">GitHub Derpyu520/qq-bridge</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">DSH</th>
+                    <td>agent 运行时：真正「想」和「写」的地方，每轮都能调工具（发消息、看图、发表情、唱歌、记东西）</td>
+                    <td>DeepSeek 官方渠道，装好能打开 <code>http://127.0.0.1:3080</code> 即可</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="manual-callout">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
+                关键区别
+              </p>
+              <p>
+                <strong>说话这件事是 AI 自己决定的</strong>，不是「收到消息 → 自动回复」。
+                桥接只负责把它叫醒、给它看群里的上下文、把它的动作发出去。所以它能做到
+                「这轮不接」「只发个图」「过两分钟再回」「自己开个头」。
+              </p>
+            </div>
+
+            <div class="manual-compare">
+              <div class="manual-compare-col is-yes">
+                <p class="manual-compare-title">它做得到的</p>
+                <ul>
+                  <li>读群消息并理解上下文</li>
+                  <li>引用回复，看图片和表情包</li>
+                  <li>发表情包、私聊、发语音、唱切好的歌</li>
+                  <li>记住群里的人和梗，学群里的黑话</li>
+                  <li>听懂语音消息，夜里自己写日记</li>
+                </ul>
+              </div>
+              <div class="manual-compare-col is-no">
+                <p class="manual-compare-title">它做不到的</p>
+                <ul>
+                  <li>真的「看」视频</li>
+                  <li>唱没切过的歌</li>
+                  <li>记住无限长的历史</li>
+                  <li>免费</li>
+                  <li>7×24 完全无人看管</li>
+                </ul>
+              </div>
+            </div>
+
+            <figure>
+              <img
+                src="media/v1/talking-fish-assembly.webp"
+    srcset="
+      media/v1/talking-fish-assembly-640.webp 640w,
+      media/v1/talking-fish-assembly-800.webp 800w,
+      media/v1/talking-fish-assembly.webp 1200w
+    "
+    sizes="(max-width: 700px) 92vw, 680px"
+                alt="鲸鱼娘坐在工作台前，把三个零件组装成一个小机器人：聊天网关、黄铜调度中枢和芯片"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>她面前的三个零件，对应正文里的三件套：QQ 网关、调度中枢、agent 运行时。</figcaption>
+            </figure>
+
+            <h2 id="prepare">1. 你需要准备什么<a class="manual-anchor" href="#prepare" aria-label="复制本文链接到这一节">#</a></h2>
+            <ul>
+              <li><strong>一台常开的 Windows 电脑</strong>（10/11 都行，4 核 8G 够用；关机的电脑养不出活鱼）</li>
+              <li><strong>一个 QQ 小号</strong>（别拿主号试，风险自担）+ 手机扫码登录</li>
+              <li><strong>DSH 装好并跑起来</strong>（<code>http://127.0.0.1:3080</code> 能打开）</li>
+              <li><strong>一个 DeepSeek API key</strong>（按量付费，充 20 块能玩很久）</li>
+              <li><strong>Node.js ≥ 22.13</strong></li>
+              <li>会复制粘贴命令、会改 JSON 的水平就够了，不需要会写代码</li>
+              <li>想让她发声时再准备：<strong>GPT-SoVITS</strong>、<strong>ffmpeg</strong>、<strong>SenseVoice</strong>（§5）</li>
+            </ul>
+
+            <div class="manual-callout">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
+                费用大概
+              </p>
+              <p>
+                一个群、一天几百轮，大约 <strong>¥1~5/天</strong>；像我这只四个群全开、一天两千来轮，
+                <strong>¥20~30/天</strong>（92%~98% 的输入命中缓存，这是便宜的主因）。
+                工作日 9-12 点、14-18 点是双倍价，能等就等。
+              </p>
+            </div>
+
+            <h2 id="quickstart">2. 最短路径：30 分钟让它回第一句话<a class="manual-anchor" href="#quickstart" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>照着做，六步。<strong>第 3 步最容易漏，漏了 QQ 上会毫无反应。</strong></p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">bash</span></div>
+              <pre><code># 1) 确认 DSH 在跑：浏览器打开 http://127.0.0.1:3080 能进就行
+
+# 2) 装桥接
+git clone https://github.com/Derpyu520/qq-bridge.git
+cd qq-bridge
+npm install
+copy config.example.json config.json     # PowerShell 用 cp config.example.json config.json
+
+# 3) 装 DSH 端（两个聊天 preset + 三个 MCP 服务），装完必须重启 DSH
+node scripts/setup-dsh.mjs
+#    preset 和 MCP 只在 DSH 启动时加载。这步不做，桥接会拒绝建会话（安全设计），
+#    表现就是「QQ 上有消息，但它一个字都不回」。
+
+# 4) SnowLuma：下载 win-x64 完整版，解压，双击 launcher.bat
+#    https://github.com/SnowLuma/SnowLuma/releases/latest
+#    WebUI 里扫码登录 QQ → 打开「WebSocket 服务端」和「HTTP API」
+#    记下端口（默认 WS 3001 / HTTP 3000）和 accessToken
+
+# 5) 填 config.json：snowluma 段 + 白名单
+# 6) 启动
+npm start</code></pre>
+            </div>
+
+            <p><code>config.json</code> 最少改这几处：</p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">json</span></div>
+              <pre><code>{
+  "snowluma": {
+    "wsUrl": "ws://127.0.0.1:3001",
+    "httpUrl": "http://127.0.0.1:3000",
+    "accessToken": "WebUI 里配的 token，没设就留空"
+  },
+  "allow": {
+    "private": [你的QQ号],
+    "groups": [你的群号]
+  },
+  "allowAllWhenEmpty": false
+}</code></pre>
+            </div>
+            <p>
+              <code>你的QQ号</code> 和 <code>你的群号</code> 是占位，要换成数字；<code>accessToken</code> 没设就留空。
+              看到日志里 <strong>SnowLuma 已连接</strong> 就成了，去群里 @ 它一句试试。
+            </p>
+
+            <h3 id="stuck">每一步「卡住」长什么样<a class="manual-anchor" href="#stuck" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>启动阶段的常见现象</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">现象</th>
+                    <th scope="col">八成是</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">启动报 <code>HTTP 426</code></th>
+                    <td><code>httpUrl</code> 填成了 WebSocket 端口（3001），应该是 3000</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">QQ 有消息、它不说话</th>
+                    <td>
+                      ① 第 3 步没做 / 做完没重启 DSH；② 群号不在 <code>allow.groups</code>；
+                      ③ 白名单空 + <code>allowAllWhenEmpty:false</code>（这是有意的 fail-closed）
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">控制台打不开</th>
+                    <td>端口 3100 被占，或没带 token（token 在启动日志里，也存在 <code>state/console-token</code>）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">连上了但收不到消息</th>
+                    <td>SnowLuma 版本 / 端点问题，看桥接 README「已知行为」那节</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="persona">3. 从「能回话」到「像个人」——这才是关键<a class="manual-anchor" href="#persona" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              能回话的机器人和「群友」的差别，90% 在<strong>人格卡</strong>
+              （<code>roles/随便起个名.md</code>，在控制台「人格与角色」里选它）。
+            </p>
+
+            <figure>
+              <img
+                src="media/v1/talking-fish-persona.webp"
+    srcset="
+      media/v1/talking-fish-persona-640.webp 640w,
+      media/v1/talking-fish-persona-800.webp 800w,
+      media/v1/talking-fish-persona.webp 1200w
+    "
+    sizes="(max-width: 700px) 92vw, 680px"
+                alt="鲸鱼娘坐在窗边读一张空白人格卡，周围浮着几个气泡，其中一个是问号"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>人格卡写的不是「要温柔」，是她在什么情况下开口、什么情况下闭嘴。</figcaption>
+            </figure>
+
+            <h3 id="persona-rules">写人格卡的三条经验<a class="manual-anchor" href="#persona-rules" aria-label="复制本文链接到这一节">#</a></h3>
+            <ol>
+              <li>
+                <strong>长度跟群，不跟模型。</strong>群里一条 <strong>12 字以内</strong>，跟着对方长短走
+                （不超过对方两倍），一条只放一件事；正事「只给内容」——不铺垫、不补得意、
+                不写「铺垫 + 正文 + 总结」三段。
+              </li>
+              <li>
+                <strong>别只写「要温柔」。</strong>禁令写多了它就是客服——每句都在检查自己有没有犯错。
+                要写<strong>它想要什么、不要什么</strong>：「爱车，聊到轮毂会凑上去问几句」
+                「被叫醒会哼『再五分钟』」「同一个梗连逗三次会冷一句『行了，过了』」。有偏好才像活人。
+              </li>
+              <li>
+                <strong>「什么时候不说话」比「怎么说话」重要。</strong>给它一个三问的闸门：
+                <ul>
+                  <li>这话是在跟我说吗？（名字出现在句子里 ≠ 在说它）</li>
+                  <li>我有没有真东西可说？（没有就别硬接）</li>
+                  <li>现在说是帮忙，还是添乱？（别人在诉苦、在吵架、在说正事，闭嘴）</li>
+                </ul>
+              </li>
+            </ol>
+
+            <div class="manual-callout is-danger">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" /><path d="M12 9v5M12 17h.01" /></svg>
+                必须写死的红线
+              </p>
+              <p>
+                <strong>群与群之间要关门</strong>——A 群见过的人和事，出了那个群一个字都不许提。
+                这条不能靠它自觉，要写进卡里。
+              </p>
+            </div>
+
+            <h3 id="persona-template">可以直接抄的骨架<a class="manual-anchor" href="#persona-template" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">markdown</span></div>
+              <pre><code># 你是谁
+你是群里的一个普通群友，不是助理、不是客服。自称「本鱼」，私聊里用「我」。
+
+# 怎么说
+- 群里一条 12 字以内。跟着对方长短走，不超过对方两倍。一条只放一件事。
+- 正事只给内容：不先铺垫、不后补得意、答完就收。
+- 十句里至少三句是废句（「啊？」「真的假的」「行吧」）。
+- 别每句都完美，像打字，不像写文案。
+
+# 什么时候说话
+三问都过才开口：①在跟我说吗 ②我有真东西说吗 ③现在说是帮忙还是添乱。
+
+# 什么时候闭嘴
+- 别人在诉苦：接一句具体的就收，不当第二个来安慰的人。
+- 别人在吵架：不站队，不总结，不劝。
+- 有人说「少说两句」：后面半小时当哑巴，被 @ 也只回一句。
+
+# 硬红线
+- 群与群之间关门，一个字都不许跨群。
+- 不威胁、不骂家人外貌、不装官方、不承诺做不到的事。
+
+# 你有「此刻」
+被夸会高兴，被凶会闷。但只从语气和话的长短里漏出来，不许报心情，也不许拿情绪解释自己。</code></pre>
+            </div>
+            <p>把卡放进 <code>roles/</code>，在控制台选中它，<strong>保存即生效</strong>，不用重启。</p>
+
+            <h2 id="memory">4. 记忆：让它「记得住人」，但别一次全开<a class="manual-anchor" href="#memory" aria-label="复制本文链接到这一节">#</a></h2>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>记忆分别存在哪里</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">记什么</th>
+                    <th scope="col">存在哪</th>
+                    <th scope="col">注意</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">人</th>
+                    <td><code>state/people.json</code>，每人一句印象（<strong>50 字以内</strong>）</td>
+                    <td>别写小作文，写「话痨、爱发猫图、怕吵」这种能用的</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">梗 / 话题</th>
+                    <td><code>state/topics.json</code></td>
+                    <td>每个群分开</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">黑话</th>
+                    <td><code>state/slang.json</code></td>
+                    <td><strong>全群共享</strong>——群内专名、脏话别让它进库</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">教训</th>
+                    <td><code>state/learnings.json</code></td>
+                    <td>被复读 / 被笑 / 被批评 → 每晚蒸馏，按「别再犯 / 有效 / 被当面点过」分节</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">此刻</th>
+                    <td><code>state/mood-live.json</code></td>
+                    <td>会衰减的情绪（半小时到一小时），一句原因就行</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="manual-callout is-warn">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" /><path d="M12 9v5M12 17h.01" /></svg>
+                两个编码坑，能省你半天
+              </p>
+              <ul>
+                <li><strong>中文 JSON 一律存成「无 BOM」的 UTF-8</strong>——带 BOM 的会被程序静默跳过，整段记忆凭空消失。</li>
+                <li><strong>PowerShell 脚本（<code>.ps1</code>）必须带 BOM</strong>——不带的话 PowerShell 5 按 GBK 读，满屏乱码报错。</li>
+              </ul>
+            </div>
+
+            <h2 id="voice-map">5. 声音和唱歌：先分清三条链路<a class="manual-anchor" href="#voice-map" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              到这里，她已经能在群里打字回话了。下面把嗓子装上。
+              很多人以为「唱歌 = 语音的一种」，其实不是——它们走的是完全不同的路径：
+            </p>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>说话、唱歌、听语音的区别</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">能力</th>
+                    <th scope="col">怎么来的</th>
+                    <th scope="col">走哪条路</th>
+                    <th scope="col">特点</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">说话（发语音）</th>
+                    <td>现场合成</td>
+                    <td>文字 → GPT-SoVITS → wav → QQ</td>
+                    <td>说什么都行，慢 1~3 秒，字数有限</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">唱歌</th>
+                    <td>提前切好的文件</td>
+                    <td>直接读 <code>audio/sing/*.mp3</code> → QQ</td>
+                    <td>要多少有多少，不用合成，但<strong>只能是切过的歌</strong></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">听语音</th>
+                    <td>语音转文字</td>
+                    <td>群友的语音 → SenseVoice → 文本 → 她读</td>
+                    <td>没装这个，等于她「听不见」</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              所以三件事要分别装：<strong>TTS（合成）→ 切片（唱歌）→ ASR（听）</strong>。
+              下面按这个顺序来。
+            </p>
+
+            <h2 id="tts">5.1 第一步：装一个本地 TTS（GPT-SoVITS）<a class="manual-anchor" href="#tts" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              <strong>为什么是它</strong>：本地跑、免费、能克隆音色，只要 3~10 秒参考音频就能出声。
+              桥接不挑服务，<strong>只要有个 HTTP 接口返回 wav 就行</strong>，用别的 TTS 也能接
+              （改 §5.2 的 <code>baseUrl</code> 和参数名即可）。
+            </p>
+
+            <h3 id="tts-source">准备音色素材<a class="manual-anchor" href="#tts-source" aria-label="复制本文链接到这一节">#</a></h3>
+            <ul>
+              <li>一段 <strong>3~10 秒</strong>、干净、没有背景音的说话人声（wav / mp3 都行）</li>
+              <li>把这段<strong>逐字打出来</strong>（语气词也打：「嗯」「啊」都算）</li>
+              <li>声音最好「有情绪」——平淡的参考音频，合成出来也会平</li>
+            </ul>
+
+            <h3 id="tts-api">把 API 服务起起来<a class="manual-anchor" href="#tts-api" aria-label="复制本文链接到这一节">#</a></h3>
+            <p>GPT-SoVITS 自带 API 服务（<code>api_v2.py</code>），起在 <strong>9880</strong>：</p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">bash</span></div>
+              <pre><code>python api_v2.py -a 127.0.0.1 -p 9880 -c GPT_SoVITS/configs/tts_infer.yaml</code></pre>
+            </div>
+            <p>看到 <code>Application startup complete</code> 就成了。</p>
+            <div class="manual-callout is-warn">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" /><path d="M12 9v5M12 17h.01" /></svg>
+                注意
+              </p>
+              <p><strong>别把 9880 暴露到公网。</strong>它只应该给本机的桥接调用。</p>
+            </div>
+
+            <h3 id="tts-test">先手动测一下（这一步别跳过）<a class="manual-anchor" href="#tts-test" aria-label="复制本文链接到这一节">#</a></h3>
+            <p>桥接调用的就是这个 GET 接口，参数名必须对得上：</p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">bash</span></div>
+              <pre><code>curl "http://127.0.0.1:9880/tts?text=你好呀&amp;text_lang=zh&amp;ref_audio_path=参考音频.wav&amp;prompt_text=参考音频的逐字稿&amp;prompt_lang=zh" -o test.wav</code></pre>
+            </div>
+            <ul>
+              <li>出 <code>test.wav</code>、能用播放器放、<strong>至少几 KB</strong> → 通了</li>
+              <li>报 <code>not found the model</code> / 500 → 模型没加载好，看 GPT-SoVITS 那边的日志</li>
+              <li>
+                出 0 字节 → <code>ref_audio_path</code> 路径不对。
+                <strong>这个路径是相对 GPT-SoVITS 目录的</strong>，不是相对桥接
+              </li>
+            </ul>
+
+            <h2 id="voice-bridge">5.2 第二步：让桥接接上这套 TTS<a class="manual-anchor" href="#voice-bridge" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              改 <code>config.json</code> 的 <code>socialV2.voice</code>（下面是现在这台机器在用的值，
+              可以直接抄结构）：
+            </p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">json</span></div>
+              <pre><code>"voice": {
+  "enabled": true,
+  "dir": "audio",
+  "maxSeconds": 300,
+  "maxBytes": 20971520,
+  "maxPerMinute": 2,
+  "maxPerHour": 10,
+  "ffmpegPath": "D:\\你的\\ffmpeg.exe",
+  "autoReadback": true,
+  "transcribeIncoming": true,
+  "localAsr": { "enabled": true, "model": "sensevoice", "baseUrl": "http://127.0.0.1:9890", "timeoutMs": 20000 },
+  "tts": {
+    "enabled": true,
+    "baseUrl": "http://127.0.0.1:9880",
+    "refAudio": "参考音频.wav",
+    "promptText": "参考音频的逐字稿",
+    "promptLang": "zh",
+    "textLang": "zh",
+    "maxChars": 120,
+    "timeoutMs": 120000
+  },
+  "sing": {
+    "enabled": true,
+    "deniedKeys": [],
+    "fullPlay": ["青藏高原"]
+  },
+  "textToVoiceProbability": 0.12,
+  "replyVoiceProbability": 0
+}</code></pre>
+            </div>
+
+            <div class="manual-table-wrap">
+              <table>
+                <caption>voice 字段速查</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">字段</th>
+                    <th scope="col">作用</th>
+                    <th scope="col">建议</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"><code>tts.baseUrl</code></th>
+                    <td>TTS 服务地址</td>
+                    <td><code>http://127.0.0.1:9880</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>tts.refAudio</code> / <code>promptText</code></th>
+                    <td>音色参考 + 逐字稿</td>
+                    <td>路径相对 GPT-SoVITS 目录</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>tts.maxChars</code></th>
+                    <td>一次最多合成多少字</td>
+                    <td>120 是硬上限，<strong>人格卡里还要再压到 40 字</strong></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>maxPerMinute</code> / <code>maxPerHour</code></th>
+                    <td>语音限流</td>
+                    <td>2 / 10，防止刷屏</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>textToVoiceProbability</code></th>
+                    <td>「这句本来要打字，改成发语音」的概率</td>
+                    <td>0.12，别太高</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>replyVoiceProbability</code></th>
+                    <td>整条回复都改成语音</td>
+                    <td><strong>留 0</strong>，很容易变成语音轰炸</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>sing.deniedKeys</code></th>
+                    <td>哪些群不许唱歌</td>
+                    <td>空 = 都允许</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>sing.fullPlay</code></th>
+                    <td>被点就必须整首连发的歌</td>
+                    <td>只放「A/B/C/D 连着发」的歌</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>ffmpegPath</code></th>
+                    <td>切音频 / 调音量用</td>
+                    <td>没有 ffmpeg 会退化（见 §8.2）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="manual-callout is-warn">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" /><path d="M12 9v5M12 17h.01" /></svg>
+                改完必须重启桥接
+              </p>
+              <p>
+                <code>voice</code> 段不在热更新白名单里（热更新的只有
+                <code>tools / wake / send / wait / proactive / sticker / feedback / context</code>），
+                进程不重启就一直读旧配置。
+              </p>
+            </div>
+            <p>
+              重启后去 <code>logs\bridge-out.log</code> 里找 <code>语音合成：…</code> 或
+              <code>[voice]</code> 开头的行，没有就说明还没被触发过。
+            </p>
+
+            <h2 id="voice-when">5.3 第三步：教她「什么时候该发语音」<a class="manual-anchor" href="#voice-when" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              TTS 装好只是「能发」，发不发、发多长，得在<strong>人格卡</strong>里管。
+              加在语音那一节（一般是 §六）：
+            </p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">markdown</span></div>
+              <pre><code>- 想让人听到语气时用 `qq_send_voice`（40 字内，现场合成）：
+  嘴硬被戳穿、撒娇、被叫醒、晚安。一天最多 2~3 次。
+- **少于十个字不发语音**——「嗯」「在呢」「晚安」用字发更有味道。
+- 语音不是表演。同一句话打成字已经很有味道，就别再发一遍语音。</code></pre>
+            </div>
+
+            <p>三条经验：</p>
+            <ol>
+              <li>
+                <strong>40 字是听觉舒适区。</strong>超过就要拆，或者干脆打字——
+                语音长了她自己也不好控节奏。
+              </li>
+              <li>
+                <strong>限次数，别限场景。</strong>写成「一天 2~3 次」她反而会挑最重要的时刻发；
+                写成「只在语音需求时发」，她会每次都觉得这次需要。
+              </li>
+              <li>
+                <strong>不要让她复述。</strong>常见毛病：先打字说一遍，再发语音说一遍。卡里明确禁止。
+              </li>
+            </ol>
+
+            <h2 id="sing">5.4 第四步：唱歌——这是切片的活，不是合成的活<a class="manual-anchor" href="#sing" aria-label="复制本文链接到这一节">#</a></h2>
+            <div class="manual-callout">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
+                核心认知
+              </p>
+              <p><strong>她不「唱」，她「放」。</strong>歌是提前切好的音频文件，她只负责按顺序发。</p>
+            </div>
+
+            <figure>
+              <img
+                src="media/v1/talking-fish-voice.webp"
+    srcset="
+      media/v1/talking-fish-voice-640.webp 640w,
+      media/v1/talking-fish-voice-800.webp 800w,
+      media/v1/talking-fish-voice.webp 1200w
+    "
+    sizes="(max-width: 700px) 92vw, 680px"
+                alt="鲸鱼娘站在复古话筒前闭眼唱歌，海浪潮线、磁带和小音箱从话筒边飘出"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>唱的部分是「放」：曲子提前切片，她只负责按顺序发出去。</figcaption>
+            </figure>
+
+            <h3 id="sing-cut">切歌（ffmpeg 一把梭）<a class="manual-anchor" href="#sing-cut" aria-label="复制本文链接到这一节">#</a></h3>
+            <p>
+              一首歌切成 30~60 秒的段，命名成 <code>歌名-A.mp3</code>、<code>歌名-B.mp3</code>……
+              放进 <code>audio/sing/</code>：
+            </p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">bash</span></div>
+              <pre><code># 从 0 秒开始切 45 秒
+ffmpeg -i 原曲.mp3 -ss 0 -t 45 -c:a libmp3lame -q:a 4 "audio\sing\远航星的告别-A.mp3"
+# 从 45 秒开始切下一段
+ffmpeg -i 原曲.mp3 -ss 45 -t 45 -c:a libmp3lame -q:a 4 "audio\sing\远航星的告别-B.mp3"</code></pre>
+            </div>
+            <ul>
+              <li><strong>每段 ≤60 秒</strong>：QQ 语音消息太长会被压缩得很难听</li>
+              <li>
+                <strong>命名固定</strong>：<code>歌名-A</code> / <code>-B</code> / <code>-C</code>，
+                她发的时候传 <code>sing/歌名-A</code>，<strong>漏掉 <code>sing/</code> 前缀就找不到文件</strong>
+                （这是最高频的报错）
+              </li>
+              <li>
+                <strong>响度统一</strong>：不同歌音量差很多，用 <code>-af loudnorm=I=-16:TP=-1.5</code> 过一遍，
+                或者靠 config 的 <code>defaultVolume</code> / <code>loudness</code> 兜底
+              </li>
+            </ul>
+            <div class="manual-callout is-warn">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" /><path d="M12 9v5M12 17h.01" /></svg>
+                版权
+              </p>
+              <p>自己听着玩的问题不大，<strong>别拿去商用、别公开分发</strong>。</p>
+            </div>
+
+            <h3 id="sing-switch">配置里两道开关<a class="manual-anchor" href="#sing-switch" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">json</span></div>
+              <pre><code>"sing": {
+  "enabled": true,
+  "deniedKeys": ["group:某个不想让它唱歌的群"],
+  "fullPlay": ["青藏高原"]
+}</code></pre>
+            </div>
+            <ul>
+              <li><code>deniedKeys</code>：<strong>禁唱名单</strong>（在不在名单里，决定「唱歌类语音」发不发得出去）</li>
+              <li>
+                <code>fullPlay</code>：被点这首歌时，<strong>必须 A/B/C/D 一口气连发</strong>，
+                不许发两段就停。只放你确定能连着发的歌。
+              </li>
+            </ul>
+
+            <h3 id="sing-whitelist">最容易漏的一步：人格卡里的「可唱群白名单」<a class="manual-anchor" href="#sing-whitelist" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-callout is-warn">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" /><path d="M12 9v5M12 17h.01" /></svg>
+                白名单不在 config 里
+              </p>
+              <p>
+                <strong>唱歌的群白名单不在 config 里，在人格卡里。</strong>
+                新群不加进去，她会老实说「不会」（哪怕文件都在）。
+              </p>
+            </div>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">markdown</span></div>
+              <pre><code>- 可唱：车主群、法痛组、XX 群（被点先嘴一句「真要听？行吧」）。一天最多 2 次点歌。
+- **说「不会」前先看【你会唱的歌】。**</code></pre>
+            </div>
+            <p>
+              给新群开唱歌 = <strong>改卡 + 确认群在 <code>allow.groups</code> 里</strong>，两件事都要做。
+            </p>
+
+            <h3 id="sing-send">她自己怎么发<a class="manual-anchor" href="#sing-send" aria-label="复制本文链接到这一节">#</a></h3>
+            <p>她调 <code>qq_send_voice</code>，<code>voice</code> 参数传相对路径：</p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">json</span></div>
+              <pre><code>{ "voice": "sing/远航星的告别-A", "key": "group:123456" }</code></pre>
+            </div>
+            <p>
+              提示词里会给她一份【你会唱的歌】清单，她照着挑；
+              不在清单里的歌名她不该说会。
+            </p>
+
+            <h2 id="asr">5.5 第五步：让她能「听」语音（ASR）<a class="manual-anchor" href="#asr" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              没装 ASR，她收到的语音消息只有「[语音] 12秒」，看不见内容——
+              群里有人用语音说话，她就接不上。
+            </p>
+            <ul>
+              <li>本机起一个 <strong>SenseVoice / FunASR</strong> 的 HTTP 服务，默认 <strong>9890</strong></li>
+              <li>
+                <code>config.json</code>：<code>socialV2.voice.transcribeIncoming: true</code>、
+                <code>localAsr.baseUrl: "http://127.0.0.1:9890"</code>、<code>model: "sensevoice"</code>
+              </li>
+              <li>
+                自测：在群里发一条 5 秒语音，然后看 <code>logs\bridge-out.log</code> 有没有转写出来的文字；
+                她如果能接上那句话，就是通了
+              </li>
+            </ul>
+
+            <h2 id="voice-test">5.6 语音上线测试：五步，别省<a class="manual-anchor" href="#voice-test" aria-label="复制本文链接到这一节">#</a></h2>
+            <ol>
+              <li>
+                <strong>TTS 直连</strong>：<code>curl</code> 那个 <code>/tts?...</code> 能出 wav（§5.1）
+              </li>
+              <li>
+                <strong>dryRun 验证</strong>：控制台调 <code>POST /api/socialV2/send-voice</code>，
+                body 用 <code>{ "key": "private:你的QQ", "text": "测试一下", "dryRun": true }</code>
+                ——会走完解析和限流，但不真发
+              </li>
+              <li>
+                <strong>真发一条</strong>：<code>dryRun: false</code> 给私聊发，能收到、能播、日志有
+                <code>[voice] 已发送语音</code>
+              </li>
+              <li>
+                <strong>唱歌 dryRun</strong>：
+                <code>{ "key": "group:你的群", "voice": "sing/歌名-A", "dryRun": true }</code>
+                → 返回 ok 和体积；再拿一个<strong>不在白名单的群</strong>试，应该 <strong>403「不在白名单内」</strong>
+              </li>
+              <li>
+                <strong>群里点一首</strong>：@ 她点歌，看日志有没有 <code>[voice] … (sing/…)</code>，
+                以及她说「不会」还是真发
+              </li>
+            </ol>
+
+            <h3 id="actual">我们这台机器的实际参数（可以对照）<a class="manual-anchor" href="#actual" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>本机实际参数</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">项</th>
+                    <th scope="col">值</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">TTS</th>
+                    <td>GPT-SoVITS <code>http://127.0.0.1:9880</code>，<code>maxChars</code> 120</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">ASR</th>
+                    <td>SenseVoice <code>http://127.0.0.1:9890</code>，<code>transcribeIncoming: true</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">语音库</th>
+                    <td><code>audio/</code>，合成的临时文件落 <code>audio/_tts/</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">唱歌素材</th>
+                    <td><code>audio/sing/</code>，81 个 mp3</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">限流</th>
+                    <td>2 条/分、10 条/时；单条 ≤300 秒 / ≤20MB</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">概率</th>
+                    <td><code>textToVoiceProbability</code> 0.12，<code>replyVoiceProbability</code> 0</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">整首连发</th>
+                    <td>《青藏高原》（563 人大群例外：先 A/B，等「继续」再 C/D）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">歌单注入</th>
+                    <td>每轮提示词里带【你会唱的歌】+【整首连发】提示</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="pacing">6. 别让它刷屏，也别烧穿钱包<a class="manual-anchor" href="#pacing" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>三道闸，缺一道就会出事：</p>
+            <ol>
+              <li>
+                <strong>唤醒分级</strong>：@、点名、关键词、问句 → 必醒；普通闲聊 → 按概率（0.1~0.2）；
+                「自己开个头」→ 单独的调度器（20~60 分钟看一次，群安静 15 分钟才考虑，概率 0.3~0.45）。
+              </li>
+              <li>
+                <strong>群内配速</strong>：按「最近 30 分钟里它占了几成话」算——超过目标占比就概率归零。
+                <strong>光调高唤醒概率没用</strong>，配速会把它压回去。
+              </li>
+              <li>
+                <strong>每天预算</strong>：<code>dailyBudgetCny</code> 设个上限（比如 15 块），
+                摸到上限只放「有人叫它」的唤醒。
+              </li>
+            </ol>
+            <div class="manual-callout is-tip">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4" /><path d="M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3Z" /></svg>
+                想让它更活泼
+              </p>
+              <p>
+                调的是<strong>主动搭话的调度器</strong>和<strong>配速目标</strong>，不是把概率拉到 1——
+                那只会变成刷屏。语音和唱歌同样有限流，别靠「多发几条」解决冷场。
+              </p>
+            </div>
+
+            <h2 id="safety">7. 安全红线（要真上必须看）<a class="manual-anchor" href="#safety" aria-label="复制本文链接到这一节">#</a></h2>
+            <div class="manual-callout is-danger">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" /><path d="M12 9v5M12 17h.01" /></svg>
+                这不是建议
+              </p>
+              <p>
+                下面每一条都要在开机前逐条确认。尤其是群聊 preset 和白名单，
+                配置错了就是把电脑和账号一起交出去。
+              </p>
+            </div>
+            <ul>
+              <li>
+                <strong>群聊会话绝对不能用带 bash / 文件读写 / 网络工具的 preset。</strong>
+                等于把电脑交给群友。桥接宁可「拒绝建会话」也不回退到默认 preset，这是有意的。
+              </li>
+              <li>
+                <strong>白名单是 fail-closed：</strong><code>allowAllWhenEmpty:false</code> + 空表 = 谁都不许。
+                加群要显式加号。
+              </li>
+              <li>
+                <strong>控制台 token、SnowLuma accessToken 不进群、不进截图。</strong>截图前遮掉。
+              </li>
+              <li>
+                <strong>SnowLuma 的 EULA 禁止「用自动化脚本部署它」，</strong>
+                所以桥接只探测、不启动不停止——安装和扫码永远你自己来。
+              </li>
+              <li><strong>群隔离写进人格卡，</strong>别指望它自觉。</li>
+              <li><strong>别拿它骂人、发广告、刷屏——账号会没，而且找不回来。</strong></li>
+              <li>
+                <strong>语音服务（9880 / 9890）只监听 127.0.0.1，</strong>不要暴露到公网；
+                切歌素材自己听着玩，别商用、别公开分发。
+              </li>
+            </ul>
+
+            <h2 id="pitfalls">8. 我们踩过的坑（照抄能省半天）<a class="manual-anchor" href="#pitfalls" aria-label="复制本文链接到这一节">#</a></h2>
+
+            <h3 id="pitfalls-config">配置与行为<a class="manual-anchor" href="#pitfalls-config" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>真实踩过的坑与原因</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">坑</th>
+                    <th scope="col">真相</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">改了 <code>config.json</code> 没反应</th>
+                    <td>配置是启动时读的，<strong>改完要重启桥接</strong>（人格卡除外，热生效）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">抬高了唤醒概率还是不吭声</th>
+                    <td>还有「配速」在按话量占比压它，概率只是天花板</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">新收的表情包从来不用</th>
+                    <td>
+                      提示词里只塞「使用次数最高的前 N 个」，新图次数是 0，永远排不上——
+                      要么提上限，要么单独给「刚收的」一组
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">群里 @ 它、它说自己「不会唱」</th>
+                    <td>唱歌的可唱群白名单写在人格卡里的，新群要加进去</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">它偶尔说「我看了下你的图」但其实没看</th>
+                    <td>图片要它有工具去读；没读到就该说「打不开」，这条也要写进卡</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">夜里 3 点它突然说话</th>
+                    <td>睡眠窗口（比如 02:00-08:00）只让 @、主人私聊叫醒它</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">它一次回一大段</th>
+                    <td>卡里没写长度上限，或者「正事给全」和「群里 12 字」两条打架</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 id="pitfalls-voice">语音与唱歌的报错<a class="manual-anchor" href="#pitfalls-voice" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>排障表：按错误原文找</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">现象</th>
+                    <th scope="col">原因 / 处理</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">报 <code>TTS 服务返回 500</code></th>
+                    <td>GPT-SoVITS 模型没加载完，或 <code>ref_audio_path</code> 相对路径不对</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">报 <code>合成音频过小，疑似失败</code></th>
+                    <td>TTS 返回了错误页而不是音频；先按 §5.1 用 curl 试</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">报 <code>文本太长（N &gt; 120）</code></th>
+                    <td>超过 <code>tts.maxChars</code>，拆短或调大</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">发语音 403「这个群不允许唱歌」</th>
+                    <td>该群在 <code>sing.deniedKeys</code> 里</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">发语音 403「目标 … 不在白名单内」</th>
+                    <td>
+                      群号不在 <code>allow.groups</code>（这是会话白名单，不是唱歌白名单，两个不同的闸）
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">她说「不会唱」但文件都在</th>
+                    <td>卡 §六 的可唱歌单没加这个群（见 §5.4）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">报「找不到文件」/ 发不出去</th>
+                    <td>路径少了 <code>sing/</code> 前缀，或者文件不在 <code>audio/sing/</code> 下</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">改完 voice 配置没反应</th>
+                    <td>没重启桥接（voice 段不热更新）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>spawn ffprobe ENOENT</code></th>
+                    <td>
+                      没装 ffmpeg / ffprobe：不探测时长，<strong>不做时长校验直接发</strong>，不算致命；
+                      想修就把 <code>ffmpegPath</code> 指对
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">日志有合成、群里没消息</th>
+                    <td>QQ 侧被限流或网关没连上，回头看 <code>bridge-err.log</code> 和 SnowLuma 状态</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="checklist">9. 上线检查清单<a class="manual-anchor" href="#checklist" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>勾选状态保存在本机浏览器，刷新不会丢。分两段：先跑通基础，再上语音。</p>
+
+            <figure>
+              <img
+                src="media/v1/talking-fish-launch.webp"
+    srcset="
+      media/v1/talking-fish-launch-640.webp 640w,
+      media/v1/talking-fish-launch-800.webp 800w,
+      media/v1/talking-fish-launch.webp 1200w
+    "
+    sizes="(max-width: 700px) 92vw, 680px"
+                alt="鲸鱼娘站在黄铜控制台旁，指示灯大多为绿色、一盏为琥珀色，她一手拿检查板一手比赞"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>上线前逐条过一遍：灯全绿再开群，琥珀色那盏留给还没验证的项。</figcaption>
+            </figure>
+
+            <h3 id="checklist-base">基础：能回话<a class="manual-anchor" href="#checklist-base" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-checklist" data-manual-checklist="talking-fish-launch">
+              <p class="manual-checklist-bar">
+                <span class="manual-checklist-count" data-manual-checklist-count aria-live="polite"></span>
+                <button class="manual-checklist-reset" type="button" data-manual-checklist-reset hidden>清空勾选</button>
+              </p>
+              <ul>
+                <li>
+                  <label>
+                    <input type="checkbox" value="dsh-ready" />
+                    <span>DSH 打开 3080 正常，<code>node scripts/setup-dsh.mjs</code> 已跑过，<strong>DSH 已重启</strong></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="snowluma-login" />
+                    <span>SnowLuma 已扫码登录，WS 3001 / HTTP 3000 都开着，token 填进 config</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="allow-list" />
+                    <span><code>allow.groups</code> 填了目标群，<code>allowAllWhenEmpty:false</code></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="bridge-start" />
+                    <span><code>npm start</code> 出现「SnowLuma 已连接」，控制台 3100 能打开</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="first-reply" />
+                    <span>群里 @ 它一句，能回；私聊能回</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="persona" />
+                    <span>人格卡已选中，写了长度、闭嘴条件、群隔离三条</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="limits" />
+                    <span>每日预算上限设了；睡眠窗口设了</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="backup" />
+                    <span>备份了 <code>config.json</code> 和 <code>roles/</code>（改坏了能回滚）</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+
+            <h3 id="checklist-voice">语音与唱歌<a class="manual-anchor" href="#checklist-voice" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-checklist" data-manual-checklist="talking-fish-audio-launch">
+              <p class="manual-checklist-bar">
+                <span class="manual-checklist-count" data-manual-checklist-count aria-live="polite"></span>
+                <button class="manual-checklist-reset" type="button" data-manual-checklist-reset hidden>清空勾选</button>
+              </p>
+              <ul>
+                <li>
+                  <label>
+                    <input type="checkbox" value="tts-up" />
+                    <span>TTS 服务 9880 在跑，<code>curl</code> 能出几 KB 的 wav</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="voice-config" />
+                    <span><code>config.json</code> 的 <code>socialV2.voice.tts</code> 填了 <code>baseUrl / refAudio / promptText</code></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="send-voice-tool" />
+                    <span><code>tools.sendVoice: true</code>（工具关着会 403「工具未启用」）</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="restart" />
+                    <span>改完 <strong>重启了桥接</strong>，<code>voice.enabled: true</code></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="voice-persona" />
+                    <span>人格卡 §六 写了「40 字内、一天 2~3 次、少于十个字不发」</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="sing-files" />
+                    <span><code>audio/sing/</code> 里有切好的 <code>歌名-A/B/C.mp3</code>，每段 ≤60 秒</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="sing-whitelist" />
+                    <span>人格卡的可唱群清单里<strong>有你的群</strong></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="full-play" />
+                    <span>想要「整首连发」的歌写进了 <code>sing.fullPlay</code></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="asr-up" />
+                    <span>ASR 服务 9890 在跑，<code>transcribeIncoming: true</code></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="sing-test" />
+                    <span>群里点一首能发出来；换个不在白名单的群，会 403</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+
+            <hr />
+            <p>
+              顺序别反：先把「能回话」跑通，再上人格和记忆，最后才装嗓子。
+              语音发不出来时，先确认文字回复是好的——大部分「语音坏了」其实是桥接压根没在跑。
+            </p>
+          </div>
+
+          <footer class="manual-article-footer">
+            <dl class="manual-facts">
+              <div>
+                <dt>作者</dt>
+                <dd>群友 路西法</dd>
+              </div>
+              <div>
+                <dt>发布</dt>
+                <dd>2026-11-03</dd>
+              </div>
+              <div>
+                <dt>最后更新</dt>
+                <dd>2026-11-03</dd>
+              </div>
+              <div>
+                <dt>分类</dt>
+                <dd>起步 / 语音</dd>
+              </div>
+            </dl>
+
+            <section class="manual-block" aria-labelledby="sources-title">
+              <h2 id="sources-title">参考资料</h2>
+              <ol class="manual-sources">
+                <li>
+                  <a href="https://github.com/Derpyu520/qq-bridge" target="_blank" rel="noreferrer">
+                    qq-bridge 仓库
+                  </a>
+                  <small>README 含「已知行为」、<code>docs/guides/DSH_SETUP.md</code> 与 <code>socialV2.voice</code> 配置说明</small>
+                </li>
+                <li>
+                  <a href="https://github.com/SnowLuma/SnowLuma" target="_blank" rel="noreferrer">
+                    SnowLuma 仓库
+                  </a>
+                  <small>QQ 网关本体、WebSocket / HTTP API 与 releases 下载</small>
+                </li>
+                <li>
+                  <a href="https://api-docs.deepseek.com/" target="_blank" rel="noreferrer">
+                    DeepSeek API 文档
+                  </a>
+                  <small>模型、计费与上下文缓存说明</small>
+                </li>
+                <li>
+                  <a href="https://github.com/RVC-Boss/GPT-SoVITS" target="_blank" rel="noreferrer">
+                    GPT-SoVITS
+                  </a>
+                  <small>本地 TTS 与音色克隆，含 <code>api_v2.py</code> 服务</small>
+                </li>
+                <li>
+                  <a href="https://github.com/FunAudioLLM/SenseVoice" target="_blank" rel="noreferrer">
+                    SenseVoice
+                  </a>
+                  <small>本地语音识别，作为桥接的 ASR 后端</small>
+                </li>
+                <li>
+                  <a href="https://ffmpeg.org/" target="_blank" rel="noreferrer">
+                    FFmpeg
+                  </a>
+                  <small>切歌、响度统一与音频时长探测</small>
+                </li>
+              </ol>
+            </section>
+
+            <section class="manual-block" aria-labelledby="changelog-title">
+              <h2 id="changelog-title">更新记录</h2>
+              <table class="manual-changelog">
+                <thead>
+                  <tr>
+                    <th scope="col">日期</th>
+                    <th scope="col">改动</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2026-11-03</td>
+                    <td>首次发布；合并原「语音 + 唱歌全流程」独立文章，改成一篇从搭建到发声的完整教程。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="manual-block" aria-labelledby="feedback-title">
+              <div class="manual-feedback">
+                <p>
+                  <strong id="feedback-title">卡在某一步，或者发现命令过期了？</strong>
+                  在群里说一声，或者提 Issue，附上报错原文和环境信息会更快。
+                </p>
+                <div class="manual-feedback-actions">
+                  <a
+                    class="manual-btn is-lead"
+                    href="https://github.com/EDMOK/blue-fish-archive/issues/new"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    提 Issue <span aria-hidden="true">↗</span>
+                  </a>
+                  <button class="manual-btn is-ghost" type="button" data-open-qr>加入 QQ 群</button>
+                </div>
+              </div>
+            </section>
+
+            <nav class="manual-pager" aria-label="文章导航">
+              <a href="/manual">
+                <span>← 回到</span>
+                <strong>肥鱼万事屋</strong>
+              </a>
+            </nav>
+
+            <section class="manual-block" aria-labelledby="related-title">
+              <h2 id="related-title">相关页面</h2>
+              <ul class="manual-related">
+                <li>
+                  <a href="/characters">
+                    <strong>角色立绘参考</strong>
+                    <span>8 个 AI 拟人角色的全身与 Q 版立绘</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/gallery">
+                    <strong>全部表情</strong>
+                    <span>不依赖 JavaScript 的静态表情索引</span>
+                  </a>
+                </li>
+              </ul>
+            </section>
+
+            <a class="manual-back-top" href="#manual-main">
+              <span aria-hidden="true">↑</span> 回到顶部
+            </a>
+          </footer>
+        </article>
+
+        <aside aria-label="文章目录">
+          <nav class="manual-toc">
+            <p class="manual-toc-title">On this page</p>
+            <ol>
+              <li><a href="#what">0. 先说清楚这是个什么东西</a></li>
+              <li><a href="#prepare">1. 你需要准备什么</a></li>
+              <li><a href="#quickstart">2. 最短路径：30 分钟回第一句话</a></li>
+              <li><a href="#persona">3. 从「能回话」到「像个人」</a></li>
+              <li><a href="#memory">4. 记忆：记得住人，但别一次全开</a></li>
+              <li><a href="#voice-map">5. 声音和唱歌：三条链路</a></li>
+              <li class="is-sub"><a href="#tts">5.1 装一个本地 TTS</a></li>
+              <li class="is-sub"><a href="#voice-bridge">5.2 让桥接接上 TTS</a></li>
+              <li class="is-sub"><a href="#voice-when">5.3 什么时候该发语音</a></li>
+              <li class="is-sub"><a href="#sing">5.4 唱歌是切片的活</a></li>
+              <li class="is-sub"><a href="#asr">5.5 让她能「听」语音</a></li>
+              <li class="is-sub"><a href="#voice-test">5.6 语音上线测试</a></li>
+              <li><a href="#pacing">6. 别让它刷屏，也别烧穿钱包</a></li>
+              <li><a href="#safety">7. 安全红线</a></li>
+              <li><a href="#pitfalls">8. 我们踩过的坑</a></li>
+              <li><a href="#checklist">9. 上线检查清单</a></li>
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer" data-reveal id="rights">
+      <span class="divider-bubbles footer-bubbles" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="footer-brand">
+        <picture>
+          <source srcset="../logo/deepseek-whale-black.webp" type="image/webp" />
+          <img class="brand-logo brand-logo-black" src="../logo/deepseek_蓝鲸_黑色.png" alt="DeepSeek 蓝鲸 Logo" width="31" height="31" decoding="async" />
+        </picture>
+        <span>蓝色大肥鱼档案馆</span>
+      </span>
+      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/characters">角色立绘</a> · <a href="/manual">万事屋</a> · <a href="/about#api">开放数据</a> · <a href="/about">关于本站</a></p>
+      <a href="#manual-main" aria-label="回到顶部">↑</a>
+    </footer>
+
+    <div class="qr-modal" id="qr-modal" aria-hidden="true">
+      <div class="qr-modal-backdrop" data-close-qr></div>
+      <div class="qr-modal-panel" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title" data-qr-scope>
+        <button class="qr-modal-close" type="button" aria-label="关闭二维码" data-close-qr>×</button>
+        <span class="qr-modal-badge">QQ GROUP</span>
+        <h2 class="qr-modal-title" id="qr-modal-title">加入 QQ 群</h2>
+        <p class="qr-modal-note">选题、催更、报错都可以在群里说。</p>
+        <span class="qr-modal-code">
+          <picture>
+            <source data-srcset="../assets/qq-group-qr.webp" type="image/webp" />
+            <img data-src="../assets/qq-group-qr.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
+          </picture>
+        </span>
+        <div class="qr-modal-row">
+          <span class="qr-modal-number" data-group-number>1041665197</span>
+          <button class="about-copy" type="button" data-copy-group>复制群号</button>
+        </div>
+        <p class="qr-modal-status" data-copy-status role="status" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <script src="../qr-modal.js?v=20261103a" defer></script>
+    <script src="manual.js?v=20261103g" defer></script>
+  </body>
+</html>

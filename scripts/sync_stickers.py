@@ -292,6 +292,8 @@ def gallery_text(manifest: list[dict[str, object]]) -> str:
         "每张图都可以直接打开原图或大图。</p>\n"
         '      <p class="links"><a href="/">返回首页</a> · '
         '<a href="/characters">角色立绘</a> · '
+        '<a href="/manual">万事屋</a> · '
+        '<a href="/about#api">开放数据</a> · '
         '<a href="stickers/index.json">JSON 数据</a> · '
         '<a href="https://fisharchive.cc/sitemap.xml">站点地图</a></p>\n'
         "    </header>\n"
