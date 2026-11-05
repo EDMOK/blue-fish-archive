@@ -13,6 +13,8 @@
   ·
   <a href="#加入-qq-群">加入 QQ 群</a>
   ·
+  <a href="./CHANGELOG.md">更新日志</a>
+  ·
   <a href="#版权与来源">版权与来源</a>
   ·
   <a href="#网站作者">网站作者</a>
