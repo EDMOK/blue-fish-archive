@@ -1,69 +1,106 @@
 <div align="center">
-  <img src="assets/deepseek_whale.png" alt="鲸鱼娘 DeepSeek" width="280" />
+
+  <a href="https://fisharchive.cc/">
+    <img src="assets/og-card.png" alt="蓝色大肥鱼档案馆 · 鲸鱼娘 DeepSeek 同人表情包" width="100%" />
+  </a>
 
   # 蓝色大肥鱼档案馆
 
-  **鲸鱼娘 DeepSeek 同人表情包展示站**
+  **鲸鱼娘 DeepSeek 非官方同人表情包收藏站**
 
-  <a href="https://fisharchive.cc/"><strong>访问网站</strong></a>
-  ·
-  <a href="https://github.com/EDMOK/blue-fish-archive">GitHub</a>
-  ·
-  <a href="#投稿方式">投稿方式</a>
-  ·
-  <a href="#加入-qq-群">加入 QQ 群</a>
-  ·
-  <a href="./CHANGELOG.md">更新日志</a>
-  ·
-  <a href="#版权与来源">版权与来源</a>
-  ·
-  <a href="#网站作者">网站作者</a>
+  原图不加水印、不改格式、不降低分辨率
+
+  **289** 张表情 · **32** 个标签 · **8** 位角色 · **16** 张立绘
+
+  <a href="https://fisharchive.cc/"><strong>访问网站</strong></a> · <a href="https://fisharchive.cc/gallery">全部表情</a> · <a href="https://fisharchive.cc/characters">角色立绘</a> · <a href="https://fisharchive.cc/manual">肥鱼万事屋</a> · <a href="https://fisharchive.cc/about#api">开放数据</a> · <a href="./CHANGELOG.md">更新日志</a>
+
 </div>
 
 <br />
 
-<div align="center">
-  <img src="logo/deepseek_蓝鲸_彩色.png" alt="DeepSeek 蓝鲸 Logo" width="88" />
-</div>
+围绕鲸鱼娘 DeepSeek 的同人表情收集与展示项目。表情墙按标签整理社区作品；角色图鉴收录 8 位 AI 拟人角色的立绘参考；肥鱼万事屋记录Deepseek相关折腾经验或心得。
 
-## 项目简介
-
-围绕鲸鱼娘 DeepSeek 的同人表情包收集与展示项目。
-
-在线访问：**<https://fisharchive.cc/>**
-
-页面采用卡通贴纸风格，提供自然瀑布流浏览、大图预览、复制图片和下载原图功能。
-
-## 功能
+## 这里有什么
 
 <table>
   <tr>
-    <td width="33%" align="center">
-      <strong>表情墙</strong><br />
-      <sub>自然瀑布流展示同人表情包</sub>
+    <td width="33%" align="center" valign="top">
+      <strong>表情墙</strong><br /><br />
+      <sub>瀑布流逛 289 张同人表情，按 32 个标签筛选，也可以「随机翻一张」碰碰运气。</sub>
     </td>
-    <td width="33%" align="center">
-      <strong>原图操作</strong><br />
-      <sub>预览里左右翻页,复制图片或下载原始文件</sub>
+    <td width="33%" align="center" valign="top">
+      <strong>原图收藏</strong><br /><br />
+      <sub>预览里左右翻页，一键复制图片或下载原图。不加水印、不改格式、不降分辨率。</sub>
     </td>
-    <td width="33%" align="center">
-      <strong>动图支持</strong><br />
-      <sub>支持 GIF、WebP 和 APNG</sub>
+    <td width="33%" align="center" valign="top">
+      <strong>动图支持</strong><br /><br />
+      <sub>GIF、WebP、APNG 在预览里直接播放，下载后动画与帧数完整保留。</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" align="center" valign="top">
+      <strong>角色图鉴</strong><br /><br />
+      <sub>DeepSeek、ChatGPT、Claude、Gemini、GLM、Grok、Kimi、Qwen，全身与 Q 版立绘都有，高清大图供二创参考。</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <strong>肥鱼万事屋</strong><br /><br />
+      <sub>免费分享 DSH 养鱼教程：QQ 机器人搭建、语音唱歌、排错表和检查清单。</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <strong>开放数据</strong><br /><br />
+      <sub>完整表情清单公开，网页、脚本和机器人可以直接读取，无需申请密钥。</sub>
     </td>
   </tr>
 </table>
 
-原始文件不加水印、不改格式、不降低分辨率。
+## 随便翻几张
 
-## 投稿方式
+<table>
+  <tr>
+    <td align="center" valign="top">
+      <a href="https://fisharchive.cc/gallery"><img src="previews/deepseek-jushou-dazhaohu.webp" alt="蓝色大肥鱼举手笑着报到" width="180" /></a><br />
+      <sub>举手报到</sub>
+    </td>
+    <td align="center" valign="top">
+      <a href="https://fisharchive.cc/gallery"><img src="previews/deepseek-shuangshou-dianzan.webp" alt="deepseek娘双手竖起大拇指" width="180" /></a><br />
+      <sub>拿捏了</sub>
+    </td>
+    <td align="center" valign="top">
+      <a href="https://fisharchive.cc/gallery"><img src="previews/deepseek-bixin.webp" alt="deepseek娘红着脸比心" width="180" /></a><br />
+      <sub>比心</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <a href="https://fisharchive.cc/gallery"><img src="previews/deepseek-sikao-haonvhai.webp" alt="deepseek娘歪头思考十三秒" width="180" /></a><br />
+      <sub>已思考 13 秒</sub>
+    </td>
+    <td align="center" valign="top">
+      <a href="https://fisharchive.cc/gallery"><img src="previews/deepseek-juzhe-laba-ku.webp" alt="大肥鱼举着绿色喇叭嚎啕大哭" width="180" /></a><br />
+      <sub>破防大哭</sub>
+    </td>
+    <td align="center" valign="top">
+      <a href="https://fisharchive.cc/gallery"><img src="previews/deepseek-lanse-dafeiyu.webp" alt="鲸鱼娘摊手泪汪汪被压力" width="180" /></a><br />
+      <sub>压力一只大肥鱼？</sub>
+    </td>
+  </tr>
+</table>
+
+<br />
+
+<div align="center">
+  <sub>更多表情在 <a href="https://fisharchive.cc/">表情墙</a>，点开任意一张就能复制或下载原图。</sub>
+</div>
+
+## 收录与投稿
+
+支持的格式：PNG、JPG、JPEG、GIF、WebP、APNG。
 
 欢迎投稿表情包，以下三种方式任选其一：
 
-- **提交 Pull Request**：把图片放进仓库的 [`media/`](https://github.com/EDMOK/blue-fish-archive/tree/main/media) 目录，然后发起 PR。
+- **QQ 群**：加入群 **1041665197**，直接把图片发在群相册。
 - **提交 Issue**：在 [GitHub Issues](https://github.com/EDMOK/blue-fish-archive/issues) 附上图片或来源链接。
-- **QQ 群**：加入群 **1041665197**（二维码见下方），在群里直接把图片发给站长。
-
-支持的格式：PNG、JPG、JPEG、GIF、WebP、APNG。
+- **提交 Pull Request**：把原图放进 [`media/`](https://github.com/EDMOK/blue-fish-archive/tree/main/media)，按 CI 提示补齐清单后发起 PR。
 
 ## 加入 QQ 群
 
