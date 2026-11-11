@@ -1,7 +1,8 @@
 """Generate or validate the static sticker manifest and crawlable indexes.
 
 站长自作的表情列在 stickers/self-made.json(文件名数组),这些条目会带上
-selfMade: true,前端据此显示「自作」徽章。清单里的文件名必须在 media/ 里存在。
+selfMade: true,前端据此显示「自作」徽章。社区投稿的署名列在 stickers/authors.json,
+条目会带上 author,前端据此显示作者。两个清单里的文件名都必须在 media/ 里存在。
 
 已有条目的 alt / tags 会在重新生成时按 original 路径保留,便于手工维护;
 新文件先使用通用 alt,之后可再补充。
@@ -31,6 +32,7 @@ MANIFEST_PATH = ROOT / "stickers" / "manifest.json"
 INDEX_PATH = ROOT / "stickers" / "index.json"
 GALLERY_PATH = ROOT / "gallery.html"
 SELF_MADE_PATH = ROOT / "stickers" / "self-made.json"
+AUTHORS_PATH = ROOT / "stickers" / "authors.json"
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".apng"}
 DEFAULT_ALT = "鲸鱼娘同人表情包"
 SITE_URL = "https://fisharchive.cc"
@@ -60,6 +62,26 @@ def load_self_made() -> list[str]:
     if not isinstance(names, list) or not all(isinstance(name, str) for name in names):
         raise ValueError(f"{SELF_MADE_PATH.name} 应该是文件名组成的数组")
     return names
+
+
+def load_authors() -> dict[str, str]:
+    """社区投稿的署名,按文件名映射到作者名。"""
+    if not AUTHORS_PATH.is_file():
+        return {}
+    try:
+        raw = json.loads(AUTHORS_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        raise ValueError(f"{AUTHORS_PATH.name} 不是合法 JSON:{error}") from error
+    if not isinstance(raw, dict):
+        raise ValueError(f"{AUTHORS_PATH.name} 应该是「文件名: 作者」对象")
+    authors: dict[str, str] = {}
+    for name, author in raw.items():
+        if not isinstance(name, str) or not name:
+            raise ValueError(f"{AUTHORS_PATH.name} 里有非法文件名:{name!r}")
+        if not isinstance(author, str) or not author.strip():
+            raise ValueError(f"{AUTHORS_PATH.name} 里 {name} 的作者名不能为空")
+        authors[name] = author.strip()
+    return authors
 
 
 def load_existing_metadata() -> dict[str, dict[str, object]]:
@@ -110,12 +132,18 @@ def build_manifest() -> list[dict[str, object]]:
 
     self_made_names = load_self_made()
     self_made = {name.casefold() for name in self_made_names}
+    authors = {name.casefold(): author for name, author in load_authors().items()}
     media_names = {path.name.casefold() for path in files}
-    # 名字写错(或图被删了)时直接失败,否则徽章会静默消失
+    # 名字写错(或图被删了)时直接失败,否则徽章或署名会静默消失
     unknown = [name for name in self_made_names if name.casefold() not in media_names]
     if unknown:
         raise ValueError(
             f"{SELF_MADE_PATH.name} 里的这些文件在 media/ 里找不到:" + "、".join(unknown)
+        )
+    unknown_author = [name for name in authors if name not in media_names]
+    if unknown_author:
+        raise ValueError(
+            f"{AUTHORS_PATH.name} 里的这些文件在 media/ 里找不到:" + "、".join(unknown_author)
         )
 
     manifest: list[dict[str, object]] = []
@@ -133,6 +161,9 @@ def build_manifest() -> list[dict[str, object]]:
             "filename": path.name,
             "alt": previous.get("alt", DEFAULT_ALT),
         }
+        author = authors.get(path.name.casefold())
+        if author:
+            entry["author"] = author
         if "tags" in previous:
             entry["tags"] = previous["tags"]
         if path.name.casefold() in self_made:
@@ -173,6 +204,8 @@ def index_text(manifest: list[dict[str, object]]) -> str:
             "alt": entry["alt"],
             "tags": entry.get("tags", []),
         }
+        if entry.get("author"):
+            item["author"] = entry["author"]
         if entry.get("selfMade"):
             item["selfMade"] = True
         for key in ("width", "height"):
@@ -204,6 +237,11 @@ def _gallery_card(entry: dict[str, object]) -> str:
     if isinstance(width, int) and isinstance(height, int):
         size = f' width="{width}" height="{height}"'
     badge = '<span class="badge">自作</span>' if entry.get("selfMade") else ""
+    author = (
+        f'<span class="author">作者：{escape(str(entry["author"]))}</span>'
+        if entry.get("author")
+        else ""
+    )
     tags = "".join(
         f'<span class="tag">{escape(str(tag))}</span>'
         for tag in entry.get("tags", [])
@@ -217,7 +255,7 @@ def _gallery_card(entry: dict[str, object]) -> str:
         "      <figure>\n"
         f'        <a href="{_href(original)}">'
         f'<img src="{_href(preview)}" alt="{alt}"{size} loading="lazy" decoding="async" /></a>\n'
-        f'        <figcaption>{badge}<span class="tags">{tags}</span>'
+        f'        <figcaption>{badge}{author}<span class="tags">{tags}</span>'
         f'<span class="links">{" · ".join(links)}</span></figcaption>\n'
         "      </figure>"
     )
@@ -264,6 +302,7 @@ figcaption { padding: 8px 10px 10px; font-size: 12px; line-height: 1.8; }
   background: #2f4066;
   color: #dbe8ff;
 }
+.author { display: inline-block; margin-right: 6px; color: #c7d6ef; }
 .links { display: block; margin-top: 4px; }
 footer { padding-bottom: 40px; color: #9fb2d3; font-size: 13px; line-height: 1.8; }
 """

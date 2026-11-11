@@ -8,6 +8,7 @@ on:
       - "stickers/index.json"
       - "gallery.html"
       - "stickers/self-made.json"
+      - "stickers/authors.json"
       - "characters.html"
       - "characters.js"
       - "character-art/**"

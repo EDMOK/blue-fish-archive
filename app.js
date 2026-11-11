@@ -89,6 +89,7 @@ function createStickerCard(sticker, index) {
   const labelParts = [`打开第 ${index + 1} 张表情预览`];
   const alt = specificAlt(sticker);
   if (alt) labelParts.push(alt);
+  if (sticker.author) labelParts.push(`作者 ${sticker.author}`);
   if (sticker.selfMade) labelParts.push('站长自作');
   card.setAttribute('aria-label', labelParts.join('，'));
 
@@ -439,6 +440,7 @@ function updateLightboxMeta(sticker, index) {
   lightboxMeta.textContent = [
     format,
     size,
+    sticker.author ? `作者 ${sticker.author}` : '',
   ]
     .filter(Boolean)
     .join(' · ');

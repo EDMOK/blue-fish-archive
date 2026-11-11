@@ -15,7 +15,7 @@
 
 ## 数据
 
-- [stickers/index.json](https://fisharchive.cc/stickers/index.json)：全部表情的 count、alt、tags、尺寸，以及带绝对 URL 的 original / preview / large。JSON 与图片资源都返回 `Access-Control-Allow-Origin: *`，可直接在浏览器端跨域 fetch，无需密钥。
+- [stickers/index.json](https://fisharchive.cc/stickers/index.json)：全部表情的 count、alt、tags、尺寸、作者署名（author，若有），以及带绝对 URL 的 original / preview / large。JSON 与图片资源都返回 `Access-Control-Allow-Origin: *`，可直接在浏览器端跨域 fetch，无需密钥。
 - [stickers/manifest.json](https://fisharchive.cc/stickers/manifest.json)：站点前端使用的清单（相对路径）
 - 本站没有服务端随机接口；需要随机表情时，在客户端读取 index.json 后自行抽样即可。
 - 角色立绘：`https://fisharchive.cc/character-art/v1/{card|view|download}/{key}-{full|chibi}.webp`；key 为 deepseek、chatgpt、claude、gemini、glm、grok、kimi、qwen。card 是列表缩略图，view 是 1600px 长边的在线大图，download 是原尺寸 WebP。

@@ -7,7 +7,7 @@
     "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
     "note": "角色二次设计依 CC BY-NC-SA 4.0；单张作品的相关权利归各自创作者。"
   },
-  "count": 289,
+  "count": 290,
   "stickers": [
     {
       "alt": "ChatGPT娘拎包一指蓝色小幽灵：今日班味，已自动加载",
@@ -2018,6 +2018,19 @@
       "original": "https://fisharchive.cc/media/deepseek-pizhe-baibu.jpg",
       "preview": "https://fisharchive.cc/previews/deepseek-pizhe-baibu.webp",
       "large": "https://fisharchive.cc/large/deepseek-pizhe-baibu.webp"
+    },
+    {
+      "alt": "扑街的大肥鱼脸朝下埋在泥里，尾巴还倔强地翘着",
+      "tags": [
+        "无语",
+        "搞笑"
+      ],
+      "author": "mcattao",
+      "width": 480,
+      "height": 349,
+      "original": "https://fisharchive.cc/media/deepseek-pujie-dafeiyu.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-pujie-dafeiyu.webp",
+      "large": "https://fisharchive.cc/large/deepseek-pujie-dafeiyu.webp"
     },
     {
       "alt": "deepseek娘摊开手追问其他模型，问号已经把CPU占满了",

@@ -100,7 +100,7 @@
 
 - **QQ 群**：加入群 **1041665197**，直接把图片发在群相册。
 - **提交 Issue**：在 [GitHub Issues](https://github.com/EDMOK/blue-fish-archive/issues) 附上图片或来源链接。
-- **提交 Pull Request**：把原图放进 [`media/`](https://github.com/EDMOK/blue-fish-archive/tree/main/media)，按 CI 提示补齐清单后发起 PR。
+- **提交 Pull Request**：把原图放进 [`media/`](https://github.com/EDMOK/blue-fish-archive/tree/main/media)，按 CI 提示补齐清单后发起 PR。社区投稿可在 [`stickers/authors.json`](https://github.com/EDMOK/blue-fish-archive/blob/main/stickers/authors.json) 登记署名。
 
 ## 加入 QQ 群
 

@@ -8,6 +8,7 @@ on:
     paths:
       - "media/**"
       - "stickers/self-made.json"
+      - "stickers/authors.json"
       - "scripts/*.py"
       - ".github/workflows/sync-stickers.yml"
   workflow_dispatch:
