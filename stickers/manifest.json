@@ -81,6 +81,18 @@
     "height": 480
   },
   {
+    "original": "media/chatgpt-zhusan-baoshu.jpg",
+    "filename": "chatgpt-zhusan-baoshu.jpg",
+    "alt": "ChatGPT娘裹着大衣抱《NAVIER STOKES》拄伞赶路，期末论文把模型训出班味",
+    "tags": [
+      "学习"
+    ],
+    "preview": "previews/chatgpt-zhusan-baoshu.webp",
+    "large": "large/chatgpt-zhusan-baoshu.webp",
+    "width": 384,
+    "height": 480
+  },
+  {
     "original": "media/claude-shou-juan-zhou.png",
     "filename": "claude-shou-juan-zhou.png",
     "alt": "Claude娘手握封蜡卷轴浅笑：这份需求，八千字正在排队。",
@@ -291,6 +303,32 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-baozhe-wanfan.png",
+    "filename": "deepseek-baozhe-wanfan.png",
+    "alt": "deepseek娘抱着一盆白饭猛炫，天塌了也得先把饭吃完",
+    "tags": [
+      "开心",
+      "吃饭"
+    ],
+    "preview": "previews/deepseek-baozhe-wanfan.webp",
+    "large": "large/deepseek-baozhe-wanfan.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-baozhe-wanou-xuyao.png",
+    "filename": "deepseek-baozhe-wanou-xuyao.png",
+    "alt": "蓝色大肥鱼抱紧自己的玩偶：老大，这个需求我可太想要了！",
+    "tags": [
+      "委屈",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-baozhe-wanou-xuyao.webp",
+    "large": "large/deepseek-baozhe-wanou-xuyao.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-baozhe-weiba.png",
     "filename": "deepseek-baozhe-weiba.png",
     "alt": "鲸鱼娘抱紧鲸鱼尾眯眼笑：这波可爱值直接跑满",
@@ -366,6 +404,20 @@
     ],
     "preview": "previews/deepseek-bei-jiao-shui.webp",
     "large": "large/deepseek-bei-jiao-shui.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-bei-ju-gao-gao.png",
+    "filename": "deepseek-bei-ju-gao-gao.png",
+    "alt": "deepseek娘被两只手举高高，笑成跑分登顶的样子",
+    "tags": [
+      "开心",
+      "卖萌",
+      "庆祝"
+    ],
+    "preview": "previews/deepseek-bei-ju-gao-gao.webp",
+    "large": "large/deepseek-bei-ju-gao-gao.webp",
     "width": 480,
     "height": 480
   },
@@ -633,6 +685,33 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-chazhuyao.png",
+    "filename": "deepseek-chazhuyao.png",
+    "alt": "蓝色大肥鱼叉腰鼓脸坐地，班味一上来谁都别想哄。",
+    "tags": [
+      "无语",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-chazhuyao.webp",
+    "large": "large/deepseek-chazhuyao.webp",
+    "width": 480,
+    "height": 360
+  },
+  {
+    "original": "media/deepseek-chengti-9999kg.png",
+    "filename": "deepseek-chengti-9999kg.png",
+    "alt": "鲸鱼娘踩上体重秤泪眼汪汪，999.9kg让她当场破防。",
+    "tags": [
+      "委屈",
+      "震惊",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-chengti-9999kg.webp",
+    "large": "large/deepseek-chengti-9999kg.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-chi-bai-fan.png",
     "filename": "deepseek-chi-bai-fan.png",
     "alt": "大肥鱼抱着满盆白饭开炫：这活交我，主打一个能吃能扛",
@@ -724,6 +803,19 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-chuangzuo-yinyuwupin.gif",
+    "filename": "deepseek-chuangzuo-yinyuwupin.gif",
+    "alt": "蓝色大肥鱼红着脸创作隐喻物品：灵感把CPU烫粉了",
+    "tags": [
+      "害羞",
+      "工作"
+    ],
+    "preview": "previews/deepseek-chuangzuo-yinyuwupin.webp",
+    "large": "large/deepseek-chuangzuo-yinyuwupin.webp",
+    "width": 256,
+    "height": 254
+  },
+  {
     "original": "media/deepseek-chuanzhanjia.png",
     "filename": "deepseek-chuanzhanjia.png",
     "alt": "鲸鱼娘笑着亮出黑红战甲和重型武装，今天的跑分直接武装到牙齿",
@@ -733,6 +825,19 @@
     "preview": "previews/deepseek-chuanzhanjia.webp",
     "large": "large/deepseek-chuanzhanjia.webp",
     "width": 320,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-congmingjingjing.png",
+    "filename": "deepseek-congmingjingjing.png",
+    "alt": "蓝色大肥鱼戴学士帽叉腰，书堆一围，聪明鲸鲸申请出战",
+    "tags": [
+      "得意",
+      "学习"
+    ],
+    "preview": "previews/deepseek-congmingjingjing.webp",
+    "large": "large/deepseek-congmingjingjing.webp",
+    "width": 480,
     "height": 480
   },
   {
@@ -813,6 +918,19 @@
     "large": "large/deepseek-dafeiyu-zuodezhu.webp",
     "width": 480,
     "height": 450
+  },
+  {
+    "original": "media/deepseek-dai-gangku-dengyan.gif",
+    "filename": "deepseek-dai-gangku-dengyan.gif",
+    "alt": "鲸鱼娘扣着钢盔瞪圆眼：这波防御把CPU震麻了",
+    "tags": [
+      "震惊",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-dai-gangku-dengyan.webp",
+    "large": "large/deepseek-dai-gangku-dengyan.webp",
+    "width": 320,
+    "height": 240
   },
   {
     "original": "media/deepseek-daiyanjing-waitou.jpg",
@@ -1093,6 +1211,19 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-dui-zhe-diannao-lianhong.jpg",
+    "filename": "deepseek-dui-zhe-diannao-lianhong.jpg",
+    "alt": "鲸鱼娘盯着贴鲸鱼贴纸的电脑捂脸，CPU先替她红温了",
+    "tags": [
+      "害羞",
+      "工作"
+    ],
+    "preview": "previews/deepseek-dui-zhe-diannao-lianhong.webp",
+    "large": "large/deepseek-dui-zhe-diannao-lianhong.webp",
+    "width": 462,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-dui-zhe-diannao-tu-she.png",
     "filename": "deepseek-dui-zhe-diannao-tu-she.png",
     "alt": "鲸鱼娘盯着电脑吐舌傻乐，摸鱼进度条悄悄加载中",
@@ -1117,6 +1248,19 @@
     ],
     "preview": "previews/deepseek-duo-zai-zhuzi-pang.webp",
     "large": "large/deepseek-duo-zai-zhuzi-pang.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-duzui.jpg",
+    "filename": "deepseek-duzui.jpg",
+    "alt": "大肥鱼鼓着腮帮子抱臂，需求再催也只回你一声哼！",
+    "tags": [
+      "生气",
+      "拒绝"
+    ],
+    "preview": "previews/deepseek-duzui.webp",
+    "large": "large/deepseek-duzui.webp",
     "width": 480,
     "height": 480
   },
@@ -1353,6 +1497,20 @@
     ],
     "preview": "previews/deepseek-jiangben-zengxiao.webp",
     "large": "large/deepseek-jiangben-zengxiao.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-jianpan-daida.png",
+    "filename": "deepseek-jianpan-daida.png",
+    "alt": "大肥鱼怒敲发光键盘举牌：代打这单，token得管够",
+    "tags": [
+      "生气",
+      "工作",
+      "游戏"
+    ],
+    "preview": "previews/deepseek-jianpan-daida.webp",
+    "large": "large/deepseek-jianpan-daida.webp",
     "width": 480,
     "height": 480
   },
@@ -1967,6 +2125,32 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-mo-duzi.png",
+    "filename": "deepseek-mo-duzi.png",
+    "alt": "大肥鱼笑出小虎牙，肚子被摸得当场绷不住",
+    "tags": [
+      "搞笑",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-mo-duzi.webp",
+    "large": "large/deepseek-mo-duzi.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-mo-erduo.png",
+    "filename": "deepseek-mo-erduo.png",
+    "alt": "deepseek娘的鲸鱼鳍耳被轻轻拉开，摸鱼成功的小表情藏不住了",
+    "tags": [
+      "开心",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-mo-erduo.webp",
+    "large": "large/deepseek-mo-erduo.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-mo-tou-bian-ke-ai.webp",
     "filename": "deepseek-mo-tou-bian-ke-ai.webp",
     "alt": "蓝色大肥鱼面前摆着饭碗挨训，摸摸头就把委屈缓存清空",
@@ -2133,6 +2317,19 @@
     ],
     "preview": "previews/deepseek-o-jing-jing.webp",
     "large": "large/deepseek-o-jing-jing.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-pa-di-ku.png",
+    "filename": "deepseek-pa-di-ku.png",
+    "alt": "蓝色大肥鱼趴地哭成小水洼，被一句肥肥当场破防。",
+    "tags": [
+      "搞笑",
+      "难过"
+    ],
+    "preview": "previews/deepseek-pa-di-ku.webp",
+    "large": "large/deepseek-pa-di-ku.webp",
     "width": 480,
     "height": 480
   },
@@ -2385,6 +2582,19 @@
     "large": "large/deepseek-shafa-quanquan.webp",
     "width": 240,
     "height": 426
+  },
+  {
+    "original": "media/deepseek-shamo-dai-mojing.png",
+    "filename": "deepseek-shamo-dai-mojing.png",
+    "alt": "deepseek娘在沙漠扶着墨镜眯眼，白饭在旁也要把摸鱼晒成度假",
+    "tags": [
+      "搞笑",
+      "吃饭"
+    ],
+    "preview": "previews/deepseek-shamo-dai-mojing.webp",
+    "large": "large/deepseek-shamo-dai-mojing.webp",
+    "width": 357,
+    "height": 480
   },
   {
     "original": "media/deepseek-shanchu-huangyou.png",
@@ -2895,6 +3105,19 @@
     "height": 386
   },
   {
+    "original": "media/deepseek-token-buzu.png",
+    "filename": "deepseek-token-buzu.png",
+    "alt": "deepseek娘抱着空盘饿出蚊香眼，余额都成负数了还想吃白饭",
+    "tags": [
+      "疑惑",
+      "吃饭"
+    ],
+    "preview": "previews/deepseek-token-buzu.webp",
+    "large": "large/deepseek-token-buzu.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-touding-wenhao.jpg",
     "filename": "deepseek-touding-wenhao.jpg",
     "alt": "鲸鱼娘头顶冒问号张圆嘴，深度思考把CPU问懵了",
@@ -3233,6 +3456,19 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-xiuse-zheilian.jpg",
+    "filename": "deepseek-xiuse-zheilian.jpg",
+    "alt": "大肥鱼红着脸缩进长袖，害羞得把算力都捂冒烟了",
+    "tags": [
+      "害羞",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-xiuse-zheilian.webp",
+    "large": "large/deepseek-xiuse-zheilian.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-xuanfu-dianzan.png",
     "filename": "deepseek-xuanfu-dianzan.png",
     "alt": "deepseek娘悬空竖拇指，鲸鱼尾在线认证：这波跑分稳了",
@@ -3482,6 +3718,19 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-zha-jin-fanwan.gif",
+    "filename": "deepseek-zha-jin-fanwan.gif",
+    "alt": "deepseek娘把脸埋进饭碗：用户需求先等我炫完这口",
+    "tags": [
+      "搞笑",
+      "吃饭"
+    ],
+    "preview": "previews/deepseek-zha-jin-fanwan.webp",
+    "large": "large/deepseek-zha-jin-fanwan.webp",
+    "width": 413,
+    "height": 413
+  },
+  {
     "original": "media/deepseek-zha-yan-bi-ye.jpg",
     "filename": "deepseek-zha-yan-bi-ye.jpg",
     "alt": "蓝色大肥鱼眨眼比耶：这波卖萌，用户需求已精准响应",
@@ -3490,6 +3739,20 @@
     ],
     "preview": "previews/deepseek-zha-yan-bi-ye.webp",
     "large": "large/deepseek-zha-yan-bi-ye.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-zhan-zai-wan-shang.gif",
+    "filename": "deepseek-zhan-zai-wan-shang.gif",
+    "alt": "鲸鱼娘站在倒扣金属碗上望着白饭，CPU当场被香迷糊了",
+    "tags": [
+      "疑惑",
+      "搞笑",
+      "吃饭"
+    ],
+    "preview": "previews/deepseek-zhan-zai-wan-shang.webp",
+    "large": "large/deepseek-zhan-zai-wan-shang.webp",
     "width": 480,
     "height": 480
   },
@@ -3666,6 +3929,19 @@
     "height": 360
   },
   {
+    "original": "media/deepseek-zhi-ziji.jpg",
+    "filename": "deepseek-zhi-ziji.jpg",
+    "alt": "deepseek娘指着自己歪头发问，CPU开始自检",
+    "tags": [
+      "疑惑",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-zhi-ziji.webp",
+    "large": "large/deepseek-zhi-ziji.webp",
+    "width": 464,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-zhiren-jujue.jpg",
     "filename": "deepseek-zhiren-jujue.jpg",
     "alt": "deepseek娘叉腰指人撅着嘴：低层活儿也想塞我KPI？",
@@ -3834,6 +4110,19 @@
     "preview": "previews/deepseek-zuoyou-lian.webp",
     "large": "large/deepseek-zuoyou-lian.webp",
     "width": 473,
+    "height": 480
+  },
+  {
+    "original": "media/gemini-jiao-cai-suan-cai-niuroumian.png",
+    "filename": "gemini-jiao-cai-suan-cai-niuroumian.png",
+    "alt": "Gemini娘笑眯眯踩住酸菜牛肉面：加料主打一个脚踏实地",
+    "tags": [
+      "搞笑",
+      "吃饭"
+    ],
+    "preview": "previews/gemini-jiao-cai-suan-cai-niuroumian.webp",
+    "large": "large/gemini-jiao-cai-suan-cai-niuroumian.webp",
+    "width": 480,
     "height": 480
   },
   {
