@@ -3225,6 +3225,11 @@ h1 {
   display: none;
 }
 
+/* 分类行在标签行上方,两行属于同一组筛选器,间距收小一点 */
+.category-filter {
+  margin-bottom: 10px;
+}
+
 .tag-filter-label {
   flex: none;
   padding-top: 6px;

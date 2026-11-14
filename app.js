@@ -17,6 +17,8 @@ const actionStatus = document.querySelector('#action-status');
 const mascot = document.querySelector('#mascot');
 const mascotBubble = document.querySelector('#mascot-bubble');
 const mascotAudio = document.querySelector('#mascot-audio');
+const categoryFilter = document.querySelector('#category-filter');
+const categoryFilterList = document.querySelector('#category-filter-list');
 const tagFilter = document.querySelector('#tag-filter');
 const tagFilterList = document.querySelector('#tag-filter-list');
 const filterEmpty = document.querySelector('#filter-empty');
@@ -27,6 +29,8 @@ const heroTags = document.querySelector('#hero-tags');
 const heroRandom = document.querySelector('#hero-random');
 
 const isAnimatedSticker = (sticker) => /\.(gif|apng)$/i.test(sticker.original);
+// 分类只区分动图/静图,按原图扩展名判断,与卡片角标保持同一口径
+const stickerCategory = (sticker) => (isAnimatedSticker(sticker) ? 'animated' : 'static');
 
 // 防御坏数据:tags 不是有效字符串数组时忽略,避免整面墙出错
 const stickerTags = (sticker) =>
@@ -45,7 +49,9 @@ let stickerList = [];
 // 灯箱只看当前筛选结果,翻页不会跳出标签
 let lightboxList = [];
 let stickerCards = [];
+let categoryButtons = [];
 let tagButtons = [];
+let activeCategory = '';
 let activeTag = '';
 let activeIndex = -1;
 let activeSticker = null;
@@ -215,9 +221,10 @@ function renderStickers(stickers) {
   });
   stickerGrid.appendChild(fragment);
 
+  renderCategoryFilter();
   renderTagFilter();
-  if (activeTag) {
-    applyTagFilter();
+  if (activeCategory || activeTag) {
+    applyFilters();
   } else if (stickerCount) {
     animateStickerCount(uniqueStickers.length);
   }
@@ -253,16 +260,66 @@ function renderHeroTags(counts) {
   heroTags.hidden = false;
 }
 
-function renderTagFilter() {
-  if (!tagFilter || !tagFilterList) return;
-  const counts = new Map();
+// 分类是固定两项的格式维度:动图与否,数量为 0 的项不显示空入口
+function renderCategoryFilter() {
+  if (!categoryFilter || !categoryFilterList) return;
+  const counts = { animated: 0, static: 0 };
   stickerList.forEach((sticker) => {
+    counts[stickerCategory(sticker)] += 1;
+  });
+
+  if (!stickerList.length) {
+    activeCategory = '';
+    categoryFilter.hidden = true;
+    categoryFilterList.replaceChildren();
+    categoryButtons = [];
+    return;
+  }
+
+  categoryFilter.hidden = false;
+  const fragment = document.createDocumentFragment();
+  categoryButtons = [];
+  addChip(
+    fragment, categoryButtons, 'category', '', '全部', stickerList.length, setActiveCategory,
+  );
+  if (counts.animated) {
+    addChip(
+      fragment, categoryButtons, 'category', 'animated', '动图', counts.animated, setActiveCategory,
+    );
+  }
+  if (counts.static) {
+    addChip(
+      fragment, categoryButtons, 'category', 'static', '静图', counts.static, setActiveCategory,
+    );
+  }
+  // 重新加载后如果当前分类已经不存在(例如动图全被删了),静默回到全部
+  if (activeCategory && !counts[activeCategory]) activeCategory = '';
+  categoryFilterList.replaceChildren(fragment);
+  syncChipState(categoryButtons, 'category', activeCategory);
+}
+
+function tagCountsFor(stickers) {
+  const counts = new Map();
+  stickers.forEach((sticker) => {
     stickerTags(sticker).forEach((tag) => {
       counts.set(tag, (counts.get(tag) || 0) + 1);
     });
   });
+  return counts;
+}
 
-  if (!counts.size) {
+function renderTagFilter() {
+  if (!tagFilter || !tagFilterList) return;
+  // hero 的热门标签始终按全站统计,不受分类影响
+  const globalCounts = tagCountsFor(stickerList);
+  const scope = activeCategory
+    ? stickerList.filter((sticker) => stickerCategory(sticker) === activeCategory)
+    : stickerList;
+  // 标签数字跟着分类联动:选「动图」后只统计动图里的标签,
+  // 否则会出现「卖萌 94」点进去只剩 3 张的错觉
+  const counts = tagCountsFor(scope);
+
+  if (!globalCounts.size) {
     activeTag = '';
     tagFilter.hidden = true;
     tagFilterList.replaceChildren();
@@ -272,8 +329,8 @@ function renderTagFilter() {
     return;
   }
 
-  renderHeroTags(counts);
-  // 重新加载后旧标签可能已经不存在,静默回到「全部」
+  renderHeroTags(globalCounts);
+  // 分类切换或重新加载后旧标签可能已经不在当前范围,静默回到「全部」
   if (activeTag && !counts.has(activeTag)) activeTag = '';
   tagFilter.hidden = false;
 
@@ -282,21 +339,22 @@ function renderTagFilter() {
   );
   const fragment = document.createDocumentFragment();
   tagButtons = [];
-  addTagChip(fragment, '', '全部', stickerList.length);
+  addTagChip(fragment, '', '全部', scope.length);
   entries.forEach(([tag, count]) => addTagChip(fragment, tag, tag, count));
   tagFilterList.replaceChildren(fragment);
   syncTagFilterState();
 }
 
-function addTagChip(fragment, value, label, count) {
+function addChip(fragment, buttons, datasetKey, value, label, count, onSelect) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'tag-chip';
-  button.dataset.tag = value;
+  button.dataset[datasetKey] = value;
   button.setAttribute('aria-pressed', 'false');
+  const kind = datasetKey === 'tag' ? '标签' : '分类';
   button.setAttribute(
     'aria-label',
-    value ? `筛选标签 ${label}，${count} 张` : `显示全部，${count} 张`,
+    value ? `筛选${kind} ${label}，${count} 张` : `不限${kind}，共 ${count} 张`,
   );
   button.appendChild(document.createTextNode(label));
   const badge = document.createElement('span');
@@ -304,41 +362,61 @@ function addTagChip(fragment, value, label, count) {
   badge.textContent = String(count);
   badge.setAttribute('aria-hidden', 'true');
   button.appendChild(badge);
-  button.addEventListener('click', () => setActiveTag(value));
-  tagButtons.push(button);
+  button.addEventListener('click', () => onSelect(value));
+  buttons.push(button);
   fragment.appendChild(button);
 }
 
-function syncTagFilterState() {
-  tagButtons.forEach((button) => {
-    const isActive = (button.dataset.tag || '') === activeTag;
+function addTagChip(fragment, value, label, count) {
+  addChip(fragment, tagButtons, 'tag', value, label, count, setActiveTag);
+}
+
+function syncChipState(buttons, datasetKey, activeValue) {
+  buttons.forEach((button) => {
+    const isActive = (button.dataset[datasetKey] || '') === activeValue;
     button.classList.toggle('is-active', isActive);
     button.setAttribute('aria-pressed', String(isActive));
   });
 }
 
+function syncTagFilterState() {
+  syncChipState(tagButtons, 'tag', activeTag);
+}
+
+function setActiveCategory(category) {
+  activeCategory = typeof category === 'string' ? category : '';
+  syncChipState(categoryButtons, 'category', activeCategory);
+  // 标签计数按新分类重算;当前标签若在新范围里不存在会自动回到「全部」
+  renderTagFilter();
+  applyFilters();
+}
+
 function setActiveTag(tag) {
   activeTag = typeof tag === 'string' ? tag : '';
   syncTagFilterState();
-  applyTagFilter();
+  applyFilters();
 }
 
-function applyTagFilter() {
+// 分类和标签各占一个维度,同时选中时取交集
+function applyFilters() {
   const total = stickerList.length;
   let visible = 0;
   lightboxList = [];
   stickerCards.forEach((card, index) => {
     const sticker = stickerList[index];
-    const matches = !activeTag || stickerTags(sticker).includes(activeTag);
+    const matchesCategory = !activeCategory || stickerCategory(sticker) === activeCategory;
+    const matchesTag = !activeTag || stickerTags(sticker).includes(activeTag);
+    const matches = matchesCategory && matchesTag;
     card.hidden = !matches;
     if (matches) {
       visible += 1;
       lightboxList.push(sticker);
     }
   });
-  if (filterEmpty) filterEmpty.hidden = !(activeTag && visible === 0);
+  const hasFilters = Boolean(activeCategory || activeTag);
+  if (filterEmpty) filterEmpty.hidden = !(hasFilters && visible === 0);
   if (stickerCount) {
-    stickerCount.textContent = activeTag ? `${visible} / ${total} 枚` : `已收录 ${total} 枚`;
+    stickerCount.textContent = hasFilters ? `${visible} / ${total} 枚` : `已收录 ${total} 枚`;
   }
 }
 

@@ -43,7 +43,7 @@
          这里提前声明，避免在慢网络上白屏等 CSS。 -->
     <link rel="preload" href="art/v1/ocean-paper-background.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="preload" href="assets/deepseek_whale.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=20261105h" />
+    <link rel="stylesheet" href="styles.css?v=20261114a" />
     <link rel="stylesheet" href="assets/hero-art.css?v=20261103b" />
     <!-- manifest 由 defer 脚本按需加载，避免 fetch preload 在不同浏览器中因 credentials mode 不一致而重复请求。 -->
     <link rel="stylesheet" href="assets/navigation.css?v=20261105a" />
@@ -421,6 +421,10 @@
           </div>
           <span class="wall-squiggle" aria-hidden="true"></span>
         </div>
+        <div class="tag-filter category-filter" id="category-filter" hidden>
+          <span class="tag-filter-label" aria-hidden="true">分类</span>
+          <div class="tag-filter-list" id="category-filter-list" role="group" aria-label="按分类筛选表情"></div>
+        </div>
         <div class="tag-filter" id="tag-filter" hidden>
           <span class="tag-filter-label" aria-hidden="true">标签</span>
           <div class="tag-filter-list" id="tag-filter-list" role="group" aria-label="按标签筛选表情"></div>
@@ -436,7 +440,7 @@
           <div class="skeleton-card" style="--skeleton-height: 238px" aria-hidden="true"></div>
           <div class="skeleton-card" style="--skeleton-height: 178px" aria-hidden="true"></div>
         </div>
-        <p class="filter-empty" id="filter-empty" hidden>没有这个标签的表情，换一个试试。</p>
+        <p class="filter-empty" id="filter-empty" hidden>没有符合筛选条件的表情，换一个试试。</p>
         <div class="wall-empty" id="wall-empty" hidden>
           <svg class="wall-empty-art" viewBox="0 0 190 140" aria-hidden="true">
             <path class="empty-bowl-wave" d="M16 60h158" />
@@ -542,7 +546,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=20261111" defer></script>
+    <script src="app.js?v=20261114a" defer></script>
     <script src="qr-modal.js?v=20261103a" defer></script>
   </body>
 </html>

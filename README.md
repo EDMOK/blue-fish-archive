@@ -10,7 +10,7 @@
 
   原图不加水印、不改格式、不降低分辨率
 
-  **289** 张表情 · **32** 个标签 · **8** 位角色 · **16** 张立绘
+  **295** 张表情 · **32** 个标签 · **8** 位角色 · **16** 张立绘
 
   <a href="https://fisharchive.cc/"><strong>访问网站</strong></a> · <a href="https://fisharchive.cc/gallery">全部表情</a> · <a href="https://fisharchive.cc/characters">角色立绘</a> · <a href="https://fisharchive.cc/manual">肥鱼万事屋</a> · <a href="https://fisharchive.cc/about#api">开放数据</a> · <a href="./CHANGELOG.md">更新日志</a>
 
@@ -26,7 +26,7 @@
   <tr>
     <td width="33%" align="center" valign="top">
       <strong>表情墙</strong><br /><br />
-      <sub>瀑布流逛 289 张同人表情，按 32 个标签筛选，也可以「随机翻一张」碰碰运气。</sub>
+      <sub>瀑布流逛 295 张同人表情，按动图/静图和 32 个标签筛选，也可以「随机翻一张」碰碰运气。</sub>
     </td>
     <td width="33%" align="center" valign="top">
       <strong>原图收藏</strong><br /><br />
