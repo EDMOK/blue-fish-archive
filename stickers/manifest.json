@@ -1,5 +1,18 @@
 [
   {
+    "original": "media/chatgpt-hui-yumao-danzi.gif",
+    "filename": "chatgpt-hui-yumao-danzi.gif",
+    "alt": "ChatGPT娘站在夜里的栏杆上挥舞羽毛掸子，龙尾跟着晃",
+    "tags": [
+      "搞笑",
+      "卖萌"
+    ],
+    "preview": "previews/chatgpt-hui-yumao-danzi.webp",
+    "large": "large/chatgpt-hui-yumao-danzi.webp",
+    "width": 240,
+    "height": 392
+  },
+  {
     "original": "media/chatgpt-lingbao-zhishi.png",
     "filename": "chatgpt-lingbao-zhishi.png",
     "alt": "ChatGPT娘拎包一指蓝色小幽灵：今日班味，已自动加载",
@@ -354,6 +367,19 @@
     "preview": "previews/deepseek-bei-jiao-shui.webp",
     "large": "large/deepseek-bei-jiao-shui.webp",
     "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-bei-mo-tou-xiao.gif",
+    "filename": "deepseek-bei-mo-tou-xiao.gif",
+    "alt": "一只手覆在鲸鱼娘头顶，闭眼笑成一弯月牙，摸头模块满功率",
+    "tags": [
+      "开心",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-bei-mo-tou-xiao.webp",
+    "large": "large/deepseek-bei-mo-tou-xiao.webp",
+    "width": 272,
     "height": 480
   },
   {
@@ -1001,6 +1027,20 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-duan-kong-wan-deng-fan.gif",
+    "filename": "deepseek-duan-kong-wan-deng-fan.gif",
+    "alt": "鲸鱼娘端着空碗眼泪汪汪等开饭，尾巴先替她委屈",
+    "tags": [
+      "委屈",
+      "卖萌",
+      "吃饭"
+    ],
+    "preview": "previews/deepseek-duan-kong-wan-deng-fan.webp",
+    "large": "large/deepseek-duan-kong-wan-deng-fan.webp",
+    "width": 480,
+    "height": 420
+  },
+  {
     "original": "media/deepseek-duan-wan-chi-fan.jpg",
     "filename": "deepseek-duan-wan-chi-fan.jpg",
     "alt": "大肥鱼抱着白饭碗腮帮鼓鼓，算力今天全炫进肚里",
@@ -1224,6 +1264,19 @@
     "large": "large/deepseek-hao-moxing.webp",
     "width": 480,
     "height": 480
+  },
+  {
+    "original": "media/deepseek-he-hujing-yiqi-daxiao.gif",
+    "filename": "deepseek-he-hujing-yiqi-daxiao.gif",
+    "alt": "鲸鱼娘和圆滚滚的虎鲸并排站在水边，仰头笑到停不下来",
+    "tags": [
+      "开心",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-he-hujing-yiqi-daxiao.webp",
+    "large": "large/deepseek-he-hujing-yiqi-daxiao.webp",
+    "width": 348,
+    "height": 302
   },
   {
     "original": "media/deepseek-heiban-daxuexi.png",
@@ -1823,6 +1876,19 @@
     "large": "large/deepseek-lingkong-yizhi.webp",
     "width": 480,
     "height": 271
+  },
+  {
+    "original": "media/deepseek-lun-yumao-danzi.gif",
+    "filename": "deepseek-lun-yumao-danzi.gif",
+    "alt": "鲸鱼娘站在栏杆上抡圆了羽毛掸子，力度大到只剩残影",
+    "tags": [
+      "搞笑",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-lun-yumao-danzi.webp",
+    "large": "large/deepseek-lun-yumao-danzi.webp",
+    "width": 240,
+    "height": 240
   },
   {
     "original": "media/deepseek-maohan-chuhan.jpg",
