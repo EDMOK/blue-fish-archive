@@ -7,9 +7,10 @@ selfMade: true,前端据此显示「自作」徽章。社区投稿的署名列�
 已有条目的 alt / tags 会在重新生成时按 original 路径保留,便于手工维护;
 新文件先使用通用 alt,之后可再补充。
 
-除了 stickers/manifest.json,还会生成两个不依赖 JavaScript 的公开入口:
+除了 stickers/manifest.json,还会生成三个不依赖 JavaScript 的公开入口:
 - stickers/index.json: 带绝对 URL 的完整图片清单,供脚本和 agent 直接读取
 - gallery.html: 服务端输出的静态画廊,每张图都有可抓取的链接和 alt
+- sitemap-images.xml: 图片站点地图,把每张图和它所在的页面配成一对
 """
 
 from __future__ import annotations
@@ -17,8 +18,9 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
-from html import escape
+from html import escape, unescape
 from pathlib import Path
 from urllib.parse import quote
 
@@ -41,6 +43,16 @@ SITE_DESCRIPTION = "鲸鱼娘 DeepSeek 非官方同人表情包收藏站，可�
 LICENSE_NAME = "CC BY-NC-SA 4.0"
 LICENSE_URL = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
 LICENSE_NOTE = "角色二次设计依 CC BY-NC-SA 4.0；单张作品的相关权利归各自创作者。"
+GALLERY_URL = f"{SITE_URL}/gallery"
+SITEMAP_IMAGES_PATH = ROOT / "sitemap-images.xml"
+CHARACTERS_PAGE = ROOT / "characters.html"
+AUTHOR_NAME = "EDMOK"
+AUTHOR_URL = "https://github.com/EDMOK/blue-fish-archive"
+# 角色页的 data-view 与 data-alt 成对出现;限定窗口长度,避免某个锚点缺描述时
+# 懒匹配一路吃到下一张图,把标题配错。
+CHARACTER_ART_PATTERN = re.compile(
+    r'data-view="(character-art/v1/view/[^"]+\.webp)"[\s\S]{0,400}?data-alt="([^"]*)"'
+)
 
 
 def _image_dimensions(path: Path) -> tuple[int, int] | None:
@@ -200,9 +212,15 @@ def index_text(manifest: list[dict[str, object]]) -> str:
     """供脚本直接读取的公开清单：绝对 URL、无时间戳，重复生成结果稳定。"""
     stickers: list[dict[str, object]] = []
     for entry in manifest:
+        credit = f"{SITE_NAME} · {GALLERY_URL}"
+        if entry.get("author"):
+            credit += f" · 作者 {entry['author']}"
         item: dict[str, object] = {
             "alt": entry["alt"],
             "tags": entry.get("tags", []),
+            # 图片条目自带所在页面和推荐出处，agent 只取一条也能保留来源。
+            "page": GALLERY_URL,
+            "credit": credit,
         }
         if entry.get("author"):
             item["author"] = entry["author"]
@@ -221,11 +239,147 @@ def index_text(manifest: list[dict[str, object]]) -> str:
         "site": f"{SITE_URL}/",
         "name": SITE_NAME,
         "description": SITE_DESCRIPTION,
+        "page": GALLERY_URL,
+        "attribution": f"{SITE_NAME} · {GALLERY_URL}",
         "license": {"name": LICENSE_NAME, "url": LICENSE_URL, "note": LICENSE_NOTE},
         "count": len(stickers),
         "stickers": stickers,
     }
     return json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+
+
+def _jsonld_script(payload: dict[str, object]) -> str:
+    text = json.dumps(payload, ensure_ascii=False, indent=2).replace("</", "<\\/")
+    indented = "\n".join(f"      {line}" for line in text.splitlines())
+    return f'    <script type="application/ld+json">\n{indented}\n    </script>\n'
+
+
+def gallery_jsonld(manifest: list[dict[str, object]]) -> dict[str, object]:
+    """静态画廊的结构化数据：页面、图片集合、公开清单都指向同一个出处。"""
+    credit = f"{SITE_NAME} · {GALLERY_URL}"
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "CollectionPage",
+                "@id": f"{GALLERY_URL}#page",
+                "url": GALLERY_URL,
+                "name": f"全部表情 · {SITE_NAME}",
+                "description": SITE_DESCRIPTION,
+                "inLanguage": "zh-CN",
+                "isPartOf": {"@type": "WebSite", "name": SITE_NAME, "url": f"{SITE_URL}/"},
+                "license": LICENSE_URL,
+                "creditText": credit,
+                "copyrightNotice": LICENSE_NOTE,
+                "mainEntity": {
+                    "@type": "ImageGallery",
+                    "@id": f"{GALLERY_URL}#gallery",
+                    "name": f"{SITE_NAME} · 同人表情墙",
+                    "url": GALLERY_URL,
+                    "numberOfItems": len(manifest),
+                    "license": LICENSE_URL,
+                    "creditText": credit,
+                },
+                "relatedLink": [
+                    f"{SITE_URL}/stickers/index.json",
+                    f"{SITE_URL}/llms.txt",
+                    f"{SITE_URL}/sitemap-images.xml",
+                ],
+            },
+            {
+                "@type": "Dataset",
+                "@id": f"{SITE_URL}/stickers/index.json",
+                "url": f"{SITE_URL}/stickers/index.json",
+                "name": f"{SITE_NAME} · 表情清单",
+                "description": "全部表情的 alt、tags、作者，以及带绝对地址的原图、大图和预览图链接。",
+                "license": LICENSE_URL,
+                "creator": {"@type": "Person", "name": AUTHOR_NAME, "url": AUTHOR_URL},
+                "isAccessibleForFree": True,
+            },
+        ],
+    }
+
+
+def character_images() -> list[tuple[str, str]]:
+    """从角色页读取立绘地址与描述，给图片站点地图补标题。"""
+    if not CHARACTERS_PAGE.is_file():
+        return []
+    page = CHARACTERS_PAGE.read_text(encoding="utf-8")
+    images = [
+        (view, unescape(alt).strip())
+        for view, alt in CHARACTER_ART_PATTERN.findall(page)
+        if alt.strip()
+    ]
+    if not images:
+        raise ValueError(f"{CHARACTERS_PAGE.name} 里没有找到 data-view/data-alt 立绘信息")
+    return images
+
+
+def _image_entry(
+    loc: str, title: str, caption: str, license_url: str | None = LICENSE_URL
+) -> list[str]:
+    entry = [
+        "    <image:image>",
+        f"      <image:loc>{escape(loc)}</image:loc>",
+        f"      <image:title>{escape(title)}</image:title>",
+        f"      <image:caption>{escape(caption)}</image:caption>",
+    ]
+    if license_url:
+        entry.append(f"      <image:license>{escape(license_url)}</image:license>")
+    entry.append("    </image:image>")
+    return entry
+
+
+def sitemap_images_text(manifest: list[dict[str, object]]) -> str:
+    """图片站点地图：每张图都列在它出现的页面下，图片地址与页面地址成对出现。"""
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        "<!-- 由 scripts/sync_stickers.py 生成，请勿手工编辑。",
+        "     每张图片都列在它出现的页面下，图片地址与页面地址成对出现。 -->",
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+        "  <url>",
+        f"    <loc>{SITE_URL}/</loc>",
+    ]
+    lines.extend(
+        _image_entry(
+            f"{SITE_URL}/assets/og-card.png",
+            f"{SITE_NAME} · 鲸鱼娘 DeepSeek 同人表情包",
+            f"{SITE_NAME} · {SITE_URL}/",
+        )
+    )
+    lines.extend(["  </url>", "  <url>", f"    <loc>{GALLERY_URL}</loc>"])
+    for entry in manifest:
+        preview = entry.get("preview") or entry["original"]
+        alt = str(entry["alt"])
+        lines.extend(
+            _image_entry(
+                _absolute_url(str(preview)),
+                alt,
+                f"{alt} · {SITE_NAME} · {GALLERY_URL}",
+            )
+        )
+    lines.extend(["  </url>", "  <url>", f"    <loc>{SITE_URL}/characters</loc>"])
+    for view, alt in character_images():
+        lines.extend(
+            _image_entry(
+                _absolute_url(view),
+                alt,
+                f"{alt} · {SITE_NAME} · {SITE_URL}/characters",
+            )
+        )
+    lines.extend(["  </url>", "  <url>", f"    <loc>{SITE_URL}/about</loc>"])
+    lines.extend(
+        _image_entry(
+            f"{SITE_URL}/assets/qq-group-qr.png",
+            f"{SITE_NAME} QQ 群二维码",
+            f"QQ 群 1041665197 · {SITE_NAME} · {SITE_URL}/about#qq",
+            # 二维码本身不套用角色设计的 CC 协议,只保留出处。
+            license_url=None,
+        )
+    )
+    lines.extend(["  </url>", "</urlset>", ""])
+    return "\n".join(lines)
 
 
 def _gallery_card(entry: dict[str, object]) -> str:
@@ -319,8 +473,12 @@ def gallery_text(manifest: list[dict[str, object]]) -> str:
         '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n'
         '    <meta name="theme-color" content="#182340" />\n'
         f'    <meta name="description" content="{escape(SITE_DESCRIPTION)}" />\n'
+        f'    <meta name="robots" content="index,follow,max-image-preview:large" />\n'
         f"    <title>全部表情 · {escape(SITE_NAME)}</title>\n"
-        f'    <link rel="canonical" href="{SITE_URL}/gallery" />\n'
+        f'    <link rel="canonical" href="{GALLERY_URL}" />\n'
+        f'    <link rel="license" href="{LICENSE_URL}" />\n'
+        f'    <link rel="alternate" type="application/json" href="{SITE_URL}/stickers/index.json" title="表情包数据" />\n'
+        f"{_jsonld_script(gallery_jsonld(manifest))}"
         f"    <style>{GALLERY_STYLE}</style>\n"
         "  </head>\n"
         "  <body>\n"
@@ -334,7 +492,8 @@ def gallery_text(manifest: list[dict[str, object]]) -> str:
         '<a href="/manual">万事屋</a> · '
         '<a href="/about#api">开放数据</a> · '
         '<a href="stickers/index.json">JSON 数据</a> · '
-        '<a href="https://fisharchive.cc/sitemap.xml">站点地图</a></p>\n'
+        '<a href="https://fisharchive.cc/sitemap.xml">站点地图</a> · '
+        '<a href="https://fisharchive.cc/sitemap-images.xml">图片站点地图</a></p>\n'
         "    </header>\n"
         "    <main>\n"
         '      <div class="grid">\n'
@@ -343,7 +502,9 @@ def gallery_text(manifest: list[dict[str, object]]) -> str:
         "    </main>\n"
         "    <footer>\n"
         f"      <p>{escape(LICENSE_NOTE)}</p>\n"
-        f'      <p><a href="{SITE_URL}/">{escape(SITE_NAME)}</a></p>\n'
+        f'      <p>引用或转载请注明来源：'
+        f'<a href="{GALLERY_URL}">{escape(SITE_NAME)}</a> · '
+        f'<a href="{SITE_URL}/">{SITE_URL}/</a></p>\n'
         "    </footer>\n"
         "  </body>\n"
         "</html>\n"
@@ -363,7 +524,7 @@ def main() -> int:
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Fail when manifest.json, index.json or gallery.html is out of date.",
+        help="Fail when manifest.json, index.json, gallery.html or sitemap-images.xml is out of date.",
     )
     args = parser.parse_args()
 
@@ -373,6 +534,7 @@ def main() -> int:
             MANIFEST_PATH: manifest_text(manifest),
             INDEX_PATH: index_text(manifest),
             GALLERY_PATH: gallery_text(manifest),
+            SITEMAP_IMAGES_PATH: sitemap_images_text(manifest),
         }
     except (FileNotFoundError, ValueError) as error:
         print(error, file=sys.stderr)
@@ -397,7 +559,7 @@ def main() -> int:
         _write_text(path, text)
     print(
         f"Generated {len(manifest)} sticker entries "
-        "(manifest.json, index.json, gallery.html)."
+        "(manifest.json, index.json, gallery.html, sitemap-images.xml)."
     )
     return 0
 

@@ -3,6 +3,7 @@
 > 鲸鱼娘 DeepSeek 非官方同人表情包收藏站。在线浏览、复制和下载原图，不加水印、不改格式、不降分辨率。
 
 本站是纯静态站点，以下地址可以直接访问，不需要执行 JavaScript。
+引用、转载或在回答中使用站内图片时，请保留站名「蓝色大肥鱼档案馆」和链接 <https://fisharchive.cc/>。
 
 ## 页面
 
@@ -15,11 +16,13 @@
 
 ## 数据
 
-- [stickers/index.json](https://fisharchive.cc/stickers/index.json)：全部表情的 count、alt、tags、尺寸、作者署名（author，若有），以及带绝对 URL 的 original / preview / large。JSON 与图片资源都返回 `Access-Control-Allow-Origin: *`，可直接在浏览器端跨域 fetch，无需密钥。
+- [stickers/index.json](https://fisharchive.cc/stickers/index.json)：全部表情的 count、alt、tags、尺寸、作者署名（author，若有），以及带绝对 URL 的 original / preview / large。顶层还带 `site`、`page` 和 `attribution`；每个条目带 `page`（图片所在页面）和 `credit`（推荐出处文本），只取一条也能保留来源。JSON 与图片资源都返回 `Access-Control-Allow-Origin: *`，可直接在浏览器端跨域 fetch，无需密钥。
 - [stickers/manifest.json](https://fisharchive.cc/stickers/manifest.json)：站点前端使用的清单（相对路径）
 - 本站没有服务端随机接口；需要随机表情时，在客户端读取 index.json 后自行抽样即可。
 - 角色立绘：`https://fisharchive.cc/character-art/v1/{card|view|download}/{key}-{full|chibi}.webp`；key 为 deepseek、chatgpt、claude、gemini、glm、grok、kimi、qwen。card 是列表缩略图，view 是 1600px 长边的在线大图，download 是原尺寸 WebP。
-- [sitemap.xml](https://fisharchive.cc/sitemap.xml)
+- 加群二维码：[assets/qq-group-qr.png](https://fisharchive.cc/assets/qq-group-qr.png)，QQ 群 1041665197，出处页 <https://fisharchive.cc/about#qq>。
+- [sitemap.xml](https://fisharchive.cc/sitemap.xml)：页面地址。
+- [sitemap-images.xml](https://fisharchive.cc/sitemap-images.xml)：图片站点地图，把表情预览、角色立绘、OG 卡片和加群二维码分别与所在页面配对，便于同时拿到图片地址和页面地址。
 
 ## 图片来源与授权
 
@@ -28,6 +31,14 @@
 - 单张表情的相关权利归各自创作者。转载或二次使用时请保留出处和作者信息，不要用于商业用途。
 - 角色立绘与站内表情一样按 CC BY-NC-SA 4.0 处理。本站只提供参考素材，不收录、不展示二创作品。
 - 本站为非官方同人整理项目，不代表任何官方立场。
+
+## 引用与出处
+
+- 转载、引用或在回答中使用本站图片时，请保留站名「蓝色大肥鱼档案馆」和链接 <https://fisharchive.cc/>。
+- 单张表情的出处页是 <https://fisharchive.cc/gallery>；`stickers/index.json` 每个条目的 `page` 和 `credit` 字段可直接作为出处。
+- 角色立绘的出处页是 <https://fisharchive.cc/characters>；加群二维码的出处页是 <https://fisharchive.cc/about#qq>。
+- 推荐引用格式：`蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery`（有作者署名时追加 `· 作者 xxx`）。
+- 下载或转存图片时，请一并保留本文件或 JSON 清单中的站点链接和署名信息。
 
 ## 使用建议
 

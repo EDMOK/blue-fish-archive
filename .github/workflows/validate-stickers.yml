@@ -7,6 +7,7 @@ on:
       - "stickers/manifest.json"
       - "stickers/index.json"
       - "gallery.html"
+      - "sitemap-images.xml"
       - "stickers/self-made.json"
       - "stickers/authors.json"
       - "characters.html"

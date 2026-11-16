@@ -10,6 +10,43 @@
     />
     <title>关于本站 · 蓝色大肥鱼档案馆</title>
     <link rel="canonical" href="https://fisharchive.cc/about" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "AboutPage",
+            "@id": "https://fisharchive.cc/about#page",
+            "url": "https://fisharchive.cc/about",
+            "name": "关于本站 · 蓝色大肥鱼档案馆",
+            "description": "非官方鲸鱼娘 DeepSeek 同人表情整理站：收集、投稿与分享下载，遵循 CC BY-NC-SA 4.0。",
+            "inLanguage": "zh-CN",
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "蓝色大肥鱼档案馆",
+              "url": "https://fisharchive.cc/"
+            }
+          },
+          {
+            "@type": "ImageObject",
+            "@id": "https://fisharchive.cc/assets/qq-group-qr.png",
+            "contentUrl": "https://fisharchive.cc/assets/qq-group-qr.png",
+            "url": "https://fisharchive.cc/about#qq",
+            "name": "蓝色大肥鱼档案馆 QQ 群二维码",
+            "description": "蓝色大肥鱼档案馆 QQ 群（群号 1041665197）的加群二维码。",
+            "caption": "QQ 群 1041665197 · 蓝色大肥鱼档案馆 · https://fisharchive.cc/",
+            "creditText": "蓝色大肥鱼档案馆 · https://fisharchive.cc/about#qq",
+            "creator": {
+              "@type": "Person",
+              "name": "EDMOK",
+              "url": "https://space.bilibili.com/291892724"
+            },
+            "isPartOf": { "@id": "https://fisharchive.cc/about#page" }
+          }
+        ]
+      }
+    </script>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="蓝色大肥鱼档案馆" />
     <meta property="og:locale" content="zh_CN" />
@@ -224,10 +261,12 @@
             <li><code>count</code> 与 <code>stickers[]</code>，条目数以此为准</li>
             <li><code>alt</code>、<code>tags</code>、<code>width</code>、<code>height</code></li>
             <li><code>author</code>（社区投稿的署名）与 <code>selfMade</code>（站长自作）</li>
+            <li><code>page</code>（图片所在页面）与 <code>credit</code>（推荐出处文本）</li>
             <li><code>original</code> / <code>large</code> / <code>preview</code> 三个绝对地址</li>
           </ul>
           <p class="about-api-meta">
-            跨域响应头已配置 · 机器可读说明见 <a href="/llms.txt">llms.txt</a>
+            跨域响应头已配置 · 机器可读说明见 <a href="/llms.txt">llms.txt</a> ·
+            图片站点地图见 <a href="/sitemap-images.xml">sitemap-images.xml</a>
           </p>
         </div>
         <div class="about-api-code">
@@ -332,7 +371,7 @@
                 <source srcset="assets/qq-group-qr.webp" type="image/webp" />
                 <img
                   src="assets/qq-group-qr.png"
-                  alt="QQ 群二维码，群号 1041665197"
+                  alt="蓝色大肥鱼档案馆 QQ 群二维码，群号 1041665197"
                   width="583"
                   height="558"
                   loading="lazy"
@@ -369,7 +408,7 @@
         <span class="qr-modal-code">
           <picture>
             <source data-srcset="assets/qq-group-qr.webp" type="image/webp" />
-            <img data-src="assets/qq-group-qr.png" alt="QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
+            <img data-src="assets/qq-group-qr.png" alt="蓝色大肥鱼档案馆 QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
           </picture>
         </span>
         <div class="qr-modal-row">

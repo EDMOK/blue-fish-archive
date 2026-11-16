@@ -30,6 +30,7 @@
     "/favicon.ico",
     "/robots.txt",
     "/sitemap.xml",
+    "/sitemap-images.xml",
     "/stickers/*"
   ]
 }

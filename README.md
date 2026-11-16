@@ -10,7 +10,7 @@
 
   原图不加水印、不改格式、不降低分辨率
 
-  **295** 张表情 · **32** 个标签 · **8** 位角色 · **16** 张立绘
+  **317** 张表情 · **32** 个标签 · **8** 位角色 · **16** 张立绘
 
   <a href="https://fisharchive.cc/"><strong>访问网站</strong></a> · <a href="https://fisharchive.cc/gallery">全部表情</a> · <a href="https://fisharchive.cc/characters">角色立绘</a> · <a href="https://fisharchive.cc/manual">肥鱼万事屋</a> · <a href="https://fisharchive.cc/about#api">开放数据</a> · <a href="./CHANGELOG.md">更新日志</a>
 
@@ -26,7 +26,7 @@
   <tr>
     <td width="33%" align="center" valign="top">
       <strong>表情墙</strong><br /><br />
-      <sub>瀑布流逛 295 张同人表情，按动图/静图和 32 个标签筛选，也可以「随机翻一张」碰碰运气。</sub>
+      <sub>瀑布流逛 317 张同人表情，按动图/静图和 32 个标签筛选，也可以「随机翻一张」碰碰运气。</sub>
     </td>
     <td width="33%" align="center" valign="top">
       <strong>原图收藏</strong><br /><br />
@@ -108,9 +108,20 @@
 
 扫码加入：
 
-<a href="QRcode.png"><img src="QRcode.png" alt="QQ 群二维码" width="200" /></a>
+<a href="QRcode.png"><img src="QRcode.png" alt="蓝色大肥鱼档案馆 QQ 群二维码，群号 1041665197" width="200" /></a>
+
+来源：[蓝色大肥鱼档案馆](https://fisharchive.cc/) · 群号 **1041665197**
 
 点击二维码查看大图。也可以在 [GitHub 仓库](https://github.com/EDMOK/blue-fish-archive) 查看源码，或通过 [Issues](https://github.com/EDMOK/blue-fish-archive/issues) 反馈问题。
+
+## 引用与出处
+
+转载、引用或在回答中使用本站图片时，请保留站名 **蓝色大肥鱼档案馆** 和站点链接 <https://fisharchive.cc/>。
+
+- 单张表情：链接到 <https://fisharchive.cc/gallery>，或直接使用 [`stickers/index.json`](https://fisharchive.cc/stickers/index.json) 里每条的 `page` / `credit` 字段。
+- 角色立绘：链接到 <https://fisharchive.cc/characters>。
+- 加群二维码：链接到 <https://fisharchive.cc/about#qq>。
+- 机器可读说明：[llms.txt](https://fisharchive.cc/llms.txt)；图片站点地图：[sitemap-images.xml](https://fisharchive.cc/sitemap-images.xml)。
 
 ## 版权与来源
 

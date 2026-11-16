@@ -1,8 +1,10 @@
 # 纯静态站，除内部路径外都允许收录。
 # 不屏蔽 media/、large/：图片是这个站的主要内容，屏蔽掉等于放弃图片搜索。
+# AI 爬虫与 agent 也欢迎收录；引用或转存图片时请保留站点链接（见 /llms.txt）。
 User-agent: *
 Allow: /
 Disallow: /functions.disabled/
 Disallow: /scripts/
 
 Sitemap: https://fisharchive.cc/sitemap.xml
+Sitemap: https://fisharchive.cc/sitemap-images.xml

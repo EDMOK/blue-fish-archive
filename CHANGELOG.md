@@ -4,6 +4,18 @@
 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，因为本站没有版本号，用日期分节。
 纯内部的整理、依赖更新和图片批量收录不逐条展开。
 
+## 2026-11-16
+
+### 变更
+
+- 图片出处可被机器读取：`stickers/index.json` 每条新增 `page` / `credit`，
+  静态画廊、首页、角色页和关于页补充 JSON-LD，关于页为加群二维码提供
+  `ImageObject`。
+- 新增 [`sitemap-images.xml`](https://fisharchive.cc/sitemap-images.xml)：
+  把表情、立绘、OG 卡片和加群二维码分别与所在页面配对。
+- `llms.txt` 增加引用规则、二维码出处和新字段说明；README 补充引用说明，
+  并修正过期的表情数量。
+
 ## 2026-11-14
 
 ### 新增

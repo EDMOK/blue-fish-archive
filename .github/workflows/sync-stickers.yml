@@ -9,6 +9,7 @@ on:
       - "media/**"
       - "stickers/self-made.json"
       - "stickers/authors.json"
+      - "characters.html"
       - "scripts/*.py"
       - ".github/workflows/sync-stickers.yml"
   workflow_dispatch:
@@ -39,14 +40,16 @@ jobs:
 
       - name: Commit updated manifest and previews
         run: |
-          NEW_FILES="$(git ls-files --others --exclude-standard previews large)"
-          if git diff --quiet -- stickers/manifest.json stickers/index.json gallery.html previews large && [ -z "$NEW_FILES" ]; then
-            echo "Manifest, indexes and previews are already synchronized."
+          # 生成的 XML/HTML 第一次出现时也是未跟踪文件，必须一起扫描，
+          # 否则文件缺失时这一步会误判为“已同步”而直接退出。
+          NEW_FILES="$(git ls-files --others --exclude-standard previews large sitemap-images.xml gallery.html)"
+          if git diff --quiet -- stickers/manifest.json stickers/index.json gallery.html sitemap-images.xml previews large && [ -z "$NEW_FILES" ]; then
+            echo "Manifest, indexes, sitemap and previews are already synchronized."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add stickers/manifest.json stickers/index.json gallery.html previews large
-          git commit -m "chore: sync sticker manifest, indexes and previews"
+          git add stickers/manifest.json stickers/index.json gallery.html sitemap-images.xml previews large
+          git commit -m "chore: sync sticker manifest, indexes, sitemap and previews"
           git push
