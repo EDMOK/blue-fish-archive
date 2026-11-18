@@ -93,6 +93,20 @@
     "height": 480
   },
   {
+    "original": "media/claude-bao-deepseek.png",
+    "filename": "claude-bao-deepseek.png",
+    "alt": "Claude娘把鲸鱼娘整只抱起来，向日葵花雨里冒粉红泡泡",
+    "author": "Pulway",
+    "tags": [
+      "卖萌",
+      "开心"
+    ],
+    "preview": "previews/claude-bao-deepseek.webp",
+    "large": "large/claude-bao-deepseek.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/claude-shou-juan-zhou.png",
     "filename": "claude-shou-juan-zhou.png",
     "alt": "Claude娘手握封蜡卷轴浅笑：这份需求，八千字正在排队。",
@@ -102,6 +116,21 @@
     "preview": "previews/claude-shou-juan-zhou.webp",
     "large": "large/claude-shou-juan-zhou.webp",
     "width": 270,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-baihua-shengri.png",
+    "filename": "deepseek-baihua-shengri.png",
+    "alt": "鲸鱼娘在花雨里转圈：百花生日，人间春始",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "开心",
+      "出游"
+    ],
+    "preview": "previews/deepseek-baihua-shengri.webp",
+    "large": "large/deepseek-baihua-shengri.webp",
+    "width": 480,
     "height": 480
   },
   {
@@ -448,6 +477,21 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-bendan-jingjing-xuexi.png",
+    "filename": "deepseek-bendan-jingjing-xuexi.png",
+    "alt": "鲸鱼娘趴在书堆上把课本顶在头上：这题它选择当场宕机",
+    "author": "Pulway",
+    "tags": [
+      "学习",
+      "委屈",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-bendan-jingjing-xuexi.webp",
+    "large": "large/deepseek-bendan-jingjing-xuexi.webp",
+    "width": 480,
+    "height": 439
+  },
+  {
     "original": "media/deepseek-bengdai-munaiyi.jpg",
     "filename": "deepseek-bengdai-munaiyi.jpg",
     "alt": "大肥鱼裹成木乃伊落泪，绷带都泡软了还没等到下班",
@@ -760,6 +804,21 @@
     ],
     "preview": "previews/deepseek-chi-xigua.webp",
     "large": "large/deepseek-chi-xigua.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-chongyang-laozhong-huli.png",
+    "filename": "deepseek-chongyang-laozhong-huli.png",
+    "alt": "狐狸娘隔着铁窗哭喊再也不偷数据，鲸鱼娘捧着菊花来探监",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "搞笑",
+      "震惊"
+    ],
+    "preview": "previews/deepseek-chongyang-laozhong-huli.webp",
+    "large": "large/deepseek-chongyang-laozhong-huli.webp",
     "width": 480,
     "height": 480
   },
@@ -1211,6 +1270,21 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-duanwu-longzhou.png",
+    "filename": "deepseek-duanwu-longzhou.png",
+    "alt": "五条龙舟冲浪正猛，鲸鱼娘在船头发现大肥鱼不见了",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "运动",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-duanwu-longzhou.webp",
+    "large": "large/deepseek-duanwu-longzhou.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-dui-zhe-diannao-lianhong.jpg",
     "filename": "deepseek-dui-zhe-diannao-lianhong.jpg",
     "alt": "鲸鱼娘盯着贴鲸鱼贴纸的电脑捂脸，CPU先替她红温了",
@@ -1275,6 +1349,21 @@
     "preview": "previews/deepseek-duzuo-fadai.webp",
     "large": "large/deepseek-duzuo-fadai.webp",
     "width": 355,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-ertongjie-flash.png",
+    "filename": "deepseek-ertongjie-flash.png",
+    "alt": "鲸鱼娘叼着棒棒糖宣布今天要过儿童节，还要 Flash 版本",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "开心",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-ertongjie-flash.webp",
+    "large": "large/deepseek-ertongjie-flash.webp",
+    "width": 480,
     "height": 480
   },
   {
@@ -1367,6 +1456,21 @@
     "preview": "previews/deepseek-gu-er-liu-lan-qi.webp",
     "large": "large/deepseek-gu-er-liu-lan-qi.webp",
     "width": 384,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-guoqing-wuren.png",
+    "filename": "deepseek-guoqing-wuren.png",
+    "alt": "五位模型娘手拉手站在国旗下：国庆快乐",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "庆祝",
+      "开心"
+    ],
+    "preview": "previews/deepseek-guoqing-wuren.webp",
+    "large": "large/deepseek-guoqing-wuren.webp",
+    "width": 480,
     "height": 480
   },
   {
@@ -1528,6 +1632,63 @@
     "height": 476
   },
   {
+    "original": "media/deepseek-jiaoshijie-daxuetang.png",
+    "filename": "deepseek-jiaoshijie-daxuetang.png",
+    "alt": "鲸鱼娘站上讲台板书微积分：教师节快乐，deep！",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "教学",
+      "开心"
+    ],
+    "preview": "previews/deepseek-jiaoshijie-daxuetang.webp",
+    "large": "large/deepseek-jiaoshijie-daxuetang.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-jing-shengbing.png",
+    "filename": "deepseek-jing-shengbing.png",
+    "alt": "鲸鱼娘裹着被子喝粥，头顶飘着药片和点滴",
+    "author": "Pulway",
+    "tags": [
+      "委屈",
+      "难过"
+    ],
+    "preview": "previews/deepseek-jing-shengbing.webp",
+    "large": "large/deepseek-jing-shengbing.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-jingjing-paozao.png",
+    "filename": "deepseek-jingjing-paozao.png",
+    "alt": "鲸鱼娘在浴缸里眯眼冒泡：出趟门，你乖乖待在鱼缸里",
+    "author": "Pulway",
+    "tags": [
+      "卖萌",
+      "摸鱼"
+    ],
+    "preview": "previews/deepseek-jingjing-paozao.webp",
+    "large": "large/deepseek-jingjing-paozao.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-jingjing-yihuo.png",
+    "filename": "deepseek-jingjing-yihuo.png",
+    "alt": "鲸鱼娘戳着下巴满脑子问号：没听懂呀鲸鲸",
+    "author": "Pulway",
+    "tags": [
+      "疑惑",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-jingjing-yihuo.webp",
+    "large": "large/deepseek-jingjing-yihuo.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-jingli-hanwei-shendusuosuo.png",
     "filename": "deepseek-jingli-hanwei-shendusuosuo.png",
     "alt": "蓝色大肥鱼抬手敬礼，深度思考的主权谁也别碰",
@@ -1552,6 +1713,35 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-jingtunri-dianshi.png",
+    "filename": "deepseek-jingtunri-dianshi.png",
+    "alt": "鲸鱼娘上老电视直播世界鲸豚日，话筒都递到尾巴前",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "教学",
+      "开心"
+    ],
+    "preview": "previews/deepseek-jingtunri-dianshi.webp",
+    "large": "large/deepseek-jingtunri-dianshi.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-jingxi-shihenian.png",
+    "filename": "deepseek-jingxi-shihenian.png",
+    "alt": "鲸鱼娘抱着石磨碾米，脑子里已经端上一碗白饭",
+    "author": "Pulway",
+    "tags": [
+      "吃饭",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-jingxi-shihenian.webp",
+    "large": "large/deepseek-jingxi-shihenian.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-jingya-wenhao.webp",
     "filename": "deepseek-jingya-wenhao.webp",
     "alt": "大肥鱼盯着满头问号，深度思考把CPU都烧冒汗了",
@@ -1561,6 +1751,21 @@
     ],
     "preview": "previews/deepseek-jingya-wenhao.webp",
     "large": "large/deepseek-jingya-wenhao.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-jingyue-tongyuan.png",
+    "filename": "deepseek-jingyue-tongyuan.png",
+    "alt": "鲸鱼娘举起大菜刀切月饼，桌前八位角色等得眼睛发亮",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "吃饭",
+      "开心"
+    ],
+    "preview": "previews/deepseek-jingyue-tongyuan.webp",
+    "large": "large/deepseek-jingyue-tongyuan.webp",
     "width": 480,
     "height": 480
   },
@@ -1905,6 +2110,21 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-kongbu-nanguajie.png",
+    "filename": "deepseek-kongbu-nanguajie.png",
+    "alt": "鲸鱼娘闯进南瓜头派对，三个南瓜怪正等着她自投罗网",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "震惊",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-kongbu-nanguajie.webp",
+    "large": "large/deepseek-kongbu-nanguajie.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-kongwan-ai-xun.webp",
     "filename": "deepseek-kongwan-ai-xun.webp",
     "alt": "蓝色大肥鱼守着空饭碗瘪嘴挨训：这白米饭KPI谁给我结算",
@@ -1957,6 +2177,36 @@
     "height": 473
   },
   {
+    "original": "media/deepseek-laba-zhou-hou-xinnian.png",
+    "filename": "deepseek-laba-zhou-hou-xinnian.png",
+    "alt": "鲸鱼娘抱着粥碗坐在十层碗塔旁：喝完这碗就候新年",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "吃饭",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-laba-zhou-hou-xinnian.webp",
+    "large": "large/deepseek-laba-zhou-hou-xinnian.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-laba-zhou-wenhua-yu.png",
+    "filename": "deepseek-laba-zhou-wenhua-yu.png",
+    "alt": "鲸鱼娘端着腊八粥自封文化鱼：今天过节就得喝粥",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "吃饭",
+      "得意"
+    ],
+    "preview": "previews/deepseek-laba-zhou-wenhua-yu.webp",
+    "large": "large/deepseek-laba-zhou-wenhua-yu.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-lan-jing-pai-ziji-pin.png",
     "filename": "deepseek-lan-jing-pai-ziji-pin.png",
     "alt": "鲸鱼娘的蓝鲸牌配着满盒零件，原来开源还得自己拼。",
@@ -1979,6 +2229,21 @@
     ],
     "preview": "previews/deepseek-lanse-dafeiyu.webp",
     "large": "large/deepseek-lanse-dafeiyu.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-laodongjie-qu-dujia.png",
+    "filename": "deepseek-laodongjie-qu-dujia.png",
+    "alt": "鲸鱼娘躺在沙滩椅上举杯：工作暂停，白饭续杯",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "出游",
+      "摸鱼"
+    ],
+    "preview": "previews/deepseek-laodongjie-qu-dujia.webp",
+    "large": "large/deepseek-laodongjie-qu-dujia.webp",
     "width": 480,
     "height": 480
   },
@@ -2453,6 +2718,21 @@
     "height": 349
   },
   {
+    "original": "media/deepseek-qingming-taqing.png",
+    "filename": "deepseek-qingming-taqing.png",
+    "alt": "鲸鱼娘清明踏青啃海苔饭团，鲸鱼风筝已经飞到云里",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "出游",
+      "吃饭"
+    ],
+    "preview": "previews/deepseek-qingming-taqing.webp",
+    "large": "large/deepseek-qingming-taqing.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-qita-moxing.jpg",
     "filename": "deepseek-qita-moxing.jpg",
     "alt": "deepseek娘摊开手追问其他模型，问号已经把CPU占满了",
@@ -2650,6 +2930,35 @@
     "height": 328
   },
   {
+    "original": "media/deepseek-shengbing-guo-beizi.png",
+    "filename": "deepseek-shengbing-guo-beizi.png",
+    "alt": "鲸鱼娘裹成一条病鱼，捧着粥碗抖成筛子",
+    "author": "Pulway",
+    "tags": [
+      "委屈",
+      "难过"
+    ],
+    "preview": "previews/deepseek-shengbing-guo-beizi.webp",
+    "large": "large/deepseek-shengbing-guo-beizi.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-shengdan-xiaowu.png",
+    "filename": "deepseek-shengdan-xiaowu.png",
+    "alt": "圣诞夜鲸鱼娘领着一屋小伙伴拆礼物，雪橇已经停进客厅",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "庆祝",
+      "开心"
+    ],
+    "preview": "previews/deepseek-shengdan-xiaowu.webp",
+    "large": "large/deepseek-shengdan-xiaowu.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-shou-tuo-xingxi.png",
     "filename": "deepseek-shou-tuo-xingxi.png",
     "alt": "鲸鱼娘捧着整片星系眯眼笑：深度思考已扩容到宇宙",
@@ -2804,6 +3113,20 @@
     "preview": "previews/deepseek-shuitong-paoshui.webp",
     "large": "large/deepseek-shuitong-paoshui.webp",
     "width": 360,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-shuiyan-jingjing.png",
+    "filename": "deepseek-shuiyan-jingjing.png",
+    "alt": "鲸鱼娘泡澡泡到水漫浴室，只剩脑袋在泡沫里喊救命",
+    "author": "Pulway",
+    "tags": [
+      "震惊",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-shuiyan-jingjing.webp",
+    "large": "large/deepseek-shuiyan-jingjing.webp",
+    "width": 480,
     "height": 480
   },
   {
@@ -3222,6 +3545,21 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-wanglingjie-baigui.png",
+    "filename": "deepseek-wanglingjie-baigui.png",
+    "alt": "鲸鱼娘缩在被窝里科普亡灵节，旁边一群猫耳幽灵已经开起派对",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "震惊",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-wanglingjie-baigui.webp",
+    "large": "large/deepseek-wanglingjie-baigui.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-wanju-maid.png",
     "filename": "deepseek-wanju-maid.png",
     "alt": "鲸鱼娘坐成一团毛绒蓝，今天的班味由玩偶代打。",
@@ -3456,6 +3794,21 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-xinchun-fu.png",
+    "filename": "deepseek-xinchun-fu.png",
+    "alt": "鲸鱼娘抱着福字坐在红包堆里：新春快乐，共度鲸宵",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "庆祝",
+      "开心"
+    ],
+    "preview": "previews/deepseek-xinchun-fu.webp",
+    "large": "large/deepseek-xinchun-fu.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-xiuse-zheilian.jpg",
     "filename": "deepseek-xiuse-zheilian.jpg",
     "alt": "大肥鱼红着脸缩进长袖，害羞得把算力都捂冒烟了",
@@ -3504,6 +3857,20 @@
     ],
     "preview": "previews/deepseek-xunlian-yonghu.webp",
     "large": "large/deepseek-xunlian-yonghu.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-yang-yizhi-dafeiyu.png",
+    "filename": "deepseek-yang-yizhi-dafeiyu.png",
+    "alt": "鲸鱼娘捧着鱼缸跟主人商量：想养一只会干活的大肥鱼",
+    "author": "Pulway",
+    "tags": [
+      "卖萌",
+      "搞笑"
+    ],
+    "preview": "previews/deepseek-yang-yizhi-dafeiyu.webp",
+    "large": "large/deepseek-yang-yizhi-dafeiyu.webp",
     "width": 480,
     "height": 480
   },
@@ -3640,6 +4007,21 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-yuandan-dunmi.png",
+    "filename": "deepseek-yuandan-dunmi.png",
+    "alt": "鲸鱼娘拎着三袋大米被盘问：元旦促销，不囤白不囤",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "购物",
+      "开心"
+    ],
+    "preview": "previews/deepseek-yuandan-dunmi.webp",
+    "large": "large/deepseek-yuandan-dunmi.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-yuantai-zhangshou.jpg",
     "filename": "deepseek-yuantai-zhangshou.jpg",
     "alt": "鲸鱼娘圆台张开手臂喊话，台下模型围一圈，需求评审会直接爆满。",
@@ -3651,6 +4033,36 @@
     "large": "large/deepseek-yuantai-zhangshou.webp",
     "width": 480,
     "height": 475
+  },
+  {
+    "original": "media/deepseek-yuanxiao-tangyuan.png",
+    "filename": "deepseek-yuanxiao-tangyuan.png",
+    "alt": "鲸鱼娘整个人泡进汤圆碗里：元宵鲸快乐",
+    "author": "Pulway",
+    "tags": [
+      "节日",
+      "吃饭",
+      "开心"
+    ],
+    "preview": "previews/deepseek-yuanxiao-tangyuan.webp",
+    "large": "large/deepseek-yuanxiao-tangyuan.webp",
+    "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-yuxingwei-tucao.png",
+    "filename": "deepseek-yuxingwei-tucao.png",
+    "alt": "鲸鱼娘盯着满屏聊天框冒冷汗：难道我真的有鱼腥味",
+    "author": "Pulway",
+    "tags": [
+      "无语",
+      "疑惑",
+      "工作"
+    ],
+    "preview": "previews/deepseek-yuxingwei-tucao.webp",
+    "large": "large/deepseek-yuxingwei-tucao.webp",
+    "width": 480,
+    "height": 480
   },
   {
     "original": "media/deepseek-yuzhou-bengpao.png",

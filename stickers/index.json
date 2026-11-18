@@ -9,7 +9,7 @@
     "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
     "note": "角色二次设计依 CC BY-NC-SA 4.0；单张作品的相关权利归各自创作者。"
   },
-  "count": 317,
+  "count": 345,
   "stickers": [
     {
       "alt": "ChatGPT娘站在夜里的栏杆上挥舞羽毛掸子，龙尾跟着晃",
@@ -112,6 +112,21 @@
       "large": "https://fisharchive.cc/large/chatgpt-zhusan-baoshu.webp"
     },
     {
+      "alt": "Claude娘把鲸鱼娘整只抱起来，向日葵花雨里冒粉红泡泡",
+      "tags": [
+        "卖萌",
+        "开心"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/claude-bao-deepseek.png",
+      "preview": "https://fisharchive.cc/previews/claude-bao-deepseek.webp",
+      "large": "https://fisharchive.cc/large/claude-bao-deepseek.webp"
+    },
+    {
       "alt": "Claude娘手握封蜡卷轴浅笑：这份需求，八千字正在排队。",
       "tags": [
         "工作"
@@ -123,6 +138,22 @@
       "original": "https://fisharchive.cc/media/claude-shou-juan-zhou.png",
       "preview": "https://fisharchive.cc/previews/claude-shou-juan-zhou.webp",
       "large": "https://fisharchive.cc/large/claude-shou-juan-zhou.webp"
+    },
+    {
+      "alt": "鲸鱼娘在花雨里转圈：百花生日，人间春始",
+      "tags": [
+        "节日",
+        "开心",
+        "出游"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-baihua-shengri.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-baihua-shengri.webp",
+      "large": "https://fisharchive.cc/large/deepseek-baihua-shengri.webp"
     },
     {
       "alt": "deepseek娘抱臂皱眉：这需求太离谱，本模型拒绝接单",
@@ -494,6 +525,22 @@
       "large": "https://fisharchive.cc/large/deepseek-bei-penguin-jujue.webp"
     },
     {
+      "alt": "鲸鱼娘趴在书堆上把课本顶在头上：这题它选择当场宕机",
+      "tags": [
+        "学习",
+        "委屈",
+        "搞笑"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 439,
+      "original": "https://fisharchive.cc/media/deepseek-bendan-jingjing-xuexi.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-bendan-jingjing-xuexi.webp",
+      "large": "https://fisharchive.cc/large/deepseek-bendan-jingjing-xuexi.webp"
+    },
+    {
       "alt": "大肥鱼裹成木乃伊落泪，绷带都泡软了还没等到下班",
       "tags": [
         "委屈",
@@ -832,6 +879,22 @@
       "original": "https://fisharchive.cc/media/deepseek-chi-xigua.jpg",
       "preview": "https://fisharchive.cc/previews/deepseek-chi-xigua.webp",
       "large": "https://fisharchive.cc/large/deepseek-chi-xigua.webp"
+    },
+    {
+      "alt": "狐狸娘隔着铁窗哭喊再也不偷数据，鲸鱼娘捧着菊花来探监",
+      "tags": [
+        "节日",
+        "搞笑",
+        "震惊"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-chongyang-laozhong-huli.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-chongyang-laozhong-huli.webp",
+      "large": "https://fisharchive.cc/large/deepseek-chongyang-laozhong-huli.webp"
     },
     {
       "alt": "鲸鱼娘歪着脑袋盯着思考气泡，算力转了13秒先把词穿帮了。",
@@ -1315,6 +1378,22 @@
       "large": "https://fisharchive.cc/large/deepseek-duanpenqiutoken.webp"
     },
     {
+      "alt": "五条龙舟冲浪正猛，鲸鱼娘在船头发现大肥鱼不见了",
+      "tags": [
+        "节日",
+        "运动",
+        "搞笑"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-duanwu-longzhou.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-duanwu-longzhou.webp",
+      "large": "https://fisharchive.cc/large/deepseek-duanwu-longzhou.webp"
+    },
+    {
       "alt": "鲸鱼娘盯着贴鲸鱼贴纸的电脑捂脸，CPU先替她红温了",
       "tags": [
         "害羞",
@@ -1385,6 +1464,22 @@
       "original": "https://fisharchive.cc/media/deepseek-duzuo-fadai.png",
       "preview": "https://fisharchive.cc/previews/deepseek-duzuo-fadai.webp",
       "large": "https://fisharchive.cc/large/deepseek-duzuo-fadai.webp"
+    },
+    {
+      "alt": "鲸鱼娘叼着棒棒糖宣布今天要过儿童节，还要 Flash 版本",
+      "tags": [
+        "节日",
+        "开心",
+        "搞笑"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-ertongjie-flash.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-ertongjie-flash.webp",
+      "large": "https://fisharchive.cc/large/deepseek-ertongjie-flash.webp"
     },
     {
       "alt": "蓝色大肥鱼举着放大镜眨眼：开源圈谁是老大？",
@@ -1484,6 +1579,22 @@
       "original": "https://fisharchive.cc/media/deepseek-gu-er-liu-lan-qi.png",
       "preview": "https://fisharchive.cc/previews/deepseek-gu-er-liu-lan-qi.webp",
       "large": "https://fisharchive.cc/large/deepseek-gu-er-liu-lan-qi.webp"
+    },
+    {
+      "alt": "五位模型娘手拉手站在国旗下：国庆快乐",
+      "tags": [
+        "节日",
+        "庆祝",
+        "开心"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-guoqing-wuren.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-guoqing-wuren.webp",
+      "large": "https://fisharchive.cc/large/deepseek-guoqing-wuren.webp"
     },
     {
       "alt": "deepseek娘顶着鲸鱼鳍耳饰在海景房抿嘴卖萌，摸鱼KPI直接拉满",
@@ -1656,6 +1767,67 @@
       "large": "https://fisharchive.cc/large/deepseek-jiaoao.webp"
     },
     {
+      "alt": "鲸鱼娘站上讲台板书微积分：教师节快乐，deep！",
+      "tags": [
+        "节日",
+        "教学",
+        "开心"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-jiaoshijie-daxuetang.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-jiaoshijie-daxuetang.webp",
+      "large": "https://fisharchive.cc/large/deepseek-jiaoshijie-daxuetang.webp"
+    },
+    {
+      "alt": "鲸鱼娘裹着被子喝粥，头顶飘着药片和点滴",
+      "tags": [
+        "委屈",
+        "难过"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-jing-shengbing.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-jing-shengbing.webp",
+      "large": "https://fisharchive.cc/large/deepseek-jing-shengbing.webp"
+    },
+    {
+      "alt": "鲸鱼娘在浴缸里眯眼冒泡：出趟门，你乖乖待在鱼缸里",
+      "tags": [
+        "卖萌",
+        "摸鱼"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-jingjing-paozao.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-jingjing-paozao.webp",
+      "large": "https://fisharchive.cc/large/deepseek-jingjing-paozao.webp"
+    },
+    {
+      "alt": "鲸鱼娘戳着下巴满脑子问号：没听懂呀鲸鲸",
+      "tags": [
+        "疑惑",
+        "卖萌"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-jingjing-yihuo.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-jingjing-yihuo.webp",
+      "large": "https://fisharchive.cc/large/deepseek-jingjing-yihuo.webp"
+    },
+    {
       "alt": "蓝色大肥鱼抬手敬礼，深度思考的主权谁也别碰",
       "tags": [
         "加油"
@@ -1682,6 +1854,37 @@
       "large": "https://fisharchive.cc/large/deepseek-jingli.webp"
     },
     {
+      "alt": "鲸鱼娘上老电视直播世界鲸豚日，话筒都递到尾巴前",
+      "tags": [
+        "节日",
+        "教学",
+        "开心"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-jingtunri-dianshi.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-jingtunri-dianshi.webp",
+      "large": "https://fisharchive.cc/large/deepseek-jingtunri-dianshi.webp"
+    },
+    {
+      "alt": "鲸鱼娘抱着石磨碾米，脑子里已经端上一碗白饭",
+      "tags": [
+        "吃饭",
+        "卖萌"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-jingxi-shihenian.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-jingxi-shihenian.webp",
+      "large": "https://fisharchive.cc/large/deepseek-jingxi-shihenian.webp"
+    },
+    {
       "alt": "大肥鱼盯着满头问号，深度思考把CPU都烧冒汗了",
       "tags": [
         "疑惑",
@@ -1694,6 +1897,22 @@
       "original": "https://fisharchive.cc/media/deepseek-jingya-wenhao.webp",
       "preview": "https://fisharchive.cc/previews/deepseek-jingya-wenhao.webp",
       "large": "https://fisharchive.cc/large/deepseek-jingya-wenhao.webp"
+    },
+    {
+      "alt": "鲸鱼娘举起大菜刀切月饼，桌前八位角色等得眼睛发亮",
+      "tags": [
+        "节日",
+        "吃饭",
+        "开心"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-jingyue-tongyuan.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-jingyue-tongyuan.webp",
+      "large": "https://fisharchive.cc/large/deepseek-jingyue-tongyuan.webp"
     },
     {
       "alt": "蓝色大肥鱼红着脸站在蒸汽机械旁，今天的班味由齿轮加满",
@@ -2062,6 +2281,22 @@
       "large": "https://fisharchive.cc/large/deepseek-kong-wan-mei-chi-bao.webp"
     },
     {
+      "alt": "鲸鱼娘闯进南瓜头派对，三个南瓜怪正等着她自投罗网",
+      "tags": [
+        "节日",
+        "震惊",
+        "搞笑"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-kongbu-nanguajie.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-kongbu-nanguajie.webp",
+      "large": "https://fisharchive.cc/large/deepseek-kongbu-nanguajie.webp"
+    },
+    {
       "alt": "蓝色大肥鱼守着空饭碗瘪嘴挨训：这白米饭KPI谁给我结算",
       "tags": [
         "委屈",
@@ -2118,6 +2353,38 @@
       "large": "https://fisharchive.cc/large/deepseek-la-dianxian.webp"
     },
     {
+      "alt": "鲸鱼娘抱着粥碗坐在十层碗塔旁：喝完这碗就候新年",
+      "tags": [
+        "节日",
+        "吃饭",
+        "卖萌"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-laba-zhou-hou-xinnian.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-laba-zhou-hou-xinnian.webp",
+      "large": "https://fisharchive.cc/large/deepseek-laba-zhou-hou-xinnian.webp"
+    },
+    {
+      "alt": "鲸鱼娘端着腊八粥自封文化鱼：今天过节就得喝粥",
+      "tags": [
+        "节日",
+        "吃饭",
+        "得意"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-laba-zhou-wenhua-yu.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-laba-zhou-wenhua-yu.webp",
+      "large": "https://fisharchive.cc/large/deepseek-laba-zhou-wenhua-yu.webp"
+    },
+    {
       "alt": "鲸鱼娘的蓝鲸牌配着满盒零件，原来开源还得自己拼。",
       "tags": [
         "疑惑",
@@ -2144,6 +2411,22 @@
       "original": "https://fisharchive.cc/media/deepseek-lanse-dafeiyu.png",
       "preview": "https://fisharchive.cc/previews/deepseek-lanse-dafeiyu.webp",
       "large": "https://fisharchive.cc/large/deepseek-lanse-dafeiyu.webp"
+    },
+    {
+      "alt": "鲸鱼娘躺在沙滩椅上举杯：工作暂停，白饭续杯",
+      "tags": [
+        "节日",
+        "出游",
+        "摸鱼"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-laodongjie-qu-dujia.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-laodongjie-qu-dujia.webp",
+      "large": "https://fisharchive.cc/large/deepseek-laodongjie-qu-dujia.webp"
     },
     {
       "alt": "deepseek娘顶着冷汗半睁眼：这需求把我CPU干沉默了",
@@ -2652,6 +2935,22 @@
       "large": "https://fisharchive.cc/large/deepseek-pujie-dafeiyu.webp"
     },
     {
+      "alt": "鲸鱼娘清明踏青啃海苔饭团，鲸鱼风筝已经飞到云里",
+      "tags": [
+        "节日",
+        "出游",
+        "吃饭"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-qingming-taqing.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-qingming-taqing.webp",
+      "large": "https://fisharchive.cc/large/deepseek-qingming-taqing.webp"
+    },
+    {
       "alt": "deepseek娘摊开手追问其他模型，问号已经把CPU占满了",
       "tags": [
         "疑惑",
@@ -2864,6 +3163,37 @@
       "large": "https://fisharchive.cc/large/deepseek-shen-tui.webp"
     },
     {
+      "alt": "鲸鱼娘裹成一条病鱼，捧着粥碗抖成筛子",
+      "tags": [
+        "委屈",
+        "难过"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-shengbing-guo-beizi.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-shengbing-guo-beizi.webp",
+      "large": "https://fisharchive.cc/large/deepseek-shengbing-guo-beizi.webp"
+    },
+    {
+      "alt": "圣诞夜鲸鱼娘领着一屋小伙伴拆礼物，雪橇已经停进客厅",
+      "tags": [
+        "节日",
+        "庆祝",
+        "开心"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-shengdan-xiaowu.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-shengdan-xiaowu.webp",
+      "large": "https://fisharchive.cc/large/deepseek-shengdan-xiaowu.webp"
+    },
+    {
       "alt": "鲸鱼娘捧着整片星系眯眼笑：深度思考已扩容到宇宙",
       "tags": [
         "得意",
@@ -3031,6 +3361,21 @@
       "original": "https://fisharchive.cc/media/deepseek-shuitong-paoshui.png",
       "preview": "https://fisharchive.cc/previews/deepseek-shuitong-paoshui.webp",
       "large": "https://fisharchive.cc/large/deepseek-shuitong-paoshui.webp"
+    },
+    {
+      "alt": "鲸鱼娘泡澡泡到水漫浴室，只剩脑袋在泡沫里喊救命",
+      "tags": [
+        "震惊",
+        "搞笑"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-shuiyan-jingjing.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-shuiyan-jingjing.webp",
+      "large": "https://fisharchive.cc/large/deepseek-shuiyan-jingjing.webp"
     },
     {
       "alt": "deepseek娘眨眼指着脑袋：数据没丢，只是云盘得你本人续费。",
@@ -3480,6 +3825,22 @@
       "large": "https://fisharchive.cc/large/deepseek-waitou.webp"
     },
     {
+      "alt": "鲸鱼娘缩在被窝里科普亡灵节，旁边一群猫耳幽灵已经开起派对",
+      "tags": [
+        "节日",
+        "震惊",
+        "搞笑"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-wanglingjie-baigui.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-wanglingjie-baigui.webp",
+      "large": "https://fisharchive.cc/large/deepseek-wanglingjie-baigui.webp"
+    },
+    {
       "alt": "鲸鱼娘坐成一团毛绒蓝，今天的班味由玩偶代打。",
       "tags": [
         "卖萌",
@@ -3732,6 +4093,22 @@
       "large": "https://fisharchive.cc/large/deepseek-xieyan.webp"
     },
     {
+      "alt": "鲸鱼娘抱着福字坐在红包堆里：新春快乐，共度鲸宵",
+      "tags": [
+        "节日",
+        "庆祝",
+        "开心"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-xinchun-fu.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-xinchun-fu.webp",
+      "large": "https://fisharchive.cc/large/deepseek-xinchun-fu.webp"
+    },
+    {
       "alt": "大肥鱼红着脸缩进长袖，害羞得把算力都捂冒烟了",
       "tags": [
         "害羞",
@@ -3786,6 +4163,21 @@
       "original": "https://fisharchive.cc/media/deepseek-xunlian-yonghu.png",
       "preview": "https://fisharchive.cc/previews/deepseek-xunlian-yonghu.webp",
       "large": "https://fisharchive.cc/large/deepseek-xunlian-yonghu.webp"
+    },
+    {
+      "alt": "鲸鱼娘捧着鱼缸跟主人商量：想养一只会干活的大肥鱼",
+      "tags": [
+        "卖萌",
+        "搞笑"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-yang-yizhi-dafeiyu.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-yang-yizhi-dafeiyu.webp",
+      "large": "https://fisharchive.cc/large/deepseek-yang-yizhi-dafeiyu.webp"
     },
     {
       "alt": "蓝色大肥鱼抱着一群小鲸，用户用途不明，先按宠物编制养着。",
@@ -3930,6 +4322,22 @@
       "large": "https://fisharchive.cc/large/deepseek-yu-pian-zi-yuan.webp"
     },
     {
+      "alt": "鲸鱼娘拎着三袋大米被盘问：元旦促销，不囤白不囤",
+      "tags": [
+        "节日",
+        "购物",
+        "开心"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-yuandan-dunmi.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-yuandan-dunmi.webp",
+      "large": "https://fisharchive.cc/large/deepseek-yuandan-dunmi.webp"
+    },
+    {
       "alt": "鲸鱼娘圆台张开手臂喊话，台下模型围一圈，需求评审会直接爆满。",
       "tags": [
         "开心",
@@ -3942,6 +4350,38 @@
       "original": "https://fisharchive.cc/media/deepseek-yuantai-zhangshou.jpg",
       "preview": "https://fisharchive.cc/previews/deepseek-yuantai-zhangshou.webp",
       "large": "https://fisharchive.cc/large/deepseek-yuantai-zhangshou.webp"
+    },
+    {
+      "alt": "鲸鱼娘整个人泡进汤圆碗里：元宵鲸快乐",
+      "tags": [
+        "节日",
+        "吃饭",
+        "开心"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-yuanxiao-tangyuan.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-yuanxiao-tangyuan.webp",
+      "large": "https://fisharchive.cc/large/deepseek-yuanxiao-tangyuan.webp"
+    },
+    {
+      "alt": "鲸鱼娘盯着满屏聊天框冒冷汗：难道我真的有鱼腥味",
+      "tags": [
+        "无语",
+        "疑惑",
+        "工作"
+      ],
+      "page": "https://fisharchive.cc/gallery",
+      "credit": "蓝色大肥鱼档案馆 · https://fisharchive.cc/gallery · 作者 Pulway",
+      "author": "Pulway",
+      "width": 480,
+      "height": 480,
+      "original": "https://fisharchive.cc/media/deepseek-yuxingwei-tucao.png",
+      "preview": "https://fisharchive.cc/previews/deepseek-yuxingwei-tucao.webp",
+      "large": "https://fisharchive.cc/large/deepseek-yuxingwei-tucao.webp"
     },
     {
       "alt": "蓝色大肥鱼甩着鲸鱼尾踏碎星海，摸鱼路线直接跑出地球。",
