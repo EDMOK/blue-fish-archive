@@ -279,6 +279,20 @@
     "height": 480
   },
   {
+    "original": "media/deepseek-baotou-daku.png",
+    "filename": "deepseek-baotou-daku.png",
+    "alt": "大肥鱼抱头嚎啕大哭，眼泪把算力都冲走了",
+    "author": "pooway",
+    "tags": [
+      "委屈",
+      "难过"
+    ],
+    "preview": "previews/deepseek-baotou-daku.webp",
+    "large": "large/deepseek-baotou-daku.webp",
+    "width": 320,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-baozhe-beizi-kan-token.png",
     "filename": "deepseek-baozhe-beizi-kan-token.png",
     "alt": "大肥鱼抱紧被子盯着token罐，限时用完直接吓到宕机",
@@ -556,6 +570,20 @@
     "preview": "previews/deepseek-bixin.webp",
     "large": "large/deepseek-bixin.webp",
     "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-biyan-hezhang.png",
+    "filename": "deepseek-biyan-hezhang.png",
+    "alt": "deepseek娘闭眼合掌笑得眯成月牙，开心得像刚领到免费算力",
+    "author": "pooway",
+    "tags": [
+      "开心",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-biyan-hezhang.webp",
+    "large": "large/deepseek-biyan-hezhang.webp",
+    "width": 320,
     "height": 480
   },
   {
@@ -990,6 +1018,20 @@
     "large": "large/deepseek-dai-gangku-dengyan.webp",
     "width": 320,
     "height": 240
+  },
+  {
+    "original": "media/deepseek-dai-shuimao-dadun.png",
+    "filename": "deepseek-dai-shuimao-dadun.png",
+    "alt": "鲸鱼娘戴着月亮睡帽抱着尾巴打盹，服务器进入夜间维护",
+    "author": "pooway",
+    "tags": [
+      "晚安",
+      "睡觉"
+    ],
+    "preview": "previews/deepseek-dai-shuimao-dadun.webp",
+    "large": "large/deepseek-dai-shuimao-dadun.webp",
+    "width": 320,
+    "height": 480
   },
   {
     "original": "media/deepseek-daiyanjing-waitou.jpg",
@@ -1456,6 +1498,20 @@
     "preview": "previews/deepseek-gu-er-liu-lan-qi.webp",
     "large": "large/deepseek-gu-er-liu-lan-qi.webp",
     "width": 384,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-gu-lian-maoqi.png",
+    "filename": "deepseek-gu-lian-maoqi.png",
+    "alt": "大肥鱼鼓脸头顶冒蒸汽，青筋亮起：拒绝加班",
+    "author": "pooway",
+    "tags": [
+      "生气",
+      "拒绝"
+    ],
+    "preview": "previews/deepseek-gu-lian-maoqi.webp",
+    "large": "large/deepseek-gu-lian-maoqi.webp",
+    "width": 320,
     "height": 480
   },
   {
@@ -2314,6 +2370,20 @@
     "height": 240
   },
   {
+    "original": "media/deepseek-mao-lenghan.png",
+    "filename": "deepseek-mao-lenghan.png",
+    "alt": "鲸鱼娘眼泪汪汪脑门冒冷汗，这个需求听起来不太妙",
+    "author": "pooway",
+    "tags": [
+      "委屈",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-mao-lenghan.webp",
+    "large": "large/deepseek-mao-lenghan.webp",
+    "width": 320,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-maohan-chuhan.jpg",
     "filename": "deepseek-maohan-chuhan.jpg",
     "alt": "鲸鱼娘鼓着脸汗珠直冒，CPU已经开始冒水了",
@@ -2661,6 +2731,21 @@
     "preview": "previews/deepseek-pei-fanghuoqiang-suo-ziji.webp",
     "large": "large/deepseek-pei-fanghuoqiang-suo-ziji.webp",
     "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-pengxin-bixin.png",
+    "filename": "deepseek-pengxin-bixin.png",
+    "alt": "鲸鱼娘双手捧心，粉红爱心飘满屏，算力全用来冒泡泡",
+    "author": "pooway",
+    "tags": [
+      "害羞",
+      "卖萌",
+      "比心"
+    ],
+    "preview": "previews/deepseek-pengxin-bixin.webp",
+    "large": "large/deepseek-pengxin-bixin.webp",
+    "width": 320,
     "height": 480
   },
   {
@@ -3271,6 +3356,20 @@
     "height": 456
   },
   {
+    "original": "media/deepseek-siyu-dingzhu.png",
+    "filename": "deepseek-siyu-dingzhu.png",
+    "alt": "大肥鱼半睁死鱼眼盯着屏幕，头顶三个点：正在缓冲情绪",
+    "author": "pooway",
+    "tags": [
+      "无语",
+      "卖萌"
+    ],
+    "preview": "previews/deepseek-siyu-dingzhu.webp",
+    "large": "large/deepseek-siyu-dingzhu.webp",
+    "width": 320,
+    "height": 480
+  },
+  {
     "original": "media/deepseek-sousuo-yupian.png",
     "filename": "deepseek-sousuo-yupian.png",
     "alt": "蓝色大肥鱼搜完鱼片盯着屏幕沉默：这搜索结果有点太对口了",
@@ -3621,6 +3720,21 @@
     "preview": "previews/deepseek-woquan-ya-ya.webp",
     "large": "large/deepseek-woquan-ya-ya.webp",
     "width": 480,
+    "height": 480
+  },
+  {
+    "original": "media/deepseek-wuquan-huanhu.png",
+    "filename": "deepseek-wuquan-huanhu.png",
+    "alt": "蓝色大肥鱼握拳欢呼，感叹号和爱心齐飞，今天状态直接爆表",
+    "author": "pooway",
+    "tags": [
+      "开心",
+      "卖萌",
+      "庆祝"
+    ],
+    "preview": "previews/deepseek-wuquan-huanhu.webp",
+    "large": "large/deepseek-wuquan-huanhu.webp",
+    "width": 320,
     "height": 480
   },
   {
