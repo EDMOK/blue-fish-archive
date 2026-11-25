@@ -23,10 +23,14 @@
   </url>
   <url>
     <loc>https://fisharchive.cc/manual</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-25</lastmod>
   </url>
   <url>
     <loc>https://fisharchive.cc/manual/talking-fish</loc>
     <lastmod>2026-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://fisharchive.cc/manual/quiet-fish</loc>
+    <lastmod>2026-11-25</lastmod>
   </url>
 </urlset>

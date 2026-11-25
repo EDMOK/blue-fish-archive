@@ -6,7 +6,15 @@
     <atom:link href="https://fisharchive.cc/manual/feed.xml" rel="self" type="application/rss+xml" />
     <description>免费分享 DSH 养鱼的经验、教程和乐趣。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 03 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>会闭嘴的鱼：给群聊里的鱼装一道「判官」刹车</title>
+      <link>https://fisharchive.cc/manual/quiet-fish</link>
+      <guid isPermaLink="true">https://fisharchive.cc/manual/quiet-fish</guid>
+      <description>群友路西法的心得总结与配套零依赖 Node.js 插件 judge-kit 3.0：在唤醒之后、生成回复之前用小模型判断这一刻该不该开口，含两道边界、三条保险、HTTP 服务模式与 few-shot 人工反馈闭环。</description>
+      <category>心得</category>
+      <pubDate>Wed, 25 Nov 2026 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>在 QQ 里养一条会说话、会唱歌的「鱼」</title>
       <link>https://fisharchive.cc/manual/talking-fish</link>

@@ -1766,6 +1766,183 @@
   text-decoration-color: rgba(91, 104, 132, 0.45);
 }
 
+/* 配套插件下载卡 */
+.manual-kit-card {
+  margin: 1.7em 0;
+  padding: 22px;
+  background: linear-gradient(145deg, #f3f7fe, var(--white) 58%, #fdf3f4);
+  border: 1px solid rgba(96, 122, 169, 0.28);
+  border-radius: var(--m-radius);
+  box-shadow: 0 8px 24px rgba(32, 45, 82, 0.06);
+}
+
+.manual-kit-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.manual-kit-title {
+  margin: 12px 0 0;
+  color: var(--deep);
+  font-family: var(--round);
+  font-size: 1.18em;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.manual-kit-desc {
+  margin: 8px 0 0;
+  color: #40506f;
+  font-size: 15px;
+  line-height: 1.78;
+}
+
+.manual-prose .manual-kit-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.manual-prose .manual-kit-files li {
+  margin: 0;
+  padding: 3px 10px;
+  color: var(--deep);
+  background: var(--white);
+  border: 1px solid var(--m-rule);
+  border-radius: 999px;
+  font-family: var(--m-mono);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.manual-kit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 18px;
+}
+
+.manual-prose a.manual-btn {
+  text-decoration: none;
+}
+
+.manual-prose a.manual-btn.is-lead {
+  color: var(--white);
+  background: linear-gradient(140deg, #33496f, #16223c);
+}
+
+.manual-prose a.manual-btn.is-lead:hover {
+  color: var(--white);
+  background: linear-gradient(140deg, #3b5480, #1d2c4c);
+}
+
+.manual-prose a.manual-btn.is-ghost {
+  min-height: 48px;
+  color: var(--deep);
+  background: var(--white);
+}
+
+.manual-prose a.manual-btn.is-ghost:hover {
+  color: var(--deep);
+  background: var(--m-surface-soft);
+}
+
+/* 内联 SVG 流程图容器 */
+.manual-diagram-stage {
+  padding: 16px;
+  overflow-x: auto;
+  background: var(--white);
+  border: 1px solid var(--m-rule);
+  border-radius: 14px;
+  box-shadow: 0 10px 26px rgba(32, 45, 82, 0.07);
+  -webkit-overflow-scrolling: touch;
+}
+
+.manual-diagram-stage svg {
+  display: block;
+  width: 100%;
+  min-width: 520px;
+  height: auto;
+  font-family: var(--body);
+}
+
+/* 可折叠完整源码查看块 */
+.manual-source-fold {
+  margin: 1em 0;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid var(--m-rule);
+  border-radius: 12px;
+}
+
+.manual-source-fold > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 16px;
+  color: var(--deep);
+  cursor: pointer;
+  font-size: 14.5px;
+  font-weight: 700;
+  list-style: none;
+  transition: background 140ms ease;
+}
+
+.manual-source-fold > summary:hover {
+  background: #f6f9fe;
+}
+
+.manual-source-fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+.manual-source-fold > summary::after {
+  flex: 0 0 auto;
+  content: "＋";
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.manual-source-fold[open] > summary {
+  border-bottom: 1px solid var(--m-rule);
+}
+
+.manual-source-fold[open] > summary::after {
+  content: "－";
+}
+
+.manual-source-fold-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-width: 0;
+}
+
+.manual-source-fold-title small {
+  color: var(--m-meta);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.manual-prose .manual-source-fold .manual-code {
+  margin: 0;
+  border-radius: 0;
+}
+
+.manual-prose .manual-source-fold .manual-code pre {
+  max-height: 540px;
+  overflow-y: auto;
+}
+
 /* ------------------------------- 响应式 ---------------------------------- */
 
 @media (max-width: 1100px) {
@@ -1929,6 +2106,18 @@
     padding: 16px;
   }
 
+  .manual-kit-card {
+    padding: 17px 16px;
+  }
+
+  .manual-diagram-stage {
+    padding: 12px;
+  }
+
+  .manual-source-fold > summary {
+    padding: 12px 13px;
+  }
+
   .manual-code-head {
     padding: 8px 10px 8px 13px;
   }
@@ -1941,6 +2130,11 @@
   .manual-prose .manual-code {
     margin-inline: -6px;
     border-radius: 12px;
+  }
+
+  .manual-prose .manual-source-fold .manual-code {
+    margin-inline: 0;
+    border-radius: 0;
   }
 
   /* 窄屏表格横向滚动时把行首钉住，滑动过程里始终知道在看哪一行 */
@@ -1990,7 +2184,8 @@
   .manual-page .manual-code-copy,
   .manual-page .manual-back-top,
   .manual-page .manual-pager,
-  .manual-page .manual-feedback {
+  .manual-page .manual-feedback,
+  .manual-page .manual-kit-actions {
     display: none !important;
   }
 

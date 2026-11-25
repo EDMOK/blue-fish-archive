@@ -18,8 +18,9 @@
 - [首页](https://fisharchive.cc/)：瀑布流表情墙、标签筛选、大图预览
 - [全部表情（静态列表）](https://fisharchive.cc/gallery)：每张图的缩略图、原图和大图链接，不依赖 JavaScript
 - [角色立绘参考](https://fisharchive.cc/characters)：8 个 AI 拟人角色的全身与 Q 版立绘，可在线预览、复制和下载高清 WebP
-- [肥鱼万事屋](https://fisharchive.cc/manual)：免费分享 DSH 养鱼的经验、教程和乐趣，含 QQ 机器人搭建、语音唱歌、排错表和检查清单
+- [肥鱼万事屋](https://fisharchive.cc/manual)：免费分享 DSH 养鱼的经验、教程和乐趣，含 QQ 机器人搭建、语音唱歌、判官刹车插件、排错表和检查清单
 - [在 QQ 里养一条会说话、会唱歌的鱼](https://fisharchive.cc/manual/talking-fish)：群友路西法提供的 DSH + qq-bridge + SnowLuma 完整搭建，以及 GPT-SoVITS 发语音、ffmpeg 切歌、SenseVoice 听语音；含白名单、人格卡、记忆、成本、排障表与检查清单
+- [会闭嘴的鱼：给群聊里的鱼装一道「判官」刹车](https://fisharchive.cc/manual/quiet-fish)：群友路西法的养鱼心得与配套零依赖 Node.js 插件 judge-kit 3.0，在唤醒后、回复前判定这一刻该不该开口，含两道边界、三条保险、HTTP 服务模式与 few-shot 反馈闭环（附源码与压缩包下载）
 - [关于本站](https://fisharchive.cc/about)
 - [白饭大冲刺](https://game.fisharchive.cc/)：DeepSeek 跑酷小游戏，鲸鱼娘（大肥鱼）主题的免费网页横版跑酷，打开浏览器即玩；[游戏介绍与操作说明](https://game.fisharchive.cc/about)
 

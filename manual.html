@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#182340" />
     <meta
       name="description"
-      content="肥鱼万事屋：免费分享 DSH（DeepSeek Harness）养鱼的经验、教程和乐趣。从把机器人接进 QQ 群到给它装嗓子唱歌，步骤、报错原文和检查清单都来自实测。"
+      content="肥鱼万事屋：免费分享 DSH（DeepSeek Harness）养鱼的经验、教程和乐趣。从把机器人接进 QQ 群、给它装嗓子唱歌到加一道「判官」刹车学会闭嘴，步骤、源码和检查清单都来自实测。"
     />
     <title>肥鱼万事屋 · DSH 养鱼经验与 QQ 机器人教程</title>
     <link rel="canonical" href="https://fisharchive.cc/manual" />
@@ -16,7 +16,7 @@
     <meta property="og:title" content="肥鱼万事屋 · DSH 养鱼经验与 QQ 机器人教程" />
     <meta
       property="og:description"
-      content="免费分享 DSH 养鱼的经验、教程和乐趣：从把机器人接进 QQ 群到语音唱歌，都是实测过的步骤。"
+      content="免费分享 DSH 养鱼的经验、教程和乐趣：从把机器人接进 QQ 群、语音唱歌到装「判官」刹车教鱼闭嘴，都是实测过的步骤与源码。"
     />
     <meta property="og:url" content="https://fisharchive.cc/manual" />
     <meta property="og:image" content="https://fisharchive.cc/assets/og-card.png" />
@@ -27,14 +27,14 @@
     <meta name="twitter:title" content="肥鱼万事屋 · DSH 养鱼经验与 QQ 机器人教程" />
     <meta
       name="twitter:description"
-      content="免费分享 DSH 养鱼的经验、教程和乐趣：从把机器人接进 QQ 群到语音唱歌。"
+      content="免费分享 DSH 养鱼的经验、教程和乐趣：从把机器人接进 QQ 群到语音唱歌、装判官刹车教鱼闭嘴。"
     />
     <meta name="twitter:image" content="https://fisharchive.cc/assets/og-card.png" />
     <link rel="icon" type="image/png" href="logo/favicon.png" />
     <link rel="apple-touch-icon" href="logo/favicon.png" />
     <meta name="msapplication-TileImage" content="logo/apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css?v=20261114a" />
-    <link rel="stylesheet" href="manual/manual.css?v=20261103n" />
+    <link rel="stylesheet" href="manual/manual.css?v=20261125a" />
     <link rel="alternate" type="application/rss+xml" title="肥鱼万事屋 · RSS" href="/manual/feed.xml" />
     <script type="application/ld+json">
       {
@@ -45,7 +45,7 @@
             "@id": "https://fisharchive.cc/manual#page",
             "url": "https://fisharchive.cc/manual",
             "name": "肥鱼万事屋",
-            "description": "免费分享 DSH 养鱼的经验、教程和乐趣：从 QQ 机器人搭建到语音唱歌，步骤都来自实测。",
+            "description": "免费分享 DSH 养鱼的经验、教程和乐趣：从 QQ 机器人搭建、语音唱歌到装「判官」刹车教鱼闭嘴，步骤与插件都来自实测。",
             "inLanguage": "zh-CN",
             "isPartOf": {
               "@type": "WebSite",
@@ -60,6 +60,12 @@
                   "position": 1,
                   "name": "在 QQ 里养一条会说话、会唱歌的「鱼」",
                   "url": "https://fisharchive.cc/manual/talking-fish"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "会闭嘴的鱼：给群聊里的鱼装一道「判官」刹车",
+                  "url": "https://fisharchive.cc/manual/quiet-fish"
                 }
               ]
             }
@@ -176,8 +182,8 @@
             <a class="manual-btn is-ghost" href="#manual-index">看看写了什么 <span aria-hidden="true">↘</span></a>
           </div>
           <ul class="manual-hero-stats">
-            <li><strong>1</strong> 篇已发布</li>
-            <li><strong>2026-11-03</strong> 最近更新</li>
+            <li><strong>2</strong> 篇已发布</li>
+            <li><strong>2026-11-25</strong> 最近更新</li>
           </ul>
         </div>
 
@@ -220,7 +226,7 @@
             <p class="manual-eyebrow">Index</p>
             <h2 id="manual-index-title">已经写下的</h2>
           </div>
-          <p class="manual-index-note">目前只有一篇，后续更新也放这里。</p>
+          <p class="manual-index-note">按入门到进阶排序，后续更新也放这里。</p>
         </div>
 
       <ul class="manual-list">
@@ -241,6 +247,28 @@
               <li>qq-bridge</li>
               <li>SnowLuma</li>
               <li>语音 / 唱歌</li>
+            </ul>
+          </div>
+          <span class="manual-card-arrow" aria-hidden="true">→</span>
+        </li>
+
+        <li class="manual-card">
+          <span class="manual-card-index" aria-hidden="true">02</span>
+          <div class="manual-card-body">
+            <h3><a href="/manual/quiet-fish">会闭嘴的鱼：给群聊里的鱼装一道「判官」刹车</a></h3>
+            <p>
+              群友路西法心得：治复读先装刹车再调人设，并附零依赖 Node.js 判官插件 judge-kit 3.0（支持 HTTP 服务、离线自测与 few-shot 人工反馈闭环，含整包下载）。
+            </p>
+            <p class="manual-card-meta">
+              <span class="manual-chip is-cat">心得</span>
+              <span>约 10 分钟</span>
+              <span>发布于 2026-11-25</span>
+            </p>
+            <ul class="manual-card-tags">
+              <li>判官插件</li>
+              <li>judge-kit 3.0</li>
+              <li>反馈闭环</li>
+              <li>防刷屏</li>
             </ul>
           </div>
           <span class="manual-card-arrow" aria-hidden="true">→</span>

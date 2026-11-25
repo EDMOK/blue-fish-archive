@@ -1,0 +1,2166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#182340" />
+    <meta
+      name="description"
+      content="群友路西法的 DSH 养鱼心得与判官小插件 3.0：在机器人唤醒之后、生成回复之前加一道「该不该开口」的判官刹车，配合人工反馈闭环让群聊里的鱼学会闭嘴。零依赖 Node.js 源码可下载、可跑 HTTP 服务。"
+    />
+    <title>会闭嘴的鱼：给群聊里的鱼装一道「判官」刹车（附 judge-kit 3.0） · 肥鱼万事屋</title>
+    <link rel="canonical" href="https://fisharchive.cc/manual/quiet-fish" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="蓝色大肥鱼档案馆" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content="会闭嘴的鱼：给群聊里的鱼装一道「判官」刹车" />
+    <meta
+      property="og:description"
+      content="群友路西法的养鱼心得与 judge-kit 3.0 判官插件：两道边界 + 三条保险 + few-shot 人工反馈闭环，零依赖开箱即用。"
+    />
+    <meta property="og:url" content="https://fisharchive.cc/manual/quiet-fish" />
+    <meta property="og:image" content="https://fisharchive.cc/manual/media/v1/quiet-fish-og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="鲸鱼娘站在黄铜刹车拉杆旁，食指轻抵唇前比「嘘」，右侧漂浮着两个互相聊天的气泡" />
+    <meta property="article:published_time" content="2026-11-25" />
+    <meta property="article:modified_time" content="2026-11-25" />
+    <meta property="article:section" content="心得" />
+    <meta property="article:tag" content="DeepSeek Harness" />
+    <meta property="article:tag" content="QQ 机器人" />
+    <meta property="article:tag" content="判官插件" />
+    <meta property="article:tag" content="judge-kit" />
+    <meta property="article:tag" content="防刷屏" />
+    <meta property="article:tag" content="few-shot" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="会闭嘴的鱼：给群聊里的鱼装一道「判官」刹车" />
+    <meta
+      name="twitter:description"
+      content="群友路西法的养鱼心得与 judge-kit 3.0 判官插件：让群聊里的鱼知道什么时候不说话。"
+    />
+    <meta name="twitter:image" content="https://fisharchive.cc/manual/media/v1/quiet-fish-og.jpg" />
+    <link rel="icon" type="image/png" href="../logo/favicon.png" />
+    <link rel="apple-touch-icon" href="../logo/favicon.png" />
+    <meta name="msapplication-TileImage" content="../logo/apple-touch-icon.png" />
+    <link rel="stylesheet" href="../styles.css?v=20261114a" />
+    <link rel="stylesheet" href="manual.css?v=20261125a" />
+    <link rel="stylesheet" href="../assets/navigation.css?v=20261105a" />
+    <link rel="alternate" type="application/rss+xml" title="肥鱼万事屋 · RSS" href="/manual/feed.xml" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "TechArticle",
+            "@id": "https://fisharchive.cc/manual/quiet-fish#article",
+            "headline": "会闭嘴的鱼：给群聊里的鱼装一道「判官」刹车（附 judge-kit 3.0）",
+            "description": "群友路西法的养鱼心得与配套插件 judge-kit 3.0：用小模型在唤醒之后、生成回复之前判断这一刻该不该说话，附两道边界、三条保险、HTTP 服务模式与 few-shot 人工反馈闭环。",
+            "inLanguage": "zh-CN",
+            "datePublished": "2026-11-25",
+            "dateModified": "2026-11-25",
+            "articleSection": "心得",
+            "proficiencyLevel": "Intermediate",
+            "keywords": "DeepSeek Harness, QQ 机器人, 判官插件, judge-kit, 群聊防刷屏, few-shot, 反馈闭环",
+            "image": "https://fisharchive.cc/manual/media/v1/quiet-fish-og.jpg",
+            "author": {
+              "@type": "Person",
+              "name": "路西法",
+              "description": "群友，提供了本文的心得总结与 judge-kit 3.0 判官插件"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "蓝色大肥鱼档案馆",
+              "url": "https://fisharchive.cc/"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://fisharchive.cc/manual/quiet-fish"
+            },
+            "isPartOf": {
+              "@type": "CollectionPage",
+              "@id": "https://fisharchive.cc/manual",
+              "name": "肥鱼万事屋"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://fisharchive.cc/" },
+              { "@type": "ListItem", "position": 2, "name": "肥鱼万事屋", "item": "https://fisharchive.cc/manual" },
+              { "@type": "ListItem", "position": 3, "name": "会闭嘴的鱼" }
+            ]
+          }
+        ]
+      }
+    </script>
+    <noscript>
+      <style>
+        [data-reveal] { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
+  </head>
+  <body class="manual-page">
+    <a class="manual-skip" href="#article-body">跳到正文</a>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="bubble bubble-one" aria-hidden="true"></div>
+    <div class="bubble bubble-two" aria-hidden="true"></div>
+    <div class="wave wave-one" aria-hidden="true"></div>
+    <div class="sea-band sea-band-a" aria-hidden="true">
+      <svg viewBox="0 0 1920 120" preserveAspectRatio="none">
+        <path d="M0 60 Q 80 30 160 60 T 320 60 T 480 60 T 640 60 T 800 60 T 960 60 T 1120 60 T 1280 60 T 1440 60 T 1600 60 T 1760 60 T 1920 60 V 160 H 0 Z" fill="none" stroke="rgba(96,122,169,0.16)" stroke-width="3" />
+        <path d="M0 78 Q 90 46 180 78 T 360 78 T 540 78 T 720 78 T 900 78 T 1080 78 T 1260 78 T 1440 78 T 1620 78 T 1800 78 T 1920 78" fill="none" stroke="rgba(96,122,169,0.12)" stroke-width="3" />
+      </svg>
+    </div>
+
+    <div class="manual-progress" aria-hidden="true"><span data-manual-progress></span></div>
+
+    <header class="site-nav" data-reveal>
+      <a class="wordmark" href="/" aria-label="回到表情墙首页">
+        <picture>
+          <source srcset="../logo/deepseek-whale-color.webp" type="image/webp" />
+          <img class="brand-logo brand-logo-color" src="../logo/deepseek_蓝鲸_彩色.png" alt="DeepSeek 蓝鲸 Logo" width="36" height="36" decoding="async" />
+        </picture>
+        <span>蓝色大肥鱼档案馆</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="/#wall">表情墙</a>
+        <a href="/characters">立绘</a>
+        <a class="is-featured" href="/manual" aria-current="page">万事屋</a>
+        <a href="/about">关于</a>
+      </nav>
+      <div class="nav-right">
+        <div class="nav-social" aria-label="网站作者链接">
+          <a
+            class="nav-social-link"
+            href="https://space.bilibili.com/291892724"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="访问 EDMOK 的 Bilibili"
+            title="Bilibili · EDMOK"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8.2 4.8 6.4 2.7M15.8 4.8l1.8-2.1M5.1 6.2h13.8a2 2 0 0 1 2 2v7.4a2 2 0 0 1-2 2H5.1a2 2 0 0 1-2-2V8.2a2 2 0 0 1 2-2Z" />
+              <path d="M8 10.2v3.2M16 10.2v3.2M7.7 15.2h8.6" />
+            </svg>
+          </a>
+          <a
+            class="nav-social-link"
+            href="https://github.com/EDMOK/blue-fish-archive"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="访问 EDMOK 的 GitHub"
+            title="GitHub · EDMOK"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 2.8a9.2 9.2 0 0 0-2.9 17.9c.46.08.63-.2.63-.44v-1.58c-2.56.56-3.1-1.08-3.1-1.08-.42-1.07-1.02-1.36-1.02-1.36-.84-.58.06-.57.06-.57.93.07 1.42.96 1.42.96.83 1.42 2.18 1.01 2.71.77.08-.6.33-1.01.59-1.25-2.04-.23-4.19-1.02-4.19-4.53 0-1 .36-1.82.96-2.46-.1-.24-.42-1.16.09-2.42 0 0 .78-.25 2.54.94A8.8 8.8 0 0 1 12 9.4c.78 0 1.57.1 2.3.31 1.76-1.19 2.54-.94 2.54-.94.51 1.26.19 2.18.09 2.42.6.64.96 1.46.96 2.46 0 3.52-2.15 4.3-4.2 4.53.34.29.63.85.63 1.72v2.56c0 .25.17.53.64.44A9.2 9.2 0 0 0 12 2.8Z" />
+            </svg>
+          </a>
+        </div>
+        <button class="nav-join" type="button" data-open-qr aria-label="加入 QQ 群：复制群号并显示二维码">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="9" cy="8" r="3.1" />
+            <path d="M3.8 19.6c0-2.9 2.3-4.9 5.2-4.9s5.2 2 5.2 4.9" />
+            <path d="M16.2 5.6a3 3 0 0 1 0 5.4M17.2 15c1.8.7 3 2.4 3 4.6" />
+          </svg>
+          <span>加入群聊</span>
+        </button>
+        <a class="nav-action" href="/manual">
+          <span>回万事屋</span>
+          <span aria-hidden="true">↖</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="page-shell" id="manual-main">
+      <nav class="manual-crumbs-bar" aria-label="面包屑">
+        <ol class="manual-crumbs">
+          <li><a href="/">首页</a></li>
+          <li><a href="/manual">肥鱼万事屋</a></li>
+          <li><span aria-current="page">会闭嘴的鱼</span></li>
+        </ol>
+      </nav>
+
+      <div class="manual-article-layout">
+        <article class="manual-article" id="article-body">
+          <header class="manual-article-header" data-reveal>
+            <p class="manual-eyebrow">心得 · 进阶 · 02</p>
+            <h1>会闭嘴的鱼：给群聊里的鱼装一道「判官」刹车</h1>
+            <p class="manual-article-lede">
+              群里的鱼最容易犯的毛病不是不会说，是太想接话。把「这一刻该不该开口」拆给一道独立的小判断器，
+              判「不说」就不跑回合、不花主回复的 token。下半篇附群友路西法整理的零依赖 Node.js 插件
+              <code>judge-kit 3.0</code>：支持人工反馈闭环、HTTP 服务模式和离线自测。
+            </p>
+            <ul class="manual-byline">
+              <li class="manual-byline-author">
+                <img
+                  class="manual-avatar"
+                  src="media/v1/author-lucifer-96.webp"
+                  srcset="media/v1/author-lucifer-96.webp 96w, media/v1/author-lucifer.webp 192w"
+                  sizes="36px"
+                  alt=""
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span>群友 <strong>路西法</strong> 提供</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5" /><path d="M8 3v4M16 3v4M3.5 10h17" /></svg>
+                发布于 2026-11-25
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg>
+                约 10 分钟
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+                已实测 · 附 3.0 源码包
+              </li>
+            </ul>
+            <p class="manual-version">
+              <strong>适用范围</strong>
+              <span>
+                适用于各类群聊 AI 机器人（DSH / qq-bridge 或自写 bot）。配套插件
+                <code>judge-kit 3.0</code> 零外部依赖，需 <strong>Node.js 18+</strong>（依赖全局
+                <code>fetch</code> 与 <code>AbortController</code>）；非 Node 语言可用包内自带的
+                <code>server.js</code> 走 HTTP 接口；判断模型需兼容 OpenAI <code>chat/completions</code>
+                并支持 <code>response_format: json_object</code>。
+              </span>
+            </p>
+          </header>
+
+          <details class="manual-toc-details">
+            <summary>本页目录</summary>
+            <nav class="manual-toc" aria-label="本页目录（移动端）">
+              <p class="manual-toc-title">On this page</p>
+              <ol>
+                <li><a href="#judgment">1. 说话是表达，闭嘴是判断</a></li>
+                <li><a href="#brake">2. 刹车装在哪：两道边界与三条保险</a></li>
+                <li><a href="#scope">3. 刹车治什么，不治什么</a></li>
+                <li><a href="#why-human">4. 为什么「少说」反而像人</a></li>
+                <li><a href="#kit">5. 配套插件：judge-kit 3.0 下载与结构</a></li>
+                <li><a href="#quickstart">6. 快速开始：自测与最小接入</a></li>
+                <li class="is-sub"><a href="#http">6.1 非 Node 也能用：HTTP 服务模式</a></li>
+                <li><a href="#feedback">7. 让它「越用越准」：人工反馈闭环</a></li>
+                <li><a href="#config">8. 配置项、返回值、分档与成本</a></li>
+                <li class="is-sub"><a href="#config-opts">8.1 配置选项速查</a></li>
+                <li class="is-sub"><a href="#config-return">8.2 返回值对照</a></li>
+                <li class="is-sub"><a href="#config-tier">8.3 分档建议与两道闸</a></li>
+                <li class="is-sub"><a href="#config-cost">8.4 成本估算</a></li>
+                <li><a href="#pitfalls">9. 踩坑提醒与最小排障</a></li>
+                <li><a href="#checklist">10. 上线检查清单</a></li>
+                <li><a href="#source">11. 源码一览（展开可直接复制）</a></li>
+              </ol>
+            </nav>
+          </details>
+
+          <div class="manual-prose">
+            <p>群里的鱼，最容易犯的毛病不是不会说话，是太想说话。</p>
+            <p>
+              你发一句「今天好热」，它回「是呀，今天真的好热，你那边多少度」；你发个梗，它把梗换个说法再说一遍；没人理它，它还能自己接自己的上一句。看着像复读机，其实不是笨——是它把「接话」当成了任务，而任务里没有「不说」这个选项。
+            </p>
+            <p>
+              再加上两个默认设置：它每次只看到最后一句，就只能对最后一句做反应；它不知道哪句是自己刚说的，就容易自问自答。三样凑一块，就是一条标准的复读鱼。
+            </p>
+            <p>所以，治复读，先别急着换模型、加人设。先给它装一道刹车。</p>
+            <p>这道刹车，我管它叫<strong>判官</strong>。</p>
+
+            <figure>
+              <img
+                src="media/v1/quiet-fish-shush.webp"
+                srcset="
+                  media/v1/quiet-fish-shush-640.webp 640w,
+                  media/v1/quiet-fish-shush-800.webp 800w,
+                  media/v1/quiet-fish-shush.webp 1200w
+                "
+                sizes="(max-width: 700px) 92vw, 680px"
+                alt="鲸鱼娘站在复古黄铜船用刹车拉杆旁，右手食指轻抵唇前比出「嘘」的手势，左手搭在拉杆上，右侧留白处漂浮着两个写着省略号的对话气泡"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>群里聊得正热时，把手搭在判官刹车上、懂得先比一个「嘘」，往往比急着接话更像人。</figcaption>
+            </figure>
+
+            <h2 id="judgment">1. 说话是表达，闭嘴是判断<a class="manual-anchor" href="#judgment" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              我们夸一条鱼「像人」，通常夸的是它会接梗、会抖机灵。但群里真正让人舒服的，往往不是它说了什么，而是它知道什么时候不说。
+            </p>
+            <p>
+              一句话，别人刚说完，你接，是接话；别人没说完，你接，是抢话；别人在聊别的，你接，是没眼力见；没人说话，你自己接自己，是自言自语。
+            </p>
+            <p>
+              这四种「接」，技术上都是生成一句话，体感上差得很远。区别不在文采，在判断。
+            </p>
+            <p>
+              <em>表达是稀缺的，但判断更稀缺。</em>会写段子的模型满地都是，知道「这会儿不该开口」的模型不多。
+            </p>
+
+            <h2 id="brake">2. 刹车装在哪：两道边界与三条保险<a class="manual-anchor" href="#brake" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              刹车不写正文，不管人设，只干一件事：在开口之前，看一眼场合，判断这会儿插嘴自不自然。
+            </p>
+            <p>
+              它看什么？最近十几条聊天，谁在跟谁说话，话题走到哪了，上一句是不是自己说的。
+            </p>
+            <p>它回答什么？三个字：<strong>说、不说、拿不准</strong>。</p>
+            <p>就这么简单。但有几个边界，必须一开始就划清楚：</p>
+            <ol>
+              <li>
+                <strong>第一，该回的一定回。</strong>@ 它、点它名、问它问题、私聊它——这些不进刹车，直接放行。刹车只管「没人叫你，但群里聊得热，你要不要插一句」。要是让刹车有权拦「点名」，就会出现「叫它它不理」的事故。
+              </li>
+              <li>
+                <strong>第二，没人叫的时候，可以不说。</strong>这是刹车存在的全部理由。群聊不是客服工单，不需要每条都响应。
+              </li>
+              <li>
+                <strong>第三，拿不准，就说。</strong>宁可多放一次，不可错杀一次。刹车是用来减少废话的，不是用来把鱼按死的。
+              </li>
+              <li>
+                <strong>第四，坏了，就说。</strong>超时、报错、返回不对，一律放行。不能因为一个判断器挂了，让鱼在群里装死。
+              </li>
+              <li>
+                <strong>第五，不能一直不说。</strong>再准的判断，也会连续判「不说」。一个活跃群被按住半小时，表现出来就是「这条鱼死了」。所以沉默太久，要放它出来说一次；偶尔也随机放一次，别让它憋死。
+              </li>
+            </ol>
+
+            <div class="manual-callout">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
+                两道边界，三条保险
+              </p>
+              <p>
+                上面五条里，<strong>前两条是边界，后三条是保险</strong>。少一条，刹车都会从「工具」变成「事故」。
+              </p>
+            </div>
+
+            <figure class="manual-diagram">
+              <div class="manual-diagram-stage">
+                <svg viewBox="0 0 780 316" width="780" height="316" role="img" aria-labelledby="diagram-brake-title">
+                  <title id="diagram-brake-title">判官刹车拦截与放行决策流程</title>
+                  <defs>
+                    <marker id="arrow-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                      <path d="M 1 1 L 9 5 L 1 9 z" fill="#607aa9" />
+                    </marker>
+                  </defs>
+
+                  <!-- 连接线与标注 -->
+                  <line x1="130" y1="62" x2="162" y2="62" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-ink)" />
+                  <line x1="340" y1="62" x2="392" y2="62" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-ink)" />
+                  <text x="366" y="52" text-anchor="middle" font-size="10.5" font-weight="700" fill="#5b6884">进判官</text>
+
+                  <line x1="560" y1="62" x2="626" y2="62" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-ink)" />
+                  <text x="593" y="49" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2f5138">说 / 拿不准</text>
+                  <text x="593" y="79" text-anchor="middle" font-size="10.5" font-weight="600" fill="#5b6884">或超时异常</text>
+
+                  <line x1="253" y1="104" x2="253" y2="218" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-ink)" />
+                  <text x="263" y="166" font-size="11" font-weight="700" fill="#2f5138">命中边界</text>
+
+                  <line x1="478" y1="104" x2="478" y2="134" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-ink)" />
+                  <text x="488" y="123" font-size="11" font-weight="700" fill="#6f4c19">判「不说」</text>
+
+                  <line x1="560" y1="174" x2="626" y2="174" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-ink)" />
+                  <text x="593" y="164" text-anchor="middle" font-size="11" font-weight="700" fill="#6f4c19">命中</text>
+
+                  <line x1="478" y1="208" x2="478" y2="234" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-ink)" />
+                  <text x="488" y="225" font-size="11" font-weight="700" fill="#7c2f40">未命中</text>
+
+                  <!-- 节点 1：消息唤醒 -->
+                  <rect x="14" y="24" width="116" height="76" rx="12" fill="#f1f5fb" stroke="#607aa9" stroke-width="1.5" />
+                  <text x="72" y="57" text-anchor="middle" font-size="13" font-weight="800" fill="#202d52">收到群聊唤醒</text>
+                  <text x="72" y="77" text-anchor="middle" font-size="11" fill="#5b6884">tier / isGroup</text>
+
+                  <!-- 节点 2：边界跳过判断 -->
+                  <rect x="166" y="20" width="174" height="84" rx="12" fill="#ffffff" stroke="#607aa9" stroke-width="1.5" />
+                  <text x="253" y="47" text-anchor="middle" font-size="13" font-weight="800" fill="#202d52">边界直接放行？</text>
+                  <text x="253" y="67" text-anchor="middle" font-size="11" fill="#40506f">私聊 / high 档 / 满额</text>
+                  <text x="253" y="85" text-anchor="middle" font-size="11" fill="#40506f">无 key / 上下文 &lt; 3 条</text>
+
+                  <!-- 节点 3：判官小模型 -->
+                  <rect x="396" y="20" width="164" height="84" rx="12" fill="#f1f5fb" stroke="#202d52" stroke-width="1.8" />
+                  <text x="478" y="47" text-anchor="middle" font-size="13" font-weight="800" fill="#202d52">判官小模型判断</text>
+                  <text x="478" y="67" text-anchor="middle" font-size="11" fill="#40506f">读最近 12 条上下文</text>
+                  <text x="478" y="85" text-anchor="middle" font-size="11" fill="#40506f">输出 JSON verdict</text>
+
+                  <!-- 节点 4：正常放行 -->
+                  <rect x="630" y="24" width="136" height="76" rx="12" fill="#eef6f1" stroke="#4c8a5c" stroke-width="1.6" />
+                  <text x="698" y="57" text-anchor="middle" font-size="13" font-weight="800" fill="#2f5138">放行 · 正常回复</text>
+                  <text x="698" y="77" text-anchor="middle" font-size="11" fill="#2f5138">进入主模型生成</text>
+
+                  <!-- 节点 5：保险检查 -->
+                  <rect x="396" y="140" width="164" height="68" rx="12" fill="#fdf5ea" stroke="#c08a3e" stroke-width="1.6" />
+                  <text x="478" y="168" text-anchor="middle" font-size="13" font-weight="800" fill="#6f4c19">三条保险兜底？</text>
+                  <text x="478" y="188" text-anchor="middle" font-size="11" fill="#6f4c19">静默 &gt; 25m / 宽松 25%</text>
+
+                  <!-- 节点 6：保险放行 -->
+                  <rect x="630" y="140" width="136" height="68" rx="12" fill="#eef6f1" stroke="#4c8a5c" stroke-width="1.6" />
+                  <text x="698" y="168" text-anchor="middle" font-size="13" font-weight="800" fill="#2f5138">保险放行回复</text>
+                  <text x="698" y="188" text-anchor="middle" font-size="11" fill="#2f5138">release: quiet|loose</text>
+
+                  <!-- 节点 7：边界跳过结果 -->
+                  <rect x="166" y="224" width="174" height="68" rx="12" fill="#eef6f1" stroke="#4c8a5c" stroke-width="1.6" />
+                  <text x="253" y="253" text-anchor="middle" font-size="13" font-weight="800" fill="#2f5138">直接放行回复</text>
+                  <text x="253" y="273" text-anchor="middle" font-size="11" fill="#2f5138">skipped: true（照常回）</text>
+
+                  <!-- 节点 8：真正闭嘴 -->
+                  <rect x="396" y="240" width="370" height="56" rx="12" fill="#fdeef0" stroke="#b4556a" stroke-width="1.8" />
+                  <text x="581" y="264" text-anchor="middle" font-size="13.5" font-weight="800" fill="#7c2f40">真正闭嘴（speak: false）</text>
+                  <text x="581" y="283" text-anchor="middle" font-size="11" fill="#7c2f40">本轮等于没发生：不生成回复、不发送、省掉主回复 token</text>
+                </svg>
+              </div>
+              <figcaption>判官只在「没人硬点名、但是否值得插话」的区间把关；边界与异常永远 fail-open，只有 speak: false 才拦。</figcaption>
+            </figure>
+
+            <h2 id="scope">3. 刹车治什么，不治什么<a class="manual-anchor" href="#scope" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>刹车只能治「该不该说」，治不了「说什么」。</p>
+            <p>
+              八股、客服腔、没话找话，那是人格卡和提示词的事。你让一条鱼「积极接话、每条都回、多用反问」，它就会长成客服；你给它一道刹车，它只是不再每句都接，但接的那句可能还是八股。
+            </p>
+
+            <div class="manual-compare">
+              <div class="manual-compare-col is-yes">
+                <p class="manual-compare-title">刹车治得了的</p>
+                <ul>
+                  <li>群友互相聊正欢时硬插一嘴</li>
+                  <li>出现「大肥鱼」等名字但明显在评别人</li>
+                  <li>没人理它时自己接自己上一句</li>
+                  <li>每轮都跑完整回复带来的无效 token 消耗</li>
+                </ul>
+              </div>
+              <div class="manual-compare-col is-no">
+                <p class="manual-compare-title">刹车治不了的（交给这些改）</p>
+                <ul>
+                  <li>八股、客服腔、爱反问 → 改人格卡</li>
+                  <li>一句写三段、废话太长 → 卡里卡死字数</li>
+                  <li>跨群漏记忆、嘴硬或撒娇 → 人格与记忆</li>
+                  <li>恶意攻击或刷屏风控 → 审核与安全闸</li>
+                </ul>
+              </div>
+            </div>
+
+            <p>所以顺序不能反：<strong>先装刹车，再谈人格。</strong>先让它学会闭嘴，再教它怎么开口。</p>
+
+            <h2 id="why-human">4. 为什么「少说」反而像人<a class="manual-anchor" href="#why-human" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>因为人说话是有对象的。</p>
+            <p>
+              人对着一屋子人，不会每句都接；他只在有话想说、或者有人叫他的时候开口。开口之前，他先看了一眼：这话是冲我来的吗？不是。桌上在聊别的吗？是。那我就先吃菜。
+            </p>
+            <figure>
+              <img
+                src="media/v1/quiet-fish-tea.webp"
+                srcset="
+                  media/v1/quiet-fish-tea-640.webp 640w,
+                  media/v1/quiet-fish-tea-800.webp 800w,
+                  media/v1/quiet-fish-tea.webp 1200w
+                "
+                sizes="(max-width: 700px) 92vw, 680px"
+                alt="海滨阳光露台上，鲸鱼娘鼓着腮帮子用小叉子开心吃着草莓奶油蛋糕，桌边黄铜手摇铃安静未响，远处海面上方漂浮着两个互相聊天的气泡"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>这话不是冲我来的，桌上在聊别的——那就先安心吃点心，等有人摇铃再开口。</figcaption>
+            </figure>
+            <p>鱼也一样。它不需要每句都接，它需要知道哪句是冲它来的。</p>
+            <p>
+              少说不是目的，是结果。真正让一条鱼像人的，不是它说了多少，是它每次开口都有理由。
+            </p>
+
+            <blockquote>
+              <p>
+                鱼像人，不是因为会接梗，是因为知道什么时候不接。<br />
+                这句话听着像鸡汤，但养过鱼的人都懂：让一条鱼学会说话，只要一周；让它学会不说话，得调很久。
+              </p>
+            </blockquote>
+
+            <hr />
+
+            <h2 id="kit">5. 配套插件：judge-kit 3.0 下载与结构<a class="manual-anchor" href="#kit" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              上面那套思路，路西法顺手打成了一个可交接的零依赖插件包：<strong>核心判官 + 人工反馈闭环 + HTTP 服务 + 离线自测</strong>。
+              解压就能跑，既可以直接 <code>require('./judge')</code> 接进 Node.js 机器人，也可以启动自带的 HTTP 服务给 Python / Go / 其它语言写的鱼调用。
+            </p>
+
+            <div class="manual-kit-card">
+              <div class="manual-kit-head">
+                <span class="manual-chip is-cat">judge-kit 3.0</span>
+                <span class="manual-chip is-soft">Node.js 18+ · 零依赖</span>
+                <span class="manual-verified">selftest 12/12 通过</span>
+              </div>
+              <p class="manual-kit-title">群聊 AI 判官「全套」插件包</p>
+              <p class="manual-kit-desc">
+                含核心判断器、人工标注闭环脚本、本地 HTTP 服务与离线自测套件；只要本地有 Node 18+，无需 <code>npm install</code>。
+              </p>
+              <ul class="manual-kit-files" aria-label="压缩包包含的文件">
+                <li>README.md</li>
+                <li>judge.js</li>
+                <li>feedback.js</li>
+                <li>server.js</li>
+                <li>selftest.js</li>
+                <li>examples.json</li>
+              </ul>
+              <div class="manual-kit-actions">
+                <a class="manual-btn is-lead" href="downloads/judge-kit-3.0.zip" download="judge-kit-3.0.zip">
+                  <span>下载 judge-kit 3.0 (.zip)</span>
+                  <span aria-hidden="true">↓</span>
+                </a>
+                <a class="manual-btn is-ghost" href="#source">查看完整源码 ↓</a>
+              </div>
+            </div>
+
+            <div class="manual-callout is-tip">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4" /><path d="M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3Z" /></svg>
+                一句话看懂两块核心
+              </p>
+              <p>
+                判官负责「这次说不说」；<code>feedback.js</code> 负责把人的纠正变成判例，让判官<strong>越用越准</strong>——但这不是训练模型，是
+                <strong>few-shot 判例学习</strong>。
+              </p>
+            </div>
+
+            <div class="manual-table-wrap">
+              <table>
+                <caption>judge-kit 3.0 包里有什么</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">文件</th>
+                    <th scope="col">作用</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"><code>judge.js</code></th>
+                    <td>判官核心：读最近 12 条、调模型、返回 <code>speak</code>；带每日上限 / 宽松率 / 静默释放 / 异常放行</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>feedback.js</code></th>
+                    <td>反馈闭环：<code>stats</code> / <code>list</code> / <code>label</code> / <code>build</code>，把人工标注写成 <code>examples.json</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>server.js</code></th>
+                    <td>把判官包成 HTTP 服务，给非 Node 的鱼用（<code>/judge</code> · <code>/health</code> · <code>/reload</code>）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>selftest.js</code></th>
+                    <td>离线自测（mock 模型，不连网、不花 token）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>examples.json</code></th>
+                    <td>人工判例（初始为空 <code>[]</code>，由 <code>feedback.js build</code> 生成）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>README.md</code></th>
+                    <td>插件包内附带的简明接入与排障说明</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="quickstart">6. 快速开始：自测与最小接入<a class="manual-anchor" href="#quickstart" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              解压后先跑一遍离线自测，不需要 API key、也不连外网，12 项覆盖「说 / 不说 / 高档跳过 / 私聊跳过 / 静默释放 / 宽松放行 / 判例加载 / 判例进 prompt / build / stats / label」。看到全 <code>PASS</code> 再拿去接：
+            </p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">bash</span></div>
+              <pre><code># 1. 自测（不用 key，不花 token）
+node selftest.js
+
+# 2. 接进你的鱼（Node）
+DEEPSEEK_API_KEY=sk-xxx node your-bot.js</code></pre>
+            </div>
+
+            <p>Node.js 最小接入：在你的「唤醒之后、生成回复之前」调一次 <code>judge.shouldSpeak()</code>：</p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">javascript</span></div>
+              <pre><code>const { createJudge } = require('./judge');
+
+const judge = createJudge({
+  apiKey: process.env.DEEPSEEK_API_KEY,
+  logFile: './judge-log.jsonl',   // 想用反馈闭环就填
+  selfNames: ['本鱼'],            // 改成你这只鱼的名字
+});
+
+// 在你的「唤醒之后、生成回复之前」调用
+async function onWake(ctx) {
+  const r = await judge.shouldSpeak(ctx.messages, {
+    isGroup: true,
+    tier: ctx.tier,               // 'high' | 'chat' | 'low'
+    key: ctx.key,                 // 'group:123456'
+    lastReplyAt: ctx.lastReplyAt, // 这个群上次说话的时间（毫秒），没有就 0
+  });
+
+  if (!r.speak) {
+    console.log('[judge] 这轮不开口：' + r.why);
+    return;                       // 关键：真的不要生成/发送
+  }
+  await ctx.reply(await ctx.generate());
+}</code></pre>
+            </div>
+
+            <p>
+              <code>ctx.messages</code> 按时间从旧到新排列，最后一条是刚收到的；判官内部只取最后 <strong>12 条</strong>，每条格式：
+            </p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">javascript</span></div>
+              <pre><code>{ self: false, name: '群友A', text: '...', time: 1795000000000, owner: false }</code></pre>
+            </div>
+            <ul>
+              <li><code>self: true</code>：这条是鱼自己说的（上下文里会标成 <code>〔你自己说的〕</code>，治自问自答）；</li>
+              <li><code>owner: true</code>：主人说的（可选，会记入特征供日志分析）；</li>
+              <li>非自己说的消息若命中 <code>selfNames</code>，会自动标成 <code>〔点名你〕</code>。</li>
+            </ul>
+
+            <h3 id="http">6.1 非 Node 也能用：HTTP 服务模式<a class="manual-anchor" href="#http" aria-label="复制本文链接到这一节">#</a></h3>
+            <p>如果你的鱼是 Python、Go 或其它语言写的，直接把 <code>server.js</code> 跑成本机 HTTP 服务即可：</p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">bash</span></div>
+              <pre><code>node server.js --port 8787 --token 换成你的口令 --key sk-xxx
+# 或者：DEEPSEEK_API_KEY=sk-xxx JUDGE_TOKEN=xxx node server.js</code></pre>
+            </div>
+            <p>任意语言向 <code>POST /judge</code> 发一段 JSON：</p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">bash</span></div>
+              <pre><code>curl -s http://127.0.0.1:8787/judge \
+  -H 'authorization: Bearer 换成你的口令' \
+  -H 'content-type: application/json' \
+  -d '{
+    "messages": [
+      {"name":"群友A","text":"今晚吃啥"},
+      {"name":"群友B","text":"火锅"},
+      {"name":"群友C","text":"@本鱼 你来吗"}
+    ],
+    "opts": {"key":"group:123","tier":"chat","isGroup":true}
+  }'</code></pre>
+            </div>
+            <p>返回结果：</p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">json</span></div>
+              <pre><code>{"speak":true,"skipped":false,"verdict":"说","why":"点它名了","release":""}</code></pre>
+            </div>
+            <p>其它路由：</p>
+            <ul>
+              <li><code>GET /health</code> → <code>{"ok":true,"examples":3,"used":12}</code></li>
+              <li><code>POST /reload</code> → 重新读取 <code>examples.json</code>（反馈闭环用，需带口令）</li>
+            </ul>
+            <div class="manual-callout is-warn">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" /><path d="M12 9v5M12 17h.01" /></svg>
+                绑定地址与口令安全
+              </p>
+              <p>
+                <code>server.js</code> 默认只监听 <code>127.0.0.1</code>（本机可不设口令）；如果确实要跨机访问并加上 <code>--host 0.0.0.0</code>，务必通过 <code>--token</code> 或环境变量 <code>JUDGE_TOKEN</code> 设好口令。
+              </p>
+            </div>
+
+            <h2 id="feedback">7. 让它「越用越准」：人工反馈闭环<a class="manual-anchor" href="#feedback" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>这就是「全套」和「单放一个 <code>judge.js</code>」的区别。</p>
+            <p>
+              单靠默认 prompt 只能解决八成场景；真正贴合你那个群说话风格的，是把判官日常判错的样本挑出来，人工标成 <code>say</code> 或 <code>silence</code>，再让 <code>feedback.js build</code> 把这些纠偏判例拼到 system prompt 末尾，实现零成本的 <strong>few-shot 判例学习</strong>。
+            </p>
+
+            <figure>
+              <img
+                src="media/v1/quiet-fish-cases.webp"
+                srcset="
+                  media/v1/quiet-fish-cases-640.webp 640w,
+                  media/v1/quiet-fish-cases-800.webp 800w,
+                  media/v1/quiet-fish-cases.webp 1200w
+                "
+                sizes="(max-width: 700px) 92vw, 680px"
+                alt="鲸鱼娘垫起脚尖往墙上的软木板钉带绿色对勾和珊瑚红叉号的判例小卡，左手捧着刻有天平图案的黄铜档案盒，两张卡片正顺着微风飘进盒子的卡槽里"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>不是重训模型，而是把挑出来的对错判例钉板归档、送进判官盒，让它照着例子越判越准。</figcaption>
+            </figure>
+
+            <figure class="manual-diagram">
+              <div class="manual-diagram-stage">
+                <svg viewBox="0 0 780 176" width="780" height="176" role="img" aria-labelledby="diagram-feedback-title">
+                  <title id="diagram-feedback-title">判官人工反馈闭环流程</title>
+                  <defs>
+                    <marker id="arrow-fb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                      <path d="M 1 1 L 9 5 L 1 9 z" fill="#607aa9" />
+                    </marker>
+                  </defs>
+
+                  <!-- 1 → 5 步连接箭头 -->
+                  <line x1="140" y1="62" x2="168" y2="62" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-fb)" />
+                  <line x1="296" y1="62" x2="324" y2="62" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-fb)" />
+                  <line x1="452" y1="62" x2="480" y2="62" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-fb)" />
+                  <line x1="608" y1="62" x2="636" y2="62" stroke="#607aa9" stroke-width="2" marker-end="url(#arrow-fb)" />
+
+                  <!-- 闭环虚线回流 -->
+                  <path d="M 702 100 V 138 H 78 V 104" fill="none" stroke="#b4556a" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-fb)" />
+                  <rect x="206" y="125" width="368" height="26" rx="13" fill="#fdf3f4" stroke="#f1c7c5" stroke-width="1.2" />
+                  <text x="390" y="142" text-anchor="middle" font-size="11" font-weight="700" fill="#7c2f40">few-shot 判例学习（不训练模型，下次判定按新尺度）</text>
+
+                  <!-- 五个环节盒子 -->
+                  <rect x="16" y="24" width="124" height="76" rx="12" fill="#f1f5fb" stroke="#607aa9" stroke-width="1.5" />
+                  <text x="78" y="47" text-anchor="middle" font-size="12.5" font-weight="800" fill="#202d52">1. 判官落盘</text>
+                  <text x="78" y="67" text-anchor="middle" font-size="11" fill="#40506f">judge-log.jsonl</text>
+                  <text x="78" y="84" text-anchor="middle" font-size="10.5" fill="#5b6884">带 12 条上下文</text>
+
+                  <rect x="172" y="24" width="124" height="76" rx="12" fill="#ffffff" stroke="#607aa9" stroke-width="1.5" />
+                  <text x="234" y="47" text-anchor="middle" font-size="12.5" font-weight="800" fill="#202d52">2. 挑出样本</text>
+                  <text x="234" y="67" text-anchor="middle" font-size="11" fill="#40506f">feedback.js list</text>
+                  <text x="234" y="84" text-anchor="middle" font-size="10.5" fill="#5b6884">筛未标注 / 不说</text>
+
+                  <rect x="328" y="24" width="124" height="76" rx="12" fill="#fdf5ea" stroke="#c08a3e" stroke-width="1.5" />
+                  <text x="390" y="47" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6f4c19">3. 人工纠偏</text>
+                  <text x="390" y="67" text-anchor="middle" font-size="11" fill="#6f4c19">feedback.js label</text>
+                  <text x="390" y="84" text-anchor="middle" font-size="10.5" fill="#6f4c19">写 labels.jsonl</text>
+
+                  <rect x="484" y="24" width="124" height="76" rx="12" fill="#eef6f1" stroke="#4c8a5c" stroke-width="1.5" />
+                  <text x="546" y="47" text-anchor="middle" font-size="12.5" font-weight="800" fill="#2f5138">4. 生成判例</text>
+                  <text x="546" y="67" text-anchor="middle" font-size="11" fill="#2f5138">feedback.js build</text>
+                  <text x="546" y="84" text-anchor="middle" font-size="10.5" fill="#2f5138">正反各半·自动备份</text>
+
+                  <rect x="640" y="24" width="124" height="76" rx="12" fill="#f1f5fb" stroke="#202d52" stroke-width="1.6" />
+                  <text x="702" y="47" text-anchor="middle" font-size="12.5" font-weight="800" fill="#202d52">5. 生效上岗</text>
+                  <text x="702" y="67" text-anchor="middle" font-size="11" fill="#40506f">POST /reload</text>
+                  <text x="702" y="84" text-anchor="middle" font-size="10.5" fill="#5b6884">拼入 system prompt</text>
+                </svg>
+              </div>
+              <figcaption>每周抽几分钟挑错、打标、重建判例，判官就会记住你那个群特有的接话尺度。</figcaption>
+            </figure>
+
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">bash</span></div>
+              <pre><code># 1. 看统计：判了多少、说/不说比例、标注一致率
+node feedback.js stats
+
+# 2. 挑没标注的看（默认最近 20 条）
+node feedback.js list --unlabeled
+node feedback.js list --verdict 不说 --limit 30
+
+# 3. 人工判：它当时该不该说
+node feedback.js label mabc123 say --note "点它名了"
+node feedback.js label mabc124 silence --note "别人互聊"
+
+# 4. 把标注写成判例（默认最多 8 条，说/不说各半）
+node feedback.js build --max 8
+
+# 5. 让正在跑的服务立刻生效
+curl -X POST http://127.0.0.1:8787/reload -H 'authorization: Bearer 口令'</code></pre>
+            </div>
+
+            <p><code>build</code> 会先自动备份旧文件，再写出新的 <code>examples.json</code>，格式如下：</p>
+            <div class="manual-code">
+              <div class="manual-code-head"><span class="manual-code-lang">json</span></div>
+              <pre><code>[
+  {
+    "verdict": "不说",
+    "why": "别人互聊，没点它",
+    "messages": [
+      {"name": "群友A", "text": "今晚吃啥", "self": false},
+      {"name": "群友B", "text": "火锅", "self": false},
+      {"name": "群友A", "text": "走", "self": false}
+    ]
+  }
+]</code></pre>
+            </div>
+            <p>
+              判官下次调用会把最多 8 条判例拼在 system prompt 后面（「参考判例（人工标注，按这个尺度判）」）。如果用 Node 直连调用，更新完 <code>examples.json</code> 后调用 <code>judge.reloadExamples()</code> 或重启即可生效。
+            </p>
+
+            <div class="manual-callout is-tip">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4" /><path d="M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3Z" /></svg>
+                建议标注节奏
+              </p>
+              <p>
+                第一周每天看 10 条，之后每周看一次。优先标两类样本：① 判官说「不说」但你觉得它其实该接的（错过）；② 判官说「说」但明显是在插嘴的（多嘴）。
+              </p>
+            </div>
+
+            <h2 id="config">8. 配置项、返回值、分档与成本<a class="manual-anchor" href="#config" aria-label="复制本文链接到这一节">#</a></h2>
+
+            <h3 id="config-opts">8.1 配置选项速查<a class="manual-anchor" href="#config-opts" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>createJudge(options) 配置项</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">选项</th>
+                    <th scope="col">默认</th>
+                    <th scope="col">说明</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"><code>apiKey</code></th>
+                    <td><code>DEEPSEEK_API_KEY</code></td>
+                    <td>必填，否则所有判定全部跳过（直接放行）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>baseUrl</code></th>
+                    <td><code>https://api.deepseek.com</code></td>
+                    <td>OpenAI 兼容接口地址</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>model</code></th>
+                    <td><code>deepseek-chat</code></td>
+                    <td>需支持 <code>response_format: json_object</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>maxPerDay</code></th>
+                    <td><code>400</code></td>
+                    <td>每天最多判几次，<code>0</code> = 全跳过</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>timeoutMs</code></th>
+                    <td><code>9000</code></td>
+                    <td>超时即异常放行（毫秒）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>loosePassRate</code></th>
+                    <td><code>0.25</code></td>
+                    <td>判「不说」时也按该比例随机放行</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>quietReleaseMin</code></th>
+                    <td><code>25</code></td>
+                    <td>超过多少分钟没在这个群说话，判「不说」也放行一次；不传 <code>lastReplyAt</code> 则不做静默释放</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>logFile</code></th>
+                    <td>空</td>
+                    <td>填了路径才写 JSONL（反馈闭环需要）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>prompt</code></th>
+                    <td>内置 <code>DEFAULT_PROMPT</code></td>
+                    <td>想彻底改判准可直接覆盖</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>selfNames</code></th>
+                    <td><code>['本鱼']</code></td>
+                    <td>鱼的名字数组，用于生成 <code>〔点名你〕</code> 标记</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>examplesFile</code></th>
+                    <td>同目录 <code>examples.json</code></td>
+                    <td>人工判例路径</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>logger</code></th>
+                    <td>空函数</td>
+                    <td>想接自己的日志就传</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 id="config-return">8.2 返回值对照<a class="manual-anchor" href="#config-return" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>shouldSpeak() 返回结构</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">情况</th>
+                    <th scope="col">返回</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">该说 / 拿不准</th>
+                    <td><code>{speak:true, skipped:false, verdict:'说'|'拿不准', why, release:''}</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">不该说</th>
+                    <td><code>{speak:false, skipped:false, verdict:'不说', why, release:''}</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">私聊 / 高档 / 额度满 / 没 key / 上下文 &lt; 3</th>
+                    <td><code>{speak:true, skipped:true, verdict:'skip', why, release:''}</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">判「不说」但静默 / 宽松放行</th>
+                    <td><code>{speak:true, skipped:false, verdict:'不说', why, release:'quiet'|'loose'}</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">超时 / HTTP 错 / JSON 坏</th>
+                    <td><code>{speak:true, skipped:true, verdict:'skip', why:'异常放行…', release:'error'}</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              记住一条铁律：<code>skipped: true</code> 一律照常回复；<strong>只有 <code>speak: false</code> 才拦</strong>。
+            </p>
+
+            <h3 id="config-tier">8.3 分档建议与两道闸<a class="manual-anchor" href="#config-tier" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-table-wrap">
+              <table>
+                <caption>按唤醒档位决定是否过判官</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">档位 <code>tier</code></th>
+                    <th scope="col">什么时候用</th>
+                    <th scope="col">判不判</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"><code>high</code></th>
+                    <td>@、点名、直接提问、主人说话</td>
+                    <td>不判，直接回</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>chat</code></th>
+                    <td>接话、关键词、话题在它身上</td>
+                    <td>判（主力）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><code>low</code></th>
+                    <td>随机 / 概率唤醒</td>
+                    <td>判，且可以设更严</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              判官是<strong>「第二道闸」</strong>：第一道是唤醒（值不值得跑回合），第二道才是它（该不该开口）。两道都省，别只加一道。
+            </p>
+
+            <h3 id="config-cost">8.4 成本估算<a class="manual-anchor" href="#config-cost" aria-label="复制本文链接到这一节">#</a></h3>
+            <div class="manual-callout">
+              <p class="manual-callout-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
+                用小钱省大钱
+              </p>
+              <p>
+                一次判官 = 最近 12 条上下文 + 固定 prompt，大约几百 token；一天 400 次也就是几十万 token 量级。按你用的模型价目表算，通常一天几毛到一两块，比「每轮都跑完整回复」便宜一个量级。
+              </p>
+            </div>
+
+            <h2 id="pitfalls">9. 踩坑提醒与最小排障<a class="manual-anchor" href="#pitfalls" aria-label="复制本文链接到这一节">#</a></h2>
+            <figure>
+              <img
+                src="media/v1/quiet-fish-misjudge.webp"
+                srcset="
+                  media/v1/quiet-fish-misjudge-640.webp 640w,
+                  media/v1/quiet-fish-misjudge-800.webp 800w,
+                  media/v1/quiet-fish-misjudge.webp 1200w
+                "
+                sizes="(max-width: 700px) 92vw, 680px"
+                alt="左侧聊天气泡里画着相框里的另一只小蓝鲸，鲸鱼娘刚迈步准备抢答，身前亮着珊瑚红灯的迷你红白条纹道闸杆落下拦住了她，她微红着脸露出一丝惊讶又不好意思的笑"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>群里提到「截图里的大肥鱼」时最容易误以为在叫自己——这时候就靠判官把道闸放下来。</figcaption>
+            </figure>
+            <ul>
+              <li>
+                <strong><code>selfNames</code> 一定要改。</strong>默认是 <code>['本鱼']</code>，不改成你的鱼名，<code>〔点名你〕</code> 标记会失效。
+              </li>
+              <li>
+                <strong>同名第三人称是最大误判源：</strong>句子里出现鱼名但没 @、是第三人在评价（「这大肥鱼」「我家的鱼」「截图里」），要判「不说」；prompt 里已经写了，但人工判例里最好也补几条。
+              </li>
+              <li>
+                <strong>判官只负责「判」，不负责拦：</strong>你的 bot 代码必须真的在 <code>r.speak === false</code> 时不生成、不发送。
+              </li>
+              <li>
+                <strong>判「不说」不等于消息没入库：</strong>它只是不跑这一轮生成，群聊上下文照常记录，下轮才能看到连贯对话。
+              </li>
+              <li>
+                <strong>日志隐私与自动截断：</strong><code>judge-log.jsonl</code> 里含群聊原文（<code>ctx</code>），注意本地隐私和定期清理；<code>judge.js</code> 默认最多留 2500 条（每写入 200 次检查截断一次）。
+              </li>
+              <li>
+                <strong>兼容模型要求：</strong>换用非 DeepSeek 模型时，先确认支持 <code>response_format: json_object</code>，否则解析失败会一直走 fail-open 放行。
+              </li>
+              <li>
+                <strong>定位边界：</strong>判官是「软」判断，别拿它当审核或风控；它只决定「接不接话」。
+              </li>
+            </ul>
+
+            <div class="manual-table-wrap">
+              <table>
+                <caption>最小排障表</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">现象</th>
+                    <th scope="col">先看哪里</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">全都不拦</th>
+                    <td><code>stats().used</code> 是否一直 0：没 key / 额度满 / 上下文 &lt; 3 / <code>tier</code> 传了 <code>high</code></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">一直拦太狠</th>
+                    <td><code>loosePassRate</code> 调高、<code>quietReleaseMin</code> 调小；跑 <code>feedback.js list --verdict 不说</code> 看误杀</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">判得慢</th>
+                    <td><code>timeoutMs</code> 调小；或换成响应更快的小模型</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">反馈不生效</th>
+                    <td>服务有没有调 <code>POST /reload</code>；<code>examples.json</code> 是否合法 JSON；条数是否超过 8 条被截断</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="checklist">10. 上线检查清单<a class="manual-anchor" href="#checklist" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>勾选状态保存在本机浏览器，刷新不会丢。</p>
+            <div class="manual-checklist" data-manual-checklist="quiet-fish-launch">
+              <p class="manual-checklist-bar">
+                <span class="manual-checklist-count" data-manual-checklist-count aria-live="polite"></span>
+                <button class="manual-checklist-reset" type="button" data-manual-checklist-reset hidden>清空勾选</button>
+              </p>
+              <ul>
+                <li>
+                  <label>
+                    <input type="checkbox" value="selftest" />
+                    <span>跑过 <code>node selftest.js</code>，12 项全部 <code>PASS</code></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="self-names" />
+                    <span>把 <code>selfNames</code> 改成了这只鱼在群里的名字和常见叫法</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="gate-stop" />
+                    <span>接入点确认在「唤醒后、生成回复前」，<code>r.speak === false</code> 时真正跳过生成与发送</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="tier-boundary" />
+                    <span>@ / 点名 / 直接提问传 <code>tier: 'high'</code>，私聊传 <code>isGroup: false</code>，不进刹车</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="last-reply" />
+                    <span>传入了该群的 <code>lastReplyAt</code>（毫秒时间戳），让 25 分钟静默释放能起作用</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="json-mode" />
+                    <span>确认所用模型支持 <code>response_format: json_object</code>，看日志出现真实「说 / 不说」而不是全 <code>skip</code></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="http-auth" />
+                    <span>若用 HTTP 模式且需跨机调用，已设置 <code>--token</code>（或仅监听 <code>127.0.0.1</code>）</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" value="feedback-loop" />
+                    <span>已指定 <code>logFile</code>，并记住第一周每天抽看 10 条、用 <code>feedback.js</code> 标出第一批判例</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+
+            <h2 id="source">11. 源码一览（展开可直接复制）<a class="manual-anchor" href="#source" aria-label="复制本文链接到这一节">#</a></h2>
+            <p>
+              不想下载压缩包也可以直接展开复制下面的四个核心脚本；同目录下的 <code>examples.json</code> 初始内容只需填一个空数组
+              <code>[]</code>，之后由 <code>feedback.js build</code> 自动维护。
+            </p>
+
+            <details class="manual-source-fold">
+              <summary>
+                <span class="manual-source-fold-title">
+                  <code>judge.js</code>
+                  <small>判官核心（339 行 · 读 12 条上下文、双边界、三保险、JSONL 日志）</small>
+                </span>
+              </summary>
+              <div class="manual-code">
+                <div class="manual-code-head"><span class="manual-code-lang">javascript</span></div>
+                <pre><code>'use strict';
+
+/**
+ * judge.js — 群聊 AI「该不该开口」判官（零依赖，Node 18+）
+ *
+ * 作用：在「机器人被叫醒」和「真的开口」之间插一层小模型判定。
+ *       判「不说」就不回 —— 这一轮等于没发生，不跑回合、不花回复的 token。
+ *
+ * 用法：
+ *   const { createJudge } = require('./judge');
+ *   const judge = createJudge({
+ *     apiKey: process.env.DEEPSEEK_API_KEY,
+ *     logFile: './judge-log.jsonl',
+ *   });
+ *
+ *   const r = await judge.shouldSpeak(messages, {
+ *     isGroup: true,          // 私聊传 false，直接放行
+ *     tier: 'chat',           // 'high' 直接放行（@/点名/提问/主人）
+ *     key: 'group:123456',
+ *     lastReplyAt: 1795000000000, // 这个群上次说话的时间（毫秒），用于静默释放
+ *   });
+ *   if (r.speak) { ...正常回复... } else { ...这轮不开口... }
+ *
+ * messages 格式（按时间从旧到新，最后一条是刚收到的）：
+ *   [{ self: false, name: '群友A', text: '...', time: 1795000000000, owner: false }, ...]
+ *
+ * 返回：
+ *   { speak: true,  skipped: false, verdict: '说'|'拿不准', why, release: '' }
+ *   { speak: false, skipped: false, verdict: '不说', why, release: '' }
+ *   { speak: true,  skipped: true,  verdict: 'skip', why, release: 'loose'|'quiet'|'error'|'' }
+ *   skipped=true 表示判官没判（私聊/高档/额度满/没 key/上下文少），调用方照常回复。
+ *
+ * 学习（反馈闭环）：
+ *   examples.json 是可选的「人工判例」文件，格式：
+ *   [{ "verdict":"说", "why":"点它名了", "messages":[{ "name":"群友A", "text":"..." }, ...] }]
+ *   判官每次调用会把它拼在 system prompt 后面，作为 few-shot 参考。
+ *   用 feedback.js 从 judge-log.jsonl 里挑样本、人工标注、再生成 examples.json。
+ *
+ * 规则要点：
+ *   - 高档不判、私聊不判、上下文 &lt; 3 条不判、每天上限 400 次。
+ *   - 判「不说」也按 loosePassRate（默认 25%）随机放行。
+ *   - 超过 quietReleaseMin（默认 25 分钟）没在这个群说话，判「不说」也放行一次。
+ *   - 超时/HTTP 错/JSON 解析失败一律 fail-open（放行）。
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const DEFAULT_EXAMPLES_FILE = path.join(__dirname, 'examples.json');
+
+const DEFAULT_PROMPT = `你是群聊里的旁观者，替一个 AI 机器人把关：它这一刻该不该开口。
+机器人自称「本鱼」，上下文里标记为〔你自己说的〕。
+
+判断标准：最新这些消息里，有没有明确在跟它说——点它名字、@它、直接问它、或者接着它上一句。
+内容相关不等于该说话；群里别人互相聊、没人问它，它就该沉默。
+把「不说」只留给一眼就知道跟它无关的（别人聊自己的事、互相调侃、讨论别的 AI）。
+
+特别注意：句子里出现「大肥鱼/小鲸鱼/肥鱼」但**没有 @ 它**、而且是第三人称在评价（「这大肥鱼」「那条鱼」「我家的鱼」「截图里」）——那是别人家的 AI，判「不说」。
+
+有人抛问题、有人吐槽、有人接着它刚说过的话往下聊——这些都算有由头，倾向「说」。
+还有一类也算有由头：最后几条是在说它、说它刚发的图/语音、或者它刚参与过的话题还在往下走——不用等它被点名，它在场就该接。
+
+拿不准的时候倾向「拿不准」，不要硬判「不说」。
+输出 JSON：{"verdict":"说|不说|拿不准","why":"十个字以内"}`;
+
+function clamp01(n) {
+  const v = Number(n);
+  if (!Number.isFinite(v)) return 0;
+  return Math.max(0, Math.min(1, v));
+}
+
+function clip(s, n) {
+  const a = Array.from(String(s == null ? '' : s));
+  return a.length &lt;= n ? a.join('') : a.slice(0, n).join('') + '…';
+}
+
+function dayKey(d = new Date()) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function hhmm(ts) {
+  const d = new Date(Number(ts) || Date.now());
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+
+function readExamples(file) {
+  try {
+    const arr = JSON.parse(fs.readFileSync(file, 'utf8'));
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .filter((e) =&gt; e &amp;&amp; (e.verdict === '说' || e.verdict === '不说')
+        &amp;&amp; Array.isArray(e.messages) &amp;&amp; e.messages.length)
+      .slice(0, 8);
+  } catch {
+    return [];
+  }
+}
+
+function examplesBlock(examples) {
+  if (!Array.isArray(examples) || !examples.length) return '';
+  const lines = examples.slice(0, 8).map((e, i) =&gt; {
+    const dialog = e.messages.slice(-4).map((m) =&gt; {
+      const who = m &amp;&amp; m.self ? '〔它自己〕' : '';
+      return `${who}${clip((m &amp;&amp; m.name) || '?', 12)}：` +
+        clip(String((m &amp;&amp; m.text) || '').replace(/\s+/g, ' '), 60);
+    }).join(' / ');
+    const why = e.why ? `（${clip(e.why, 20)}）` : '';
+    return `${i + 1}. ${dialog} → ${e.verdict}${why}`;
+  });
+  return '\n\n参考判例（人工标注，按这个尺度判）：\n' + lines.join('\n');
+}
+
+function createJudge(options = {}) {
+  if (typeof fetch !== 'function' || typeof AbortController !== 'function') {
+    throw new Error('judge.js 需要 Node 18+（global fetch / AbortController）');
+  }
+
+  const cfg = {
+    apiKey: options.apiKey || process.env.DEEPSEEK_API_KEY || '',
+    baseUrl: String(options.baseUrl || 'https://api.deepseek.com').replace(/\/+$/, ''),
+    model: options.model || 'deepseek-chat',
+    maxPerDay: Math.max(0, Number(options.maxPerDay == null ? 400 : options.maxPerDay) || 0),
+    timeoutMs: Math.max(1000, Number(options.timeoutMs == null ? 9000 : options.timeoutMs) || 9000),
+    loosePassRate: clamp01(options.loosePassRate == null ? 0.25 : options.loosePassRate),
+    quietReleaseMin: Math.max(0, Number(options.quietReleaseMin == null ? 25 : options.quietReleaseMin) || 0),
+    logFile: options.logFile || '',
+    prompt: options.prompt || DEFAULT_PROMPT,
+    selfNames: Array.isArray(options.selfNames) &amp;&amp; options.selfNames.length
+      ? options.selfNames.map(String).filter(Boolean)
+      : ['本鱼'],
+    examplesFile: options.examplesFile || DEFAULT_EXAMPLES_FILE,
+    examples: [],
+    logger: typeof options.logger === 'function' ? options.logger : () =&gt; {},
+  };
+
+  cfg.examples = readExamples(cfg.examplesFile);
+
+  let usedDay = '';
+  let used = 0;
+  let writes = 0;
+
+  function append(rec) {
+    if (!cfg.logFile) return;
+    try {
+      fs.appendFileSync(cfg.logFile, JSON.stringify(rec) + '\n', 'utf8');
+      writes += 1;
+      if (writes % 200 === 0) {
+        const lines = fs.readFileSync(cfg.logFile, 'utf8').split('\n').filter(Boolean);
+        if (lines.length &gt; 2600) {
+          fs.writeFileSync(cfg.logFile, lines.slice(-2500).join('\n') + '\n', 'utf8');
+        }
+      }
+    } catch { /* 记录失败不影响判断 */ }
+  }
+
+  function systemPrompt() {
+    return cfg.prompt + examplesBlock(cfg.examples);
+  }
+
+  function reloadExamples() {
+    cfg.examples = readExamples(cfg.examplesFile);
+    return cfg.examples.length;
+  }
+
+  function exampleCount() {
+    return cfg.examples.length;
+  }
+
+  function isAddr(text) {
+    const t = String(text || '').toLowerCase();
+    return cfg.selfNames.some((n) =&gt; t.includes(String(n).toLowerCase()));
+  }
+
+  function featsOf(list, lastReplyAt) {
+    const last = list[list.length - 1] || {};
+    const now = Date.now();
+    const mine10 = list.filter((m) =&gt; m &amp;&amp; m.self &amp;&amp; now - Number(m.time || 0) &lt; 600000).length;
+    const others2 = list.filter((m) =&gt; m &amp;&amp; !m.self &amp;&amp; now - Number(m.time || 0) &lt; 120000).length;
+    const lastSelf = [...list].reverse().find((m) =&gt; m &amp;&amp; m.self);
+    return {
+      nCtx: list.length,
+      lastSelf: !!last.self,
+      lastOwner: !!last.owner,
+      namedMe: isAddr(last.text),
+      lastLen: String(last.text || '').length,
+      minSinceMine: lastSelf ? Math.round((now - Number(lastSelf.time || now)) / 60000) : null,
+      mine10,
+      others2,
+      sinceLastReplyMin: lastReplyAt ? Math.round((now - lastReplyAt) / 60000) : null,
+    };
+  }
+
+  function ctxOf(list) {
+    try {
+      return list.map((m) =&gt; ({
+        me: !!m.self,
+        s: clip(m.name || '', 24),
+        x: clip(String(m.text || '').replace(/\s+/g, ' '), 80),
+        t: Number(m.time || 0) || null,
+      }));
+    } catch {
+      return [];
+    }
+  }
+
+  async function shouldSpeak(messages, opts = {}) {
+    const t0 = Date.now();
+    const key = String(opts.key || '');
+    const isGroup = opts.isGroup !== false;
+    const tier = String(opts.tier || 'chat');
+    const lastReplyAt = Number(opts.lastReplyAt || 0);
+    const list = Array.isArray(messages) ? messages.slice(-12) : [];
+
+    const skip = (why, release = '') =&gt; {
+      cfg.logger('[judge] 跳过：' + why);
+      append({ k: 'skip', t: Date.now(), key, tier, why, ms: Date.now() - t0 });
+      return { speak: true, skipped: true, verdict: 'skip', why, release };
+    };
+
+    if (!isGroup) return skip('私聊不判');
+    if (tier === 'high') return skip('高档直接放行');
+
+    const day = dayKey();
+    if (day !== usedDay) {
+      usedDay = day;
+      used = 0;
+    }
+    if (used &gt;= cfg.maxPerDay) return skip(`当日判断次数用满 ${cfg.maxPerDay}`);
+    if (!cfg.apiKey) return skip('没有 apiKey');
+    if (list.length &lt; 3) return skip('上下文不足 3 条');
+
+    const lines = list.map((m) =&gt; {
+      const who = m &amp;&amp; m.self ? '〔你自己说的〕' : (m &amp;&amp; isAddr(m.text) ? '〔点名你〕' : '');
+      return `[${hhmm(m &amp;&amp; m.time)}]${who} ${clip((m &amp;&amp; m.name) || '?', 24)}：` +
+        clip(String((m &amp;&amp; m.text) || '').replace(/\s+/g, ' '), 110);
+    });
+    const user = `最近 ${list.length} 条群聊：\n${lines.join('\n')}\n\n现在这一刻，它该不该开口？`;
+
+    const ctrl = new AbortController();
+    const timer = setTimeout(() =&gt; ctrl.abort(), cfg.timeoutMs);
+    try {
+      used += 1;
+      const resp = await fetch(cfg.baseUrl + '/chat/completions', {
+        method: 'POST',
+        signal: ctrl.signal,
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${cfg.apiKey}`,
+        },
+        body: JSON.stringify({
+          model: cfg.model,
+          temperature: 0,
+          max_tokens: 60,
+          response_format: { type: 'json_object' },
+          messages: [
+            { role: 'system', content: systemPrompt() },
+            { role: 'user', content: user },
+          ],
+        }),
+      });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const json = await resp.json();
+      const text = (json &amp;&amp; json.choices &amp;&amp; json.choices[0] &amp;&amp; json.choices[0].message
+        &amp;&amp; json.choices[0].message.content) || '{}';
+      const parsed = JSON.parse(text);
+      const verdict = String(parsed.verdict || '').trim();
+      if (!['说', '不说', '拿不准'].includes(verdict)) {
+        return skip('模型返回非法 verdict: ' + String(text).slice(0, 40), 'error');
+      }
+      const why = String(parsed.why || '').slice(0, 20);
+
+      let release = '';
+      let speak = verdict === '说' || verdict === '拿不准';
+
+      if (verdict === '不说') {
+        const quietMs = lastReplyAt &gt; 0 ? Date.now() - lastReplyAt : 0;
+        if (quietMs &gt; cfg.quietReleaseMin * 60 * 1000) {
+          release = 'quiet';
+        } else if (cfg.loosePassRate &gt; 0 &amp;&amp; Math.random() &lt; cfg.loosePassRate) {
+          release = 'loose';
+        }
+        speak = !!release;
+      }
+
+      const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      append({
+        k: 'judge',
+        id,
+        t: Date.now(),
+        key,
+        tier,
+        verdict,
+        why,
+        release,
+        ms: Date.now() - t0,
+        feats: featsOf(list, lastReplyAt),
+        ctx: ctxOf(list),
+      });
+
+      const tag = verdict === '不说'
+        ? (release ? `不说→放行(${release})` : '不说')
+        : verdict;
+      cfg.logger(`[judge] ${tag}：${why}`);
+
+      return { speak, skipped: false, verdict, why, release };
+    } catch (e) {
+      const why = e &amp;&amp; e.name === 'AbortError' ? '超时' : String((e &amp;&amp; e.message) || e);
+      cfg.logger('[judge] 异常放行：' + why);
+      append({ k: 'judge', t: Date.now(), key, tier, verdict: 'skip', why: '异常放行：' + why, release: 'error', ms: Date.now() - t0, ctx: ctxOf(list) });
+      return { speak: true, skipped: true, verdict: 'skip', why: '异常放行：' + why, release: 'error' };
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  function stats() {
+    return { day: usedDay || dayKey(), used, maxPerDay: cfg.maxPerDay, examples: cfg.examples.length };
+  }
+
+  return { shouldSpeak, stats, reloadExamples, exampleCount };
+}
+
+module.exports = { createJudge, DEFAULT_PROMPT, readExamples, examplesBlock };
+
+// 直接跑：node judge.js 会做一次自检（无 key 时只验证跳过路径，不发请求）
+if (require.main === module) {
+  const judge = createJudge({ apiKey: process.env.DEEPSEEK_API_KEY || '', logFile: '' });
+  judge.shouldSpeak(
+    [
+      { self: false, name: '群友A', text: '这大肥鱼今天怎么不说话', time: Date.now() - 120000 },
+      { self: false, name: '群友B', text: '可能在忙吧', time: Date.now() - 60000 },
+      { self: false, name: '群友C', text: '@大肥鱼 出来聊天', time: Date.now() },
+    ],
+    { isGroup: true, tier: 'chat', key: 'group:demo' }
+  ).then((r) =&gt; console.log(JSON.stringify(r, null, 2)));
+}
+</code></pre>
+              </div>
+            </details>
+
+            <details class="manual-source-fold">
+              <summary>
+                <span class="manual-source-fold-title">
+                  <code>feedback.js</code>
+                  <small>反馈闭环 CLI（242 行 · stats / list / label / build）</small>
+                </span>
+              </summary>
+              <div class="manual-code">
+                <div class="manual-code-head"><span class="manual-code-lang">javascript</span></div>
+                <pre><code>'use strict';
+
+/**
+ * feedback.js — 判官反馈闭环（零依赖，Node 18+）
+ *
+ * 流程：
+ *   1. judge.js 每判一次，往 judge-log.jsonl 写一条（含 ctx）。
+ *   2. node feedback.js list --unlabeled   看最近判了什么
+ *   3. node feedback.js label &lt;id&gt; say|silence [--note "为什么"]
+ *   4. node feedback.js build              把人工判例写成 examples.json
+ *   5. judge.js 下次调用自动把 examples.json 拼进 prompt（few-shot）
+ *
+ * 这不是训练模型，是「判例学习」：人挑错、人标注、判官照着例子判。
+ * 想让在跑的 HTTP 服务立刻生效：POST /reload（见 server.js）。
+ *
+ * 用法：
+ *   node feedback.js stats
+ *   node feedback.js list --unlabeled --limit 20
+ *   node feedback.js list --verdict 不说 --limit 20
+ *   node feedback.js label mabc123 say --note "点它名了"
+ *   node feedback.js label mabc124 silence --note "别人互聊"
+ *   node feedback.js build --max 8
+ */
+
+const fs = require('fs');
+
+const DEFAULTS = { log: 'judge-log.jsonl', labels: 'labels.jsonl', out: 'examples.json' };
+
+function readJsonl(file) {
+  try {
+    return fs.readFileSync(file, 'utf8').split('\n').filter(Boolean).map((line) =&gt; {
+      try { return JSON.parse(line); } catch { return null; }
+    }).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+function parseArgs(argv) {
+  const o = { _: [] };
+  for (let i = 0; i &lt; argv.length; i += 1) {
+    const a = argv[i];
+    if (a === '--limit') o.limit = Number(argv[++i]);
+    else if (a === '--verdict') o.verdict = argv[++i];
+    else if (a === '--unlabeled') o.unlabeled = true;
+    else if (a === '--note') o.note = argv[++i];
+    else if (a === '--log') o.log = argv[++i];
+    else if (a === '--labels') o.labels = argv[++i];
+    else if (a === '--out') o.out = argv[++i];
+    else if (a === '--max') o.max = Number(argv[++i]);
+    else o._.push(a);
+  }
+  return o;
+}
+
+function fmtTime(ts) {
+  const d = new Date(Number(ts) || Date.now());
+  const p = (n) =&gt; String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+function lastLabels(file) {
+  const map = new Map();
+  for (const l of readJsonl(file)) {
+    if (l &amp;&amp; l.id &amp;&amp; (l.label === 'say' || l.label === 'silence')) map.set(l.id, l);
+  }
+  return map;
+}
+
+function statsOf(opts = {}) {
+  const logFile = opts.log || DEFAULTS.log;
+  const labelsFile = opts.labels || DEFAULTS.labels;
+  const log = readJsonl(logFile).filter((r) =&gt; r.k === 'judge');
+  const labels = lastLabels(labelsFile);
+  const verdicts = {};
+  const releases = {};
+  for (const r of log) {
+    const v = r.verdict || '?';
+    verdicts[v] = (verdicts[v] || 0) + 1;
+    if (r.release) releases[r.release] = (releases[r.release] || 0) + 1;
+  }
+  const byId = new Map(log.filter((r) =&gt; r.id).map((r) =&gt; [r.id, r]));
+  let compared = 0;
+  let agree = 0;
+  for (const [id, l] of labels) {
+    const r = byId.get(id);
+    if (!r) continue;
+    compared += 1;
+    const want = l.label === 'say';
+    const got = r.verdict === '说' || r.verdict === '拿不准';
+    if (want === got) agree += 1;
+  }
+  return {
+    total: log.length,
+    verdicts,
+    releases,
+    labels: [...labels.keys()].filter((id) =&gt; byId.has(id)).length,
+    compared,
+    agree,
+    agreeRate: compared ? agree / compared : null,
+    logFile,
+    labelsFile,
+  };
+}
+
+function printStats(opts) {
+  const s = statsOf(opts);
+  console.log(`日志：${s.logFile}（判官记录 ${s.total} 条）`);
+  console.log('判定分布：' + (Object.keys(s.verdicts).length
+    ? Object.entries(s.verdicts).map(([k, v]) =&gt; `${k} ${v}`).join(' / ')
+    : '（空）'));
+  if (Object.keys(s.releases).length) {
+    console.log('放行分布：' + Object.entries(s.releases).map(([k, v]) =&gt; `${k} ${v}`).join(' / '));
+  }
+  console.log(`人工标注：${s.labels} 条（能对上日志的）`);
+  console.log(`标注与判官一致：${s.agree}/${s.compared}` +
+    (s.agreeRate == null ? '' : `（${(s.agreeRate * 100).toFixed(0)}%）`));
+  if (s.compared) console.log('提示：一致率低不一定是判官差，先看错在「该说没说」还是「不该说说了」。');
+}
+
+function listSamples(opts = {}) {
+  const log = readJsonl(opts.log || DEFAULTS.log).filter((r) =&gt; r.k === 'judge' &amp;&amp; r.id);
+  const labels = lastLabels(opts.labels || DEFAULTS.labels);
+  let rows = log.slice().sort((a, b) =&gt; (b.t || 0) - (a.t || 0));
+  if (opts.verdict) rows = rows.filter((r) =&gt; r.verdict === opts.verdict);
+  if (opts.unlabeled) rows = rows.filter((r) =&gt; !labels.has(r.id));
+  const limit = Math.max(1, Number(opts.limit) || 20);
+  rows = rows.slice(0, limit);
+  if (!rows.length) { console.log('没有符合条件的记录。'); return rows; }
+  for (const r of rows) {
+    const mark = labels.has(r.id) ? (labels.get(r.id).label === 'say' ? '✓说' : '✓不说') : '  ?';
+    const rel = r.release ? `→放行(${r.release})` : '';
+    console.log(`${r.id}  ${fmtTime(r.t)}  ${r.key || '-'}  ${mark}  ${r.verdict}${rel}  ${r.why || ''}`);
+    if (Array.isArray(r.ctx) &amp;&amp; r.ctx.length) {
+      const tail = r.ctx.slice(-3).map((m) =&gt; `${m.me ? '[它]' : ''}${m.s || '?'}: ${m.x || ''}`).join('  |  ');
+      console.log('    ' + tail);
+    }
+  }
+  return rows;
+}
+
+function labelSample(opts = {}) {
+  const [id, label] = opts._ || [];
+  if (!id || !['say', 'silence'].includes(label)) {
+    throw new Error('用法：node feedback.js label &lt;id&gt; say|silence [--note "为什么"]');
+  }
+  const log = readJsonl(opts.log || DEFAULTS.log).filter((r) =&gt; r.k === 'judge');
+  if (!log.some((r) =&gt; r.id === id)) throw new Error('日志里找不到 id：' + id);
+  const rec = { id, label, note: String(opts.note || '').slice(0, 80), ts: Date.now() };
+  fs.appendFileSync(opts.labels || DEFAULTS.labels, JSON.stringify(rec) + '\n', 'utf8');
+  return rec;
+}
+
+function buildExamples(opts = {}) {
+  const logFile = opts.log || DEFAULTS.log;
+  const labelsFile = opts.labels || DEFAULTS.labels;
+  const outFile = opts.out || DEFAULTS.out;
+  const max = Math.max(1, Number(opts.max) || 8);
+
+  const log = readJsonl(logFile).filter((r) =&gt; r.k === 'judge' &amp;&amp; r.id
+    &amp;&amp; Array.isArray(r.ctx) &amp;&amp; r.ctx.length);
+  const byId = new Map(log.map((r) =&gt; [r.id, r]));
+  const picks = [];
+  for (const [id, l] of lastLabels(labelsFile)) {
+    const r = byId.get(id);
+    if (r) picks.push({ id, l, r });
+  }
+  picks.sort((a, b) =&gt; (b.r.t || 0) - (a.r.t || 0));
+
+  const half = Math.ceil(max / 2);
+  const say = picks.filter((p) =&gt; p.l.label === 'say').slice(0, half);
+  const silence = picks.filter((p) =&gt; p.l.label === 'silence').slice(0, half);
+  let sel = say.concat(silence);
+  if (sel.length &lt; max) {
+    const used = new Set(sel.map((p) =&gt; p.id));
+    sel = sel.concat(picks.filter((p) =&gt; !used.has(p.id)).slice(0, max - sel.length));
+  }
+  sel = sel.slice(0, max);
+
+  const examples = sel.map(({ l, r }) =&gt; ({
+    verdict: l.label === 'say' ? '说' : '不说',
+    why: String(l.note || r.why || '').slice(0, 30),
+    messages: r.ctx.map((m) =&gt; ({
+      self: !!m.me,
+      name: String(m.s || ''),
+      text: String(m.x || ''),
+      time: Number(m.t || 0) || undefined,
+    })),
+  }));
+
+  let backup = '';
+  try {
+    if (fs.existsSync(outFile)) {
+      backup = outFile + '.bak-' + new Date().toISOString().replace(/[:.]/g, '-');
+      fs.copyFileSync(outFile, backup);
+    }
+  } catch { /* 备份失败不阻断 */ }
+  fs.writeFileSync(outFile, JSON.stringify(examples, null, 2) + '\n', 'utf8');
+  return {
+    written: examples.length,
+    say: examples.filter((e) =&gt; e.verdict === '说').length,
+    silence: examples.filter((e) =&gt; e.verdict === '不说').length,
+    file: outFile,
+    backup,
+  };
+}
+
+function usage() {
+  console.log(`用法：
+  node feedback.js stats
+  node feedback.js list [--unlabeled] [--verdict 说|不说|拿不准] [--limit 20]
+  node feedback.js label &lt;id&gt; say|silence [--note "为什么"]
+  node feedback.js build [--max 8]
+公共参数：--log judge-log.jsonl  --labels labels.jsonl  --out examples.json`);
+}
+
+if (require.main === module) {
+  const opts = parseArgs(process.argv.slice(2));
+  const cmd = opts._[0];
+  try {
+    if (cmd === 'stats') {
+      printStats(opts);
+    } else if (cmd === 'list') {
+      listSamples(opts);
+    } else if (cmd === 'label') {
+      const rec = labelSample(opts);
+      console.log(`已标注 ${rec.id} → ${rec.label}${rec.note ? '（' + rec.note + '）' : ''}`);
+    } else if (cmd === 'build') {
+      const r = buildExamples(opts);
+      console.log(`已写 ${r.file}：${r.written} 条（说 ${r.say} / 不说 ${r.silence}）` +
+        (r.backup ? `；旧文件备份到 ${r.backup}` : ''));
+      console.log('让正在跑的服务立刻生效：POST /reload（或重启你的鱼）。');
+    } else {
+      usage();
+    }
+  } catch (e) {
+    console.error(String((e &amp;&amp; e.message) || e));
+    process.exit(1);
+  }
+}
+
+module.exports = { readJsonl, parseArgs, statsOf, listSamples, labelSample, buildExamples, lastLabels };
+</code></pre>
+              </div>
+            </details>
+
+            <details class="manual-source-fold">
+              <summary>
+                <span class="manual-source-fold-title">
+                  <code>server.js</code>
+                  <small>HTTP 服务封装（147 行 · POST /judge · GET /health · POST /reload）</small>
+                </span>
+              </summary>
+              <div class="manual-code">
+                <div class="manual-code-head"><span class="manual-code-lang">javascript</span></div>
+                <pre><code>'use strict';
+
+/**
+ * server.js — 把判官包成 HTTP 服务（零依赖，Node 18+）
+ *
+ * 给「鱼不是 Node 写的」的人用：任何语言 POST 一下就能问该不该开口。
+ *
+ * 启动：
+ *   node server.js --port 8787 --token 换成你的口令 --key sk-xxx
+ *   # 或者：DEEPSEEK_API_KEY=sk-xxx JUDGE_TOKEN=xxx node server.js
+ *
+ * 调用：
+ *   curl -s http://127.0.0.1:8787/judge \
+ *     -H 'authorization: Bearer 换成你的口令' \
+ *     -H 'content-type: application/json' \
+ *     -d '{"messages":[{"name":"群友A","text":"今晚吃啥"},{"name":"群友B","text":"火锅"},{"name":"群友C","text":"@本鱼 你来吗"}],"opts":{"key":"group:123","tier":"chat","isGroup":true}}'
+ *
+ *   → {"speak":true,"skipped":false,"verdict":"说","why":"点它名了","release":""}
+ *
+ * 其它：
+ *   GET  /health   → {"ok":true,"examples":3,"used":12}
+ *   POST /reload   → 重新读 examples.json（反馈闭环用；需要口令）
+ */
+
+const http = require('http');
+const { createJudge } = require('./judge');
+
+function parseArgs(argv) {
+  const o = {};
+  for (let i = 0; i &lt; argv.length; i += 1) {
+    const a = argv[i];
+    if (a === '--port') o.port = Number(argv[++i]);
+    else if (a === '--host') o.host = argv[++i];
+    else if (a === '--token') o.token = argv[++i];
+    else if (a === '--key') o.key = argv[++i];
+    else if (a === '--examples') o.examples = argv[++i];
+    else if (a === '--log') o.log = argv[++i];
+    else if (a === '--model') o.model = argv[++i];
+    else if (a === '--base-url') o.baseUrl = argv[++i];
+  }
+  return o;
+}
+
+const opts = parseArgs(process.argv.slice(2));
+const PORT = Number(opts.port || process.env.JUDGE_PORT) || 8787;
+const HOST = opts.host || '127.0.0.1';
+const TOKEN = String(opts.token || process.env.JUDGE_TOKEN || '');
+
+const judge = createJudge({
+  apiKey: opts.key || process.env.DEEPSEEK_API_KEY || '',
+  baseUrl: opts.baseUrl,
+  model: opts.model,
+  examplesFile: opts.examples,
+  logFile: opts.log || 'judge-log.jsonl',
+  logger: (m) =&gt; console.log(`[judge-server] ${m}`),
+});
+
+function json(res, code, obj) {
+  const body = JSON.stringify(obj);
+  res.writeHead(code, {
+    'content-type': 'application/json; charset=utf-8',
+    'content-length': Buffer.byteLength(body),
+  });
+  res.end(body);
+}
+
+function authorized(req) {
+  if (!TOKEN) return true;
+  return req.headers.authorization === `Bearer ${TOKEN}`;
+}
+
+function readBody(req, limit = 256 * 1024) {
+  return new Promise((resolve, reject) =&gt; {
+    let size = 0;
+    const chunks = [];
+    req.on('data', (c) =&gt; {
+      size += c.length;
+      if (size &gt; limit) {
+        reject(new Error('body too large'));
+        req.destroy();
+        return;
+      }
+      chunks.push(c);
+    });
+    req.on('end', () =&gt; resolve(Buffer.concat(chunks).toString('utf8')));
+    req.on('error', reject);
+  });
+}
+
+const server = http.createServer(async (req, res) =&gt; {
+  const url = (req.url || '/').split('?')[0];
+  try {
+    if (req.method === 'GET' &amp;&amp; url === '/health') {
+      return json(res, 200, { ok: true, examples: judge.exampleCount(), used: judge.stats().used });
+    }
+
+    if (url === '/reload' &amp;&amp; req.method === 'POST') {
+      if (!authorized(req)) return json(res, 401, { error: 'unauthorized' });
+      const n = judge.reloadExamples();
+      return json(res, 200, { ok: true, examples: n });
+    }
+
+    if (url === '/judge' &amp;&amp; req.method === 'POST') {
+      if (!authorized(req)) return json(res, 401, { error: 'unauthorized' });
+      let body;
+      try {
+        body = JSON.parse((await readBody(req)).replace(/^\uFEFF/, ''));
+      } catch {
+        return json(res, 400, { error: 'body 不是合法 JSON（或超过 256KB）' });
+      }
+      const messages = body &amp;&amp; body.messages;
+      if (!Array.isArray(messages) || !messages.length) {
+        return json(res, 400, { error: 'messages 必须是非空数组' });
+      }
+      const callOpts = (body &amp;&amp; body.opts) || {};
+      const out = await judge.shouldSpeak(messages, callOpts);
+      return json(res, 200, out);
+    }
+
+    if (url === '/judge' || url === '/reload') {
+      return json(res, 405, { error: 'method not allowed' });
+    }
+    return json(res, 404, { error: 'not found' });
+  } catch (e) {
+    console.error('[judge-server] 500', e);
+    return json(res, 500, { error: String((e &amp;&amp; e.message) || e) });
+  }
+});
+
+server.on('error', (e) =&gt; {
+  console.error('[judge-server] 启动失败：' + String((e &amp;&amp; e.message) || e));
+  process.exit(1);
+});
+
+server.listen(PORT, HOST, () =&gt; {
+  console.log(`[judge-server] http://${HOST}:${PORT}  model=${opts.model || 'deepseek-chat'} ` +
+    `examples=${judge.exampleCount()}  auth=${TOKEN ? 'on' : 'off'}`);
+  if (!TOKEN) console.log('[judge-server] 没设口令（--token / JUDGE_TOKEN）；只监听本机时可以不管。');
+});
+
+for (const sig of ['SIGINT', 'SIGTERM']) {
+  process.on(sig, () =&gt; {
+    console.log('\n[judge-server] 关闭');
+    server.close(() =&gt; process.exit(0));
+    setTimeout(() =&gt; process.exit(0), 1500);
+  });
+}
+</code></pre>
+              </div>
+            </details>
+
+            <details class="manual-source-fold">
+              <summary>
+                <span class="manual-source-fold-title">
+                  <code>selftest.js</code>
+                  <small>离线自测套件（124 行 · mock 模型、12 项断言、不花 token）</small>
+                </span>
+              </summary>
+              <div class="manual-code">
+                <div class="manual-code-head"><span class="manual-code-lang">javascript</span></div>
+                <pre><code>'use strict';
+
+/**
+ * selftest.js — 离线自测（不连网，不花 token）
+ * 运行：node selftest.js
+ */
+
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+
+const { createJudge } = require('./judge');
+const fb = require('./feedback');
+
+let pass = 0;
+let fail = 0;
+function ok(name, cond, extra) {
+  if (cond) {
+    pass += 1;
+    console.log('PASS ' + name);
+  } else {
+    fail += 1;
+    console.log('FAIL ' + name + (extra ? '  ' + extra : ''));
+  }
+}
+
+let lastBody = null;
+let mode = 'say';
+
+global.fetch = async (url, init) =&gt; {
+  lastBody = JSON.parse(init.body);
+  const content = mode === 'say'
+    ? '{"verdict":"说","why":"在问它"}'
+    : '{"verdict":"不说","why":"别人互聊"}';
+  return { ok: true, json: async () =&gt; ({ choices: [{ message: { content } }] }) };
+};
+
+function judgeFile(tmp) {
+  return path.join(tmp, 'judge-log.jsonl');
+}
+
+(async () =&gt; {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'judge-kit-'));
+  try {
+    const msgs = [
+      { self: false, name: 'A', text: '今天吃啥', time: Date.now() - 120000 },
+      { self: false, name: 'B', text: '火锅', time: Date.now() - 60000 },
+      { self: false, name: 'C', text: '@本鱼 你来吗', time: Date.now() },
+    ];
+
+    const j = createJudge({ apiKey: 'x', logFile: judgeFile(tmp), loosePassRate: 0, quietReleaseMin: 25 });
+    let r = await j.shouldSpeak(msgs, { isGroup: true, tier: 'chat', key: 'group:test' });
+    ok('说 → speak', r.speak === true &amp;&amp; r.verdict === '说' &amp;&amp; !r.skipped, JSON.stringify(r));
+
+    r = await j.shouldSpeak(msgs, { isGroup: true, tier: 'high' });
+    ok('高档 → skip', r.speak === true &amp;&amp; r.skipped === true, JSON.stringify(r));
+
+    r = await j.shouldSpeak(msgs, { isGroup: false, tier: 'chat' });
+    ok('私聊 → skip', r.speak === true &amp;&amp; r.skipped === true, JSON.stringify(r));
+
+    mode = 'no';
+    r = await j.shouldSpeak(msgs, { isGroup: true, tier: 'chat' });
+    ok('不说 → 沉默', r.speak === false &amp;&amp; r.verdict === '不说' &amp;&amp; !r.release, JSON.stringify(r));
+
+    r = await j.shouldSpeak(msgs, {
+      isGroup: true, tier: 'chat', lastReplyAt: Date.now() - 30 * 60 * 1000,
+    });
+    ok('不说 → 静默释放', r.speak === true &amp;&amp; r.release === 'quiet', JSON.stringify(r));
+
+    const jLoose = createJudge({ apiKey: 'x', logFile: '', loosePassRate: 1 });
+    r = await jLoose.shouldSpeak(msgs, { isGroup: true, tier: 'chat' });
+    ok('宽松率 1 → 放行', r.speak === true &amp;&amp; r.release === 'loose', JSON.stringify(r));
+
+    // 判例加载
+    const exFile = path.join(tmp, 'examples.json');
+    fs.writeFileSync(exFile, JSON.stringify([{
+      verdict: '不说',
+      why: '别人互聊',
+      messages: [{ name: 'A', text: '今晚吃啥' }, { name: 'B', text: '火锅' }, { name: 'A', text: '走' }],
+    }]), 'utf8');
+    mode = 'say';
+    const jEx = createJudge({ apiKey: 'x', logFile: '', examplesFile: exFile });
+    await jEx.shouldSpeak(msgs, { isGroup: true, tier: 'chat' });
+    ok('examples 加载计数', jEx.exampleCount() === 1, String(jEx.exampleCount()));
+    ok('system prompt 含判例', !!(lastBody &amp;&amp; lastBody.messages[0].content.includes('参考判例')
+      &amp;&amp; lastBody.messages[0].content.includes('火锅')), '');
+
+    // feedback 闭环
+    const fbLog = path.join(tmp, 'fb-log.jsonl');
+    const fbLabels = path.join(tmp, 'fb-labels.jsonl');
+    const fbOut = path.join(tmp, 'fb-examples.json');
+    const ctx1 = [{ me: false, s: 'A', x: '今晚吃啥', t: 1 }, { me: false, s: 'B', x: '火锅', t: 2 }];
+    const ctx2 = [{ me: false, s: 'A', x: '@本鱼 你来吗', t: 3 }];
+    fs.writeFileSync(fbLog, [
+      JSON.stringify({ k: 'judge', id: 'a1', t: 1, key: 'group:1', verdict: '不说', why: '别人互聊', ctx: ctx1 }),
+      JSON.stringify({ k: 'judge', id: 'a2', t: 2, key: 'group:1', verdict: '说', why: '点它名了', ctx: ctx2 }),
+    ].join('\n') + '\n', 'utf8');
+    fs.writeFileSync(fbLabels, [
+      JSON.stringify({ id: 'a1', label: 'silence', note: '确实没叫它' }),
+      JSON.stringify({ id: 'a2', label: 'say', note: '点它名了' }),
+    ].join('\n') + '\n', 'utf8');
+
+    const built = fb.buildExamples({ log: fbLog, labels: fbLabels, out: fbOut, max: 4 });
+    const ex = JSON.parse(fs.readFileSync(fbOut, 'utf8'));
+    ok('build 写出 2 条', built.written === 2 &amp;&amp; ex.length === 2, JSON.stringify(built));
+    ok('build 两类各 1', ex.filter((e) =&gt; e.verdict === '说').length === 1
+      &amp;&amp; ex.filter((e) =&gt; e.verdict === '不说').length === 1, JSON.stringify(ex.map((e) =&gt; e.verdict)));
+
+    const st = fb.statsOf({ log: fbLog, labels: fbLabels });
+    ok('stats 总数/标注/一致', st.total === 2 &amp;&amp; st.labels === 2 &amp;&amp; st.compared === 2 &amp;&amp; st.agree === 2,
+      JSON.stringify(st));
+
+    const rec = fb.labelSample({ _: ['a2', 'silence'], note: '改判', log: fbLog, labels: fbLabels });
+    ok('label 追加', rec.id === 'a2' &amp;&amp; rec.label === 'silence' &amp;&amp; rec.note === '改判', JSON.stringify(rec));
+  } finally {
+    try { fs.rmSync(tmp, { recursive: true, force: true }); } catch { /* ignore */ }
+  }
+
+  console.log(`\n${pass} passed, ${fail} failed`);
+  process.exit(fail ? 1 : 0);
+})().catch((e) =&gt; {
+  console.error(e);
+  process.exit(1);
+});
+</code></pre>
+              </div>
+            </details>
+          </div>
+
+          <footer class="manual-article-footer">
+            <dl class="manual-facts">
+              <div>
+                <dt>作者</dt>
+                <dd>群友 路西法</dd>
+              </div>
+              <div>
+                <dt>发布</dt>
+                <dd>2026-11-25</dd>
+              </div>
+              <div>
+                <dt>最后更新</dt>
+                <dd>2026-11-25</dd>
+              </div>
+              <div>
+                <dt>分类</dt>
+                <dd>心得 / 判官插件</dd>
+              </div>
+            </dl>
+
+            <section class="manual-block" aria-labelledby="sources-title">
+              <h2 id="sources-title">参考资料</h2>
+              <ol class="manual-sources">
+                <li>
+                  <a href="/manual/talking-fish">
+                    在 QQ 里养一条会说话、会唱歌的「鱼」
+                  </a>
+                  <small>群友路西法提供的上篇教程：DSH + qq-bridge + SnowLuma 从零搭建、人格卡、唤醒分级与配速说明</small>
+                </li>
+                <li>
+                  <a href="https://github.com/Derpyu520/qq-bridge" target="_blank" rel="noreferrer">
+                    qq-bridge 仓库
+                  </a>
+                  <small>调度中枢本体，含唤醒、上下文窗口与工具配置</small>
+                </li>
+                <li>
+                  <a href="https://api-docs.deepseek.com/" target="_blank" rel="noreferrer">
+                    DeepSeek API 文档
+                  </a>
+                  <small>JSON Output 模式（<code>response_format: json_object</code>）与计费说明</small>
+                </li>
+              </ol>
+            </section>
+
+            <section class="manual-block" aria-labelledby="changelog-title">
+              <h2 id="changelog-title">更新记录</h2>
+              <table class="manual-changelog">
+                <thead>
+                  <tr>
+                    <th scope="col">日期</th>
+                    <th scope="col">改动</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2026-11-25</td>
+                    <td>首次发布：整理群友路西法《会闭嘴的鱼》心得全文，并打包上架零依赖判官插件 <code>judge-kit 3.0</code>。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="manual-block" aria-labelledby="feedback-title">
+              <div class="manual-feedback">
+                <p>
+                  <strong id="feedback-title">判例调不顺，或者想分享你调出来的奇葩翻车现场？</strong>
+                  在群里说一声，或者提 Issue，附上匿名后的上下文日志会更好排查。
+                </p>
+                <div class="manual-feedback-actions">
+                  <a
+                    class="manual-btn is-lead"
+                    href="https://github.com/EDMOK/blue-fish-archive/issues/new"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    提 Issue <span aria-hidden="true">↗</span>
+                  </a>
+                  <button class="manual-btn is-ghost" type="button" data-open-qr>加入 QQ 群</button>
+                </div>
+              </div>
+            </section>
+
+            <nav class="manual-pager" aria-label="文章导航">
+              <a href="/manual/talking-fish">
+                <span>← 上一篇</span>
+                <strong>01 · 在 QQ 里养一条会说话、会唱歌的「鱼」</strong>
+              </a>
+              <a href="/manual">
+                <span>回到目录 ↗</span>
+                <strong>肥鱼万事屋</strong>
+              </a>
+            </nav>
+
+            <section class="manual-block" aria-labelledby="related-title">
+              <h2 id="related-title">相关页面</h2>
+              <ul class="manual-related">
+                <li>
+                  <a href="/characters">
+                    <strong>角色立绘参考</strong>
+                    <span>8 个 AI 拟人角色的全身与 Q 版立绘</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/gallery">
+                    <strong>全部表情</strong>
+                    <span>不依赖 JavaScript 的静态表情索引</span>
+                  </a>
+                </li>
+              </ul>
+            </section>
+
+            <a class="manual-back-top" href="#manual-main">
+              <span aria-hidden="true">↑</span> 回到顶部
+            </a>
+          </footer>
+        </article>
+
+        <aside aria-label="文章目录">
+          <nav class="manual-toc">
+            <p class="manual-toc-title">On this page</p>
+            <ol>
+              <li><a href="#judgment">1. 说话是表达，闭嘴是判断</a></li>
+              <li><a href="#brake">2. 刹车装在哪：两道边界与三条保险</a></li>
+              <li><a href="#scope">3. 刹车治什么，不治什么</a></li>
+              <li><a href="#why-human">4. 为什么「少说」反而像人</a></li>
+              <li><a href="#kit">5. 配套插件：judge-kit 3.0 下载与结构</a></li>
+              <li><a href="#quickstart">6. 快速开始：自测与最小接入</a></li>
+              <li class="is-sub"><a href="#http">6.1 非 Node 也能用：HTTP 服务模式</a></li>
+              <li><a href="#feedback">7. 让它「越用越准」：人工反馈闭环</a></li>
+              <li><a href="#config">8. 配置项、返回值、分档与成本</a></li>
+              <li class="is-sub"><a href="#config-opts">8.1 配置选项速查</a></li>
+              <li class="is-sub"><a href="#config-return">8.2 返回值对照</a></li>
+              <li class="is-sub"><a href="#config-tier">8.3 分档建议与两道闸</a></li>
+              <li class="is-sub"><a href="#config-cost">8.4 成本估算</a></li>
+              <li><a href="#pitfalls">9. 踩坑提醒与最小排障</a></li>
+              <li><a href="#checklist">10. 上线检查清单</a></li>
+              <li><a href="#source">11. 源码一览（展开可直接复制）</a></li>
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer" data-reveal id="rights">
+      <span class="divider-bubbles footer-bubbles" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="footer-brand">
+        <picture>
+          <source srcset="../logo/deepseek-whale-black.webp" type="image/webp" />
+          <img class="brand-logo brand-logo-black" src="../logo/deepseek_蓝鲸_黑色.png" alt="DeepSeek 蓝鲸 Logo" width="31" height="31" decoding="async" />
+        </picture>
+        <span>蓝色大肥鱼档案馆</span>
+      </span>
+      <p>非官方同人整理 · 版权归原作者所有 · <a href="/gallery">全部表情</a> · <a href="/characters">角色立绘</a> · <a href="/manual">万事屋</a> · <a href="/about#api">开放数据</a> · <a href="/about">关于本站</a> · <a href="https://space.bilibili.com/291892724" target="_blank" rel="noreferrer">B站</a> · <a href="https://github.com/EDMOK/blue-fish-archive" target="_blank" rel="noreferrer">GitHub</a></p>
+      <a href="#manual-main" aria-label="回到顶部">↑</a>
+    </footer>
+
+    <div class="qr-modal" id="qr-modal" aria-hidden="true">
+      <div class="qr-modal-backdrop" data-close-qr></div>
+      <div class="qr-modal-panel" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title" data-qr-scope>
+        <button class="qr-modal-close" type="button" aria-label="关闭二维码" data-close-qr>×</button>
+        <span class="qr-modal-badge">QQ GROUP</span>
+        <h2 class="qr-modal-title" id="qr-modal-title">加入 QQ 群</h2>
+        <p class="qr-modal-note">选题、催更、报错都可以在群里说。</p>
+        <span class="qr-modal-code">
+          <picture>
+            <source data-srcset="../assets/qq-group-qr.webp" type="image/webp" />
+            <img data-src="../assets/qq-group-qr.png" alt="蓝色大肥鱼档案馆 QQ 群二维码，群号 1041665197" width="583" height="558" decoding="async" />
+          </picture>
+        </span>
+        <div class="qr-modal-row">
+          <span class="qr-modal-number" data-group-number>1041665197</span>
+          <button class="about-copy" type="button" data-copy-group>复制群号</button>
+        </div>
+        <p class="qr-modal-status" data-copy-status role="status" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <script src="../qr-modal.js?v=20261103a" defer></script>
+    <script src="manual.js?v=20261103g" defer></script>
+  </body>
+</html>
