@@ -1,24 +1,24 @@
 <div align="center">
 
   <a href="https://fisharchive.cc/">
-    <img src="assets/og-card.png" alt="蓝色大肥鱼档案馆 · 鲸鱼娘 DeepSeek 同人表情包" width="100%" />
+    <img src="assets/og-card.png" alt="蓝色大肥鱼档案馆 · 鲸鱼娘 DeepSeek 同人表情、立绘与养鱼万事屋" width="100%" />
   </a>
 
   # 蓝色大肥鱼档案馆
 
-  **鲸鱼娘 DeepSeek 非官方同人表情包收藏站**
+  **鲸鱼娘 DeepSeek 非官方同人档案馆**
 
-  原图不加水印、不改格式、不降低分辨率
+  收拢社区共创表情与 AI 拟人立绘，也收录「肥鱼万事屋」DSH 养鱼教程、同人跑酷游戏与开放数据
 
-  **345** 张表情 · **32** 个标签 · **8** 位角色 · **16** 张立绘
+  **353** 张表情 · **33** 个标签 · **8** 位角色 · **16** 张立绘 · **2** 篇万事屋实测教程
 
-  <a href="https://fisharchive.cc/"><strong>访问网站</strong></a> · <a href="https://fisharchive.cc/gallery">全部表情</a> · <a href="https://fisharchive.cc/characters">角色立绘</a> · <a href="https://fisharchive.cc/manual">肥鱼万事屋</a> · <a href="https://fisharchive.cc/about#api">开放数据</a> · <a href="./CHANGELOG.md">更新日志</a>
+  <a href="https://fisharchive.cc/"><strong>访问网站</strong></a> · <a href="https://fisharchive.cc/gallery">全部表情</a> · <a href="https://fisharchive.cc/characters">角色立绘</a> · <a href="https://fisharchive.cc/manual">肥鱼万事屋</a> · <a href="https://game.fisharchive.cc/">白饭大冲刺</a> · <a href="https://fisharchive.cc/about#api">开放数据</a> · <a href="./CHANGELOG.md">更新日志</a>
 
 </div>
 
 <br />
 
-围绕鲸鱼娘 DeepSeek 的同人表情收集与展示项目。表情墙按标签整理社区作品；角色图鉴收录 8 位 AI 拟人角色的立绘参考；肥鱼万事屋记录Deepseek相关折腾经验或心得。
+围绕鲸鱼娘 DeepSeek 与 AI 拟人文化的非官方同人档案馆：表情墙按标签整理社区共创作品（保留无水印原图）；角色图鉴收录 8 位 AI 拟人角色的全身与 Q 版立绘参考；肥鱼万事屋记录 DSH 养鱼实测教程与开源插件；另有网页跑酷小游戏与免密钥开放数据。
 
 ## 这里有什么
 
@@ -26,29 +26,29 @@
   <tr>
     <td width="33%" align="center" valign="top">
       <strong>表情墙</strong><br /><br />
-      <sub>瀑布流逛 345 张同人表情，按动图/静图和 32 个标签筛选，也可以「随机翻一张」碰碰运气。</sub>
+      <sub>瀑布流逛 353 张同人表情，支持动图/静图与 33 个标签筛选或「随机翻一张」；支持一键复制及原图下载，不加水印、不改格式、不降分辨率，动图完整保留帧数。</sub>
     </td>
     <td width="33%" align="center" valign="top">
-      <strong>原图收藏</strong><br /><br />
-      <sub>预览里左右翻页，一键复制图片或下载原图。不加水印、不改格式、不降分辨率。</sub>
+      <strong>角色图鉴</strong><br /><br />
+      <sub>DeepSeek、ChatGPT、Claude、Gemini、GLM、Grok、Kimi、Qwen，全身与 Q 版立绘都有，高清 WebP 供二创参考。</sub>
     </td>
     <td width="33%" align="center" valign="top">
-      <strong>动图支持</strong><br /><br />
-      <sub>GIF、WebP、APNG 在预览里直接播放，下载后动画与帧数完整保留。</sub>
+      <strong>肥鱼万事屋</strong><br /><br />
+      <sub>免费分享 DSH 养鱼实测教程与心得：QQ 机器人搭建、语音唱歌、judge-kit 3.0 判官刹车插件、排错表与检查清单。</sub>
     </td>
   </tr>
   <tr>
     <td width="33%" align="center" valign="top">
-      <strong>角色图鉴</strong><br /><br />
-      <sub>DeepSeek、ChatGPT、Claude、Gemini、GLM、Grok、Kimi、Qwen，全身与 Q 版立绘都有，高清大图供二创参考。</sub>
-    </td>
-    <td width="33%" align="center" valign="top">
-      <strong>肥鱼万事屋</strong><br /><br />
-      <sub>免费分享 DSH 养鱼教程：QQ 机器人搭建、语音唱歌、排错表和检查清单。</sub>
+      <strong>白饭大冲刺</strong><br /><br />
+      <sub>鲸鱼娘主题免费网页横版跑酷小游戏，操控大肥鱼闯过 AI 城市与夕阳海岸，打开浏览器就能玩。</sub>
     </td>
     <td width="33%" align="center" valign="top">
       <strong>开放数据</strong><br /><br />
-      <sub>完整表情清单公开，网页、脚本和机器人可以直接读取，无需申请密钥。</sub>
+      <sub>完整表情清单 stickers/index.json 直接公开，支持跨域读取，网页、脚本和机器人免密钥即可接入。</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <strong>社区共创</strong><br /><br />
+      <sub>非官方同人整理与交流社区，欢迎通过 QQ 群相册、GitHub Issues 或 PR 投稿表情与补全署名。</sub>
     </td>
   </tr>
 </table>

@@ -231,7 +231,7 @@ def main() -> None:
     tracked_text(draw, (92, 132), "鲸鱼娘 DEEPSEEK", load_font("bold", 26), CORAL, tracking=6)
     draw.text((92, 172), "蓝色大肥鱼", font=load_font("bold", 96), fill=PAPER)
     draw.text((92, 278), "档案馆", font=load_font("bold", 96), fill=PAPER)
-    draw.text((92, 432), "同人表情包收藏 · 原图下载", font=load_font("regular", 34), fill=MIST)
+    draw.text((92, 432), "同人表情 · 角色立绘 · 养鱼与小游戏", font=load_font("regular", 30), fill=MIST)
     draw.text((92, 522), "fisharchive.cc", font=load_font("regular", 24), fill=(138, 158, 196))
 
     image.convert("RGB").save(OUT, "PNG", optimize=True)

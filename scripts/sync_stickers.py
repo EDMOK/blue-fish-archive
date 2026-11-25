@@ -39,7 +39,10 @@ SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".apng"}
 DEFAULT_ALT = "鲸鱼娘同人表情包"
 SITE_URL = "https://fisharchive.cc"
 SITE_NAME = "蓝色大肥鱼档案馆"
-SITE_DESCRIPTION = "鲸鱼娘 DeepSeek 非官方同人表情包收藏站，可在线预览、复制和下载原图。"
+SITE_DESCRIPTION = (
+    "鲸鱼娘 DeepSeek 非官方同人档案馆：收拢社区共创表情与 8 位 AI 拟人立绘参考，"
+    "也收录「肥鱼万事屋」DSH 养鱼实测教程、同人跑酷游戏与开放数据，供二创、游玩与折腾取用。"
+)
 LICENSE_NAME = "CC BY-NC-SA 4.0"
 LICENSE_URL = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
 LICENSE_NOTE = "角色二次设计依 CC BY-NC-SA 4.0；单张作品的相关权利归各自创作者。"
@@ -254,9 +257,17 @@ def _jsonld_script(payload: dict[str, object]) -> str:
     return f'    <script type="application/ld+json">\n{indented}\n    </script>\n'
 
 
+def _gallery_description(count: int) -> str:
+    return (
+        f"{SITE_NAME}全部表情静态列表：收录 {count} 张鲸鱼娘 DeepSeek 与 AI 拟人"
+        "社区共创表情，不依赖 JavaScript，可查看标签、作者署名并获取大图与无水印原图。"
+    )
+
+
 def gallery_jsonld(manifest: list[dict[str, object]]) -> dict[str, object]:
     """静态画廊的结构化数据：页面、图片集合、公开清单都指向同一个出处。"""
     credit = f"{SITE_NAME} · {GALLERY_URL}"
+    gallery_desc = _gallery_description(len(manifest))
     return {
         "@context": "https://schema.org",
         "@graph": [
@@ -265,7 +276,7 @@ def gallery_jsonld(manifest: list[dict[str, object]]) -> dict[str, object]:
                 "@id": f"{GALLERY_URL}#page",
                 "url": GALLERY_URL,
                 "name": f"全部表情 · {SITE_NAME}",
-                "description": SITE_DESCRIPTION,
+                "description": gallery_desc,
                 "inLanguage": "zh-CN",
                 "isPartOf": {"@type": "WebSite", "name": SITE_NAME, "url": f"{SITE_URL}/"},
                 "license": LICENSE_URL,
@@ -344,7 +355,7 @@ def sitemap_images_text(manifest: list[dict[str, object]]) -> str:
     lines.extend(
         _image_entry(
             f"{SITE_URL}/assets/og-card.png",
-            f"{SITE_NAME} · 鲸鱼娘 DeepSeek 同人表情包",
+            f"{SITE_NAME} · 鲸鱼娘 DeepSeek 同人表情、立绘与养鱼万事屋",
             f"{SITE_NAME} · {SITE_URL}/",
         )
     )
@@ -465,6 +476,7 @@ footer { padding-bottom: 40px; color: #9fb2d3; font-size: 13px; line-height: 1.8
 def gallery_text(manifest: list[dict[str, object]]) -> str:
     """不依赖 JavaScript 的静态画廊,让抓取工具直接看到每张图的 URL。"""
     cards = "\n".join(_gallery_card(entry) for entry in manifest)
+    gallery_desc = _gallery_description(len(manifest))
     return (
         "<!doctype html>\n"
         '<html lang="zh-CN">\n'
@@ -472,7 +484,7 @@ def gallery_text(manifest: list[dict[str, object]]) -> str:
         '    <meta charset="UTF-8" />\n'
         '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n'
         '    <meta name="theme-color" content="#182340" />\n'
-        f'    <meta name="description" content="{escape(SITE_DESCRIPTION)}" />\n'
+        f'    <meta name="description" content="{escape(gallery_desc)}" />\n'
         f'    <meta name="robots" content="index,follow,max-image-preview:large" />\n'
         f"    <title>全部表情 · {escape(SITE_NAME)}</title>\n"
         f'    <link rel="canonical" href="{GALLERY_URL}" />\n'
@@ -490,6 +502,7 @@ def gallery_text(manifest: list[dict[str, object]]) -> str:
         '      <p class="links"><a href="/">返回首页</a> · '
         '<a href="/characters">角色立绘</a> · '
         '<a href="/manual">万事屋</a> · '
+        '<a href="https://game.fisharchive.cc/" target="_blank" rel="noreferrer">白饭大冲刺</a> · '
         '<a href="/about#api">开放数据</a> · '
         '<a href="stickers/index.json">JSON 数据</a> · '
         '<a href="https://fisharchive.cc/sitemap.xml">站点地图</a> · '

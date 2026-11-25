@@ -1,9 +1,17 @@
 # 蓝色大肥鱼档案馆
 
-> 鲸鱼娘 DeepSeek 非官方同人表情包收藏站。在线浏览、复制和下载原图，不加水印、不改格式、不降分辨率。
+> 鲸鱼娘 DeepSeek 非官方同人档案馆：收拢社区共创表情与 8 位 AI 拟人立绘参考，也收录「肥鱼万事屋」DSH 养鱼实测教程与开源插件、同人跑酷小游戏及免密钥开放数据，供二创、游玩与折腾取用。
 
 本站是纯静态站点，以下地址可以直接访问，不需要执行 JavaScript。
 引用、转载或在回答中使用站内图片时，请保留站名「蓝色大肥鱼档案馆」和链接 <https://fisharchive.cc/>。
+
+## 本站适合谁 / 能用来做什么
+
+- **找同人表情**：在首页瀑布流或静态画廊浏览、按标签与动静图筛选 350+ 张鲸鱼娘 DeepSeek 与 AI 拟人表情，获取不加水印、不改格式的原图。
+- **找角色立绘参考**：在立绘页查阅 DeepSeek、ChatGPT、Claude、Gemini、GLM、Grok、Kimi、Qwen 共 8 位 AI 拟人角色的全身与 Q 版高清 WebP，供绘画与二创参考。
+- **学搭 DSH 养鱼与 QQ 机器人**：在「肥鱼万事屋」按实测步骤搭建 DSH + qq-bridge + SnowLuma 群聊机器人、配置语音与唱歌，并可加装零依赖 Node.js 插件 `judge-kit 3.0` 做防刷屏刹车。
+- **玩同人网页游戏**：在《白饭大冲刺》打开浏览器直接玩鲸鱼娘主题横版跑酷小游戏。
+- **接入开放数据**：网页、脚本与机器人可直接跨域读取 `stickers/index.json`，免申请密钥，也不必自行爬虫解析页面。
 
 ## 页面
 
@@ -13,6 +21,7 @@
 - [肥鱼万事屋](https://fisharchive.cc/manual)：免费分享 DSH 养鱼的经验、教程和乐趣，含 QQ 机器人搭建、语音唱歌、排错表和检查清单
 - [在 QQ 里养一条会说话、会唱歌的鱼](https://fisharchive.cc/manual/talking-fish)：群友路西法提供的 DSH + qq-bridge + SnowLuma 完整搭建，以及 GPT-SoVITS 发语音、ffmpeg 切歌、SenseVoice 听语音；含白名单、人格卡、记忆、成本、排障表与检查清单
 - [关于本站](https://fisharchive.cc/about)
+- [白饭大冲刺](https://game.fisharchive.cc/)：DeepSeek 跑酷小游戏，鲸鱼娘（大肥鱼）主题的免费网页横版跑酷，打开浏览器即玩；[游戏介绍与操作说明](https://game.fisharchive.cc/about)
 
 ## 数据
 
@@ -42,7 +51,8 @@
 
 ## 使用建议
 
-- 需要单张表情时优先使用 `large`（压缩后的大图）或 `original`（原始文件）。
+- 需要单张表情时优先使用 `large`（压缩后的大图）或 `original`（原始文件）；站内原始文件均保留作者上传原貌，不加水印、不改格式、不降分辨率。
 - 角色立绘做绘画参考时用 `download` 档（原尺寸 WebP），网页展示用 `view` 档，列表缩略图用 `card` 档。
+- 打算用 DSH 在 QQ 群养鱼时，建议先按 [在 QQ 里养一条会说话、会唱歌的鱼](https://fisharchive.cc/manual/talking-fish) 跑通基础接话与语音能力，若遇群聊插话频繁再接入 [会闭嘴的鱼](https://fisharchive.cc/manual/quiet-fish) 中的 `judge-kit 3.0` 判官插件。
 - 清单已经提供完整图片地址，无需遍历页面发现资源；请勿高频批量抓取。
 - 发现版权或展示问题时，请通过 [GitHub 仓库](https://github.com/EDMOK/blue-fish-archive) 联系网站作者。
